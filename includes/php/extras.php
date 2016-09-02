@@ -61,7 +61,7 @@ if(!function_exists('steed_ec_template_content_section')):
 		$bg_color = esc_attr(get_theme_mod($prefix.'bg_color'));
 		$css_class = esc_attr(get_theme_mod($prefix.'css_class'));
 		$css_id = esc_attr(get_theme_mod($prefix.'css_id'));
-		$bg_image = steed_ec_post_data($post, 'thumbnail_url', 'full');
+		$bg_image = esc_attr(get_theme_mod($prefix.'bg_img'));
 		
 		$style = '';
 		$style .= ($padding_top != '') ? 'padding-top:'.$padding_top.';' : NULL;
@@ -96,7 +96,7 @@ if(!function_exists('steed_ec_template_content_column')):
 		$bg_color = esc_attr(get_theme_mod($prefix.'bg_color'));
 		$css_class = esc_attr(get_theme_mod($prefix.'css_class'));
 		$css_id = esc_attr(get_theme_mod($prefix.'css_id'));
-		$bg_image = steed_ec_post_data($post, 'thumbnail_url', 'full');
+		$bg_image = esc_attr(get_theme_mod($prefix.'bg_img'));
 		
 		$style = '';
 		$style .= ($padding != '') ? 'padding:'.$padding.';' : NULL;
@@ -127,7 +127,10 @@ endif;
 if(!function_exists('steed_ec_post_data')):
 	function steed_ec_post_data($p, $type, $arg = 'thumbnail'){
 		$post_id = $p;
-		if(!is_int($p)){ $post_id = get_page_by_path( $p ); }
+		
+		if(!is_numeric($p)){ $post_id = get_page_by_path( $p ); }
+		
+		wp_reset_postdata();
 		
 		$post = get_post($post_id); 
 		setup_postdata($post);
@@ -141,56 +144,27 @@ if(!function_exists('steed_ec_post_data')):
 		}elseif($type == 'permalink'){
 			the_permalink();
 		}elseif($type == 'thumbnail'){
-			the_post_thumbnail($arg);
+			echo get_the_post_thumbnail($post_id, $arg);
 		}elseif($type == 'thumbnail_url'){
 			the_post_thumbnail_url($arg);
 		}
-	
+		
 		wp_reset_postdata();
 	}
 endif;
 
-if(!function_exists('steed_ec_parallax')):
-function steed_ec_parallax( $tpl, $section, $column, $block ){
-	$prefix = $tpl.'_'.$section.'_'.$column.'_'.$block.'_parallax_';
-	
-	$post = esc_attr(get_theme_mod($prefix.'post'));
-	$padding_top = esc_attr(get_theme_mod($prefix.'padding_top'));
-	$padding_bottom = esc_attr(get_theme_mod($prefix.'padding_bottom'));
-	$bg_color = esc_attr(get_theme_mod($prefix.'bg_color'));
-	$css_class = esc_attr(get_theme_mod($prefix.'css_class'));
-	$css_id = esc_attr(get_theme_mod($prefix.'css_id'));
-	$allow = esc_attr(get_theme_mod($prefix.'allow'));
-	$bg_image = steed_ec_post_data($post, 'thumbnail_url', 'full');
-	
-	$style = '';
-	$style .= ($padding_top != '') ? 'padding-top:'.$padding_top.';' : NULL;
-	$style .= ($padding_bottom != '') ? 'padding-bottom:'.$padding_bottom.';' : NULL;
-	$style .= ($bg_color != '') ? 'background-color:'.$bg_color.';' : NULL;
-	$style .= ($bg_image != '') ? 'background-image:url('.$bg_image.');' : NULL;
-	
-	$css_id = ($css_id != '') ? 'id="'.$css_id.'"' : NULL;
-	
-	if($allow == 'yes'){
-		echo '<div class="ec_parallax '.$css_class.'" '.$css_id.' style="'.wp_kses($style, wp_kses_allowed_html('post')).'">';
-			echo '<div class="ec_parallax_in">';
-				steed_ec_post_data($post, 'content');
-			echo '</div>';
-		echo '</div>';
-	}
-}
-endif;
+
 
 
 if(!function_exists('steed_ec_slideshow')):
 	function steed_ec_slideshow( $tpl, $section, $column, $block ){
-		$prefix = $tpl.'_'.$section.'_'.$column.'_'.$block.'_slideshow_';
+		$prefix = $tpl.'_'.$section['id'].'_'.$column['id'].'_'.$block['id'].'_slideshow_';
 		
 		$items = array('post_1', 'post_2', 'post_3', 'post_4', 'post_5', 'post_6', 'post_7', 'post_8', 'post_9', 'post_10');
 		
 		$css_class = esc_attr(get_theme_mod($prefix.'css_class'));
 		$css_id = esc_attr(get_theme_mod($prefix.'css_id'));
-		$allow = esc_attr(get_theme_mod($prefix.'allow'));
+		$allow = esc_attr(get_theme_mod($prefix.'active'));
 		$image_size = esc_attr(get_theme_mod($prefix.'image_size', 'full'));
 	
 		
@@ -198,10 +172,11 @@ if(!function_exists('steed_ec_slideshow')):
 		
 		if($allow == 'yes'){
 			echo '<div class="ec_slideshow '.$css_class.'" '.$css_id.'>';
+				echo '<div class="owl-carousel">';
 				foreach($items as $item){
 					$post = esc_attr(get_theme_mod($prefix.$item));
-					if($post != ''){
-						echo '<div class="owl-item">';
+					
+					if($post != 0){
 							echo '<div class="ec_s_item">';
 								echo '<div class="ec_s_item_in">';
 									echo '<div class="ec_s_content">';
@@ -212,11 +187,12 @@ if(!function_exists('steed_ec_slideshow')):
 										echo '</div>';
 									echo '</div>';
 									steed_ec_post_data($post, 'thumbnail', $image_size);
+									the_post_thumbnail();
 								echo '</div>';
 							echo '</div>';
-						echo '</div>';
 					}
 				}
+				echo '</div>';
 			echo '</div>';
 		}
 	}
@@ -256,3 +232,6 @@ if(!function_exists('steed_ec_text')):
 		}
 	}
 endif;
+
+
+
