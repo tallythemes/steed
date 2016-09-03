@@ -213,6 +213,16 @@ require get_template_directory() . '/includes/php/template-tags.php';
 require get_template_directory() . '/includes/php/extras.php';
 
 /**
+ * Extra Content customize functions are here
+ */
+require get_template_directory() . '/includes/php/ec-customize.php';
+
+/**
+ * Extra Content HTML functions are here
+ */
+require get_template_directory() . '/includes/php/ec-html.php';
+
+/**
  * Customizer additions.
  */
 require get_template_directory() . '/includes/php/customizer.php';

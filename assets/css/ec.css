@@ -1,4 +1,43 @@
 /*
+	Section
+-------------------------------------------------------*/
+.ec_section:after,
+.ec_section:after,
+.ec_section_in:after,
+.ec_section_in:after{
+	content:" ";
+	display:table;
+	clear:both;
+}
+.ec_section_in{
+	width:90%;
+	max-width:1200px;
+	margin:0 auto;	
+}
+
+.stretch_row_content .ec_section_in{
+	width:100%;
+	max-width:100%;
+}
+.stretch_row_content .ec_section_in .row{
+	margin-left:0;
+	margin-right:0;
+}
+
+.stretch_row_content_no_spaces .ec_section_in{
+	width:100%;
+	max-width:100%;
+}
+
+
+.ec_section.equal_height_yes .row{
+	display:flex;
+}
+
+
+
+
+/*
 	Slider 1
 -------------------------------------------------------*/
 .ec_slideshow .owl-carousel{
@@ -208,4 +247,30 @@
 	.ec_slideshow .ps1_item h3 {
 		display:none;
 	}
+}
+
+
+
+/*
+	Text
+-------------------------------------------------------*/
+.ec_text.color_dark,
+.ec_text.color_dark h1,
+.ec_text.color_dark h2,
+.ec_text.color_dark h3,
+.ec_text.color_dark h4,
+.ec_text.color_dark h5,
+.ec_text.color_dark h6{
+	color:#000;
+	border-color:#000;
+}
+.ec_text.color_light,
+.ec_text.color_light h1,
+.ec_text.color_light h2,
+.ec_text.color_light h3,
+.ec_text.color_light h4,
+.ec_text.color_light h5,
+.ec_text.color_light h6{
+	color:#fff;
+	border-color:#fff;
 }
