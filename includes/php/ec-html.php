@@ -26,20 +26,37 @@ if(!function_exists('steed_ec_template_content_section')):
 		
 		$active = esc_attr(get_theme_mod($prefix.'active'));
 		
+		$title = esc_attr(get_theme_mod($prefix.'title'));
+		$des = esc_attr(get_theme_mod($prefix.'des'));
+		$title_align = esc_attr(get_theme_mod($prefix.'title_align'));
 		$padding_top = esc_attr(get_theme_mod($prefix.'padding_top'));
 		$padding_bottom = esc_attr(get_theme_mod($prefix.'padding_bottom'));
 		$bg_color = esc_attr(get_theme_mod($prefix.'bg_color'));
 		$css_class = esc_attr(get_theme_mod($prefix.'css_class'));
 		$css_id = esc_attr(get_theme_mod($prefix.'css_id'));
 		$bg_image = esc_attr(get_theme_mod($prefix.'bg_img'));
+		$bg_repeat = esc_attr(get_theme_mod($prefix.'bg_repeat'));
+		$bg_attachment = esc_attr(get_theme_mod($prefix.'bg_attachment'));
+		$bg_position = esc_attr(get_theme_mod($prefix.'bg_position'));
+		$bg_size = esc_attr(get_theme_mod($prefix.'bg_size'));
 		$equal_height = esc_attr(get_theme_mod($prefix.'equal_height'));
 		$stretch = esc_attr(get_theme_mod($prefix.'stretch'));
+		$content_max_width = esc_attr(get_theme_mod($prefix.'content_max_width'));
+		$content_width = esc_attr(get_theme_mod($prefix.'content_width'));
 		
 		$style = '';
 		$style .= ($padding_top != '') ? 'padding-top:'.$padding_top.';' : NULL;
 		$style .= ($padding_bottom != '') ? 'padding-bottom:'.$padding_bottom.';' : NULL;
 		$style .= ($bg_color != '') ? 'background-color:'.$bg_color.';' : NULL;
 		$style .= ($bg_image != '') ? 'background-image:url('.$bg_image.');' : NULL;
+		$style .= ($bg_repeat != '') ? 'background-repeat:'.$bg_repeat.';' : NULL;
+		$style .= ($bg_attachment != '') ? 'background-attachment:'.$bg_attachment.';' : NULL;
+		$style .= ($bg_position != '') ? 'background-position:'.$bg_position.';' : NULL;
+		$style .= ($bg_size != '') ? 'background-size:'.$bg_size.';' : NULL;
+		
+		$style2 = '';
+		$style2 .= ($content_max_width != '') ? 'max-width:'.$content_max_width.';' : NULL;
+		$style2 .= ($content_width != '') ? 'width:'.$content_width.';' : NULL;
 		
 		$css_id = ($css_id != '') ? 'id="'.$css_id.'"' : NULL;
 		
@@ -47,7 +64,13 @@ if(!function_exists('steed_ec_template_content_section')):
 		
 		if($active != 'no'){
 			echo '<section class="'.$class.'" '.$css_id.' style="'.esc_attr($style).'">';
-				echo '<div class="ec_section_in">';
+				echo '<div class="ec_section_in" style="'.esc_attr($style2).'">';
+					if(!empty($title) || !empty($des)){
+						echo '<div class="ec_section_header" style="text-align:'.$title_align.';">';
+							if(!empty($title)){ echo '<h2>'.$title.'</h2>'; }
+							if(!empty($des)){ echo '<p>'.$des.'</p>'; }
+						echo '</div>';
+					}
 					echo '<div class="row">';
 					foreach($section['columns'] as $column){
 						steed_ec_template_content_column($tpl, $section, $column);
@@ -73,13 +96,23 @@ if(!function_exists('steed_ec_template_content_column')):
 		$css_class = esc_attr(get_theme_mod($prefix.'css_class'));
 		$css_id = esc_attr(get_theme_mod($prefix.'css_id'));
 		$bg_image = esc_attr(get_theme_mod($prefix.'bg_img'));
+		$bg_repeat = esc_attr(get_theme_mod($prefix.'bg_repeat'));
+		$bg_attachment = esc_attr(get_theme_mod($prefix.'bg_attachment'));
+		$bg_position = esc_attr(get_theme_mod($prefix.'bg_position'));
+		$bg_size = esc_attr(get_theme_mod($prefix.'bg_size'));
 		$col = esc_attr(get_theme_mod($prefix.'col', $column['col']));
 		
 		$style = '';
-		$style .= ($padding != '') ? 'padding:'.$padding.';' : NULL;
 		$style .= ($margin != '') ? 'padding:'.$margin.';' : NULL;
 		$style .= ($bg_color != '') ? 'background-color:'.$bg_color.';' : NULL;
 		$style .= ($bg_image != '') ? 'background-image:url('.$bg_image.');' : NULL;
+		$style .= ($bg_repeat != '') ? 'background-repeat:'.$bg_repeat.';' : NULL;
+		$style .= ($bg_attachment != '') ? 'background-attachment:'.$bg_attachment.';' : NULL;
+		$style .= ($bg_position != '') ? 'background-position:'.$bg_position.';' : NULL;
+		$style .= ($bg_size != '') ? 'background-size:'.$bg_size.';' : NULL;
+		
+		$style2 = '';
+		$style2 .= ($padding != '') ? 'padding:'.$padding.';' : NULL;
 		
 		$css_id = ($css_id != '') ? 'id="'.$css_id.'"' : NULL;
 		
@@ -89,7 +122,7 @@ if(!function_exists('steed_ec_template_content_column')):
 		
 		if($active != 'no'){
 			echo '<div class="'.$class.'" '.$css_id.' style="'.esc_attr($style).'">';
-				echo '<div class="ec_column_in">';
+				echo '<div class="ec_column_in" style="'.esc_attr($style2).'">';
 					foreach($column['blocks'] as $block){
 						$block_function = $block['fn'];
 						if(function_exists($block_function)){
@@ -117,20 +150,24 @@ if(!function_exists('steed_ec_slideshow')):
 		$css_id = esc_attr(get_theme_mod($prefix.'css_id'));
 		$allow = esc_attr(get_theme_mod($prefix.'active'));
 		$image_size = esc_attr(get_theme_mod($prefix.'image_size', 'full'));
+		$height = esc_attr(get_theme_mod($prefix.'height'));
 	
 		
 		$css_id = ($css_id != '') ? 'id="'.$css_id.'"' : NULL;
+		$max_height = ($height != '') ? 'max-height:'.$height.';' : NULL;
 		
 		if($allow == 'yes'){
 			echo '<div class="ec_slideshow '.$css_class.'" '.$css_id.'>';
-				echo '<div class="owl-carousel">';
+				
+				echo '<div class="owl-carousel" style="'.esc_attr($max_height).'">';
+				echo '<div class="ec_s_loader"><i class="fa fa-circle-o-notch fa-spin fa-3x fa-fw"></i><span class="sr-only">Loading...</span></div>';
 				foreach($items as $item){
 					$post = esc_attr(get_theme_mod($prefix.$item));
 					
 					if($post != 0){
 							echo '<div class="ec_s_item">';
 								echo '<div class="ec_s_item_in">';
-									echo '<div class="ec_s_content">';
+									echo '<div class="ec_s_content" style="'.esc_attr($max_height).'">';
 										echo '<div class="ec_s_content_in">';
 											echo '<div class="ec_s_con">';
 												steed_get_post_data($post, 'content');
