@@ -90,6 +90,7 @@ function steed_setup() {
 	
 	// Indicate widget sidebars can use selective refresh in the Customizer.
 	add_theme_support( 'customize-selective-refresh-widgets' );
+	
 }
 endif;
 add_action( 'after_setup_theme', 'steed_setup' );
@@ -177,26 +178,41 @@ function steed_scripts() {
 		wp_enqueue_script( 'comment-reply' );
 	}
 	
+	wp_register_style( 'animate', get_template_directory_uri() . '/assets/animate/animate.css', array(), '3.5.1' );
+	wp_enqueue_style( 'animate');
+	
 	wp_register_style( 'font-awesome', get_template_directory_uri() . '/assets/font-awesome/css/font-awesome.min.css', array(), '4.6.3' );
 	wp_enqueue_style( 'font-awesome');
+	
+	wp_register_style( 'magnific-popup', get_template_directory_uri() . '/assets/magnific-popup/magnific-popup.css', array(), '1.0.1' );
+	wp_enqueue_style( 'magnific-popup');
+	wp_register_script( 'magnific-popup', get_template_directory_uri() . '/assets/magnific-popup/jquery.magnific-popup.min.js', array('jquery'), '1.0.1', true );
+	wp_enqueue_script( 'magnific-popup');
 	
 	wp_register_style( 'owl-carousel', get_template_directory_uri() . '/assets/owl-carousel/owl.carousel.css', array(), '2.4' );
 	wp_enqueue_style( 'owl-carousel');
 	wp_register_script( 'owl-carousel', get_template_directory_uri() . '/assets/owl-carousel/owl.carousel.js', array('jquery'), '2.4', true );
 	wp_enqueue_script( 'owl-carousel');
 	
+	wp_register_script( 'fitvids', get_template_directory_uri() . '/assets/fitvids/jquery.fitvids.js', array('jquery'), '1.1', true );
+	wp_enqueue_script( 'fitvids');
+	
+	wp_register_script( 'imagesloaded', get_template_directory_uri() . '/assets/imagesloaded/imagesloaded.pkgd.min.js', array('jquery'), '4.1.0', true );
+	wp_enqueue_script( 'imagesloaded');
+	
 	wp_register_style( 'steed-ec', get_template_directory_uri() . '/assets/css/ec.css', array(), '1.0' );
 	wp_enqueue_style( 'steed-ec');
-	wp_register_script( 'steed-ec', get_template_directory_uri() . '/assets/js/ec.js', array('jquery', 'owl-carousel'), '1.0', true );
+	wp_register_script( 'steed-ec', get_template_directory_uri() . '/assets/js/ec.js', array('jquery', 'owl-carousel', 'imagesloaded', 'jquery-masonry', 'magnific-popup'), '1.0', true );
 	wp_enqueue_script( 'steed-ec');
-	
 	
 	wp_register_script( 'steed-skip-link-focus-fix', get_template_directory_uri() . '/assets/js/skip-link-focus-fix.js', array(), '1.0', true );
 	wp_enqueue_script( 'steed-skip-link-focus-fix' );
 	
+	wp_enqueue_style( 'steed-common', get_template_directory_uri() . '/assets/css/common.css', array(), '1.0');
+	
 	wp_enqueue_style( 'steed-style', get_stylesheet_uri() );
 
-	wp_register_script( 'steed-javascript', get_template_directory_uri() . '/assets/js/custom-scripts.js', array('jquery'), '1.0', true );
+	wp_register_script( 'steed-javascript', get_template_directory_uri() . '/assets/js/custom-scripts.js', array('jquery', 'imagesloaded', 'jquery-masonry', 'magnific-popup'), '1.0', true );
 	wp_enqueue_script( 'steed-javascript' );
 		
 }

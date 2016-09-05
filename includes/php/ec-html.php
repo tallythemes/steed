@@ -24,25 +24,25 @@ if(!function_exists('steed_ec_template_content_section')):
 		
 		$prefix = $tpl.'_'.$section_id.'_';
 		
-		$active = esc_attr(get_theme_mod($prefix.'active'));
+		$active = esc_attr(steed_mod($prefix.'active'));
 		
-		$title = esc_attr(get_theme_mod($prefix.'title'));
-		$des = esc_attr(get_theme_mod($prefix.'des'));
-		$title_align = esc_attr(get_theme_mod($prefix.'title_align'));
-		$padding_top = esc_attr(get_theme_mod($prefix.'padding_top'));
-		$padding_bottom = esc_attr(get_theme_mod($prefix.'padding_bottom'));
-		$bg_color = esc_attr(get_theme_mod($prefix.'bg_color'));
-		$css_class = esc_attr(get_theme_mod($prefix.'css_class'));
-		$css_id = esc_attr(get_theme_mod($prefix.'css_id'));
-		$bg_image = esc_attr(get_theme_mod($prefix.'bg_img'));
-		$bg_repeat = esc_attr(get_theme_mod($prefix.'bg_repeat'));
-		$bg_attachment = esc_attr(get_theme_mod($prefix.'bg_attachment'));
-		$bg_position = esc_attr(get_theme_mod($prefix.'bg_position'));
-		$bg_size = esc_attr(get_theme_mod($prefix.'bg_size'));
-		$equal_height = esc_attr(get_theme_mod($prefix.'equal_height'));
-		$stretch = esc_attr(get_theme_mod($prefix.'stretch'));
-		$content_max_width = esc_attr(get_theme_mod($prefix.'content_max_width'));
-		$content_width = esc_attr(get_theme_mod($prefix.'content_width'));
+		$title = esc_attr(steed_mod($prefix.'title'));
+		$des = esc_attr(steed_mod($prefix.'des'));
+		$title_align = esc_attr(steed_mod($prefix.'title_align'));
+		$padding_top = esc_attr(steed_mod($prefix.'padding_top'));
+		$padding_bottom = esc_attr(steed_mod($prefix.'padding_bottom'));
+		$bg_color = esc_attr(steed_mod($prefix.'bg_color'));
+		$css_class = esc_attr(steed_mod($prefix.'css_class'));
+		$css_id = esc_attr(steed_mod($prefix.'css_id'));
+		$bg_image = esc_attr(steed_mod($prefix.'bg_img'));
+		$bg_repeat = esc_attr(steed_mod($prefix.'bg_repeat'));
+		$bg_attachment = esc_attr(steed_mod($prefix.'bg_attachment'));
+		$bg_position = esc_attr(steed_mod($prefix.'bg_position'));
+		$bg_size = esc_attr(steed_mod($prefix.'bg_size'));
+		$equal_height = esc_attr(steed_mod($prefix.'equal_height'));
+		$stretch = esc_attr(steed_mod($prefix.'stretch'));
+		$content_max_width = esc_attr(steed_mod($prefix.'content_max_width'));
+		$content_width = esc_attr(steed_mod($prefix.'content_width'));
 		
 		$style = '';
 		$style .= ($padding_top != '') ? 'padding-top:'.$padding_top.';' : NULL;
@@ -88,19 +88,19 @@ if(!function_exists('steed_ec_template_content_column')):
 		
 		$prefix = $tpl.'_'.$section['id'].'_'.$column['id'].'_';
 		
-		$active = esc_attr(get_theme_mod($prefix.'active'));
+		$active = esc_attr(steed_mod($prefix.'active'));
 		
-		$padding = esc_attr(get_theme_mod($prefix.'padding'));
-		$margin = esc_attr(get_theme_mod($prefix.'margin'));
-		$bg_color = esc_attr(get_theme_mod($prefix.'bg_color'));
-		$css_class = esc_attr(get_theme_mod($prefix.'css_class'));
-		$css_id = esc_attr(get_theme_mod($prefix.'css_id'));
-		$bg_image = esc_attr(get_theme_mod($prefix.'bg_img'));
-		$bg_repeat = esc_attr(get_theme_mod($prefix.'bg_repeat'));
-		$bg_attachment = esc_attr(get_theme_mod($prefix.'bg_attachment'));
-		$bg_position = esc_attr(get_theme_mod($prefix.'bg_position'));
-		$bg_size = esc_attr(get_theme_mod($prefix.'bg_size'));
-		$col = esc_attr(get_theme_mod($prefix.'col', $column['col']));
+		$padding = esc_attr(steed_mod($prefix.'padding'));
+		$margin = esc_attr(steed_mod($prefix.'margin'));
+		$bg_color = esc_attr(steed_mod($prefix.'bg_color'));
+		$css_class = esc_attr(steed_mod($prefix.'css_class'));
+		$css_id = esc_attr(steed_mod($prefix.'css_id'));
+		$bg_image = esc_attr(steed_mod($prefix.'bg_img'));
+		$bg_repeat = esc_attr(steed_mod($prefix.'bg_repeat'));
+		$bg_attachment = esc_attr(steed_mod($prefix.'bg_attachment'));
+		$bg_position = esc_attr(steed_mod($prefix.'bg_position'));
+		$bg_size = esc_attr(steed_mod($prefix.'bg_size'));
+		$col = esc_attr(steed_mod($prefix.'col', $column['col']));
 		
 		$style = '';
 		$style .= ($margin != '') ? 'padding:'.$margin.';' : NULL;
@@ -146,11 +146,11 @@ if(!function_exists('steed_ec_slideshow')):
 		
 		$items = array('post_1', 'post_2', 'post_3', 'post_4', 'post_5', 'post_6', 'post_7', 'post_8', 'post_9', 'post_10');
 		
-		$css_class = esc_attr(get_theme_mod($prefix.'css_class'));
-		$css_id = esc_attr(get_theme_mod($prefix.'css_id'));
-		$allow = esc_attr(get_theme_mod($prefix.'active'));
-		$image_size = esc_attr(get_theme_mod($prefix.'image_size', 'full'));
-		$height = esc_attr(get_theme_mod($prefix.'height'));
+		$css_class = esc_attr(steed_mod($prefix.'css_class'));
+		$css_id = esc_attr(steed_mod($prefix.'css_id'));
+		$allow = esc_attr(steed_mod($prefix.'active'));
+		$image_size = esc_attr(steed_mod($prefix.'image_size', 'full'));
+		$height = esc_attr(steed_mod($prefix.'height'));
 	
 		
 		$css_id = ($css_id != '') ? 'id="'.$css_id.'"' : NULL;
@@ -162,7 +162,7 @@ if(!function_exists('steed_ec_slideshow')):
 				echo '<div class="owl-carousel" style="'.esc_attr($max_height).'">';
 				echo '<div class="ec_s_loader"><i class="fa fa-circle-o-notch fa-spin fa-3x fa-fw"></i><span class="sr-only">Loading...</span></div>';
 				foreach($items as $item){
-					$post = esc_attr(get_theme_mod($prefix.$item));
+					$post = esc_attr(steed_mod($prefix.$item));
 					
 					if($post != 0){
 							echo '<div class="ec_s_item">';
@@ -193,13 +193,13 @@ if(!function_exists('steed_ec_text')):
 	function steed_ec_text( $tpl, $section, $column, $block ){
 		$prefix = $tpl.'_'.$section['id'].'_'.$column['id'].'_'.$block['id'].'_text_';
 		
-		$post = esc_attr(get_theme_mod($prefix.'post'));
+		$post = esc_attr(steed_mod($prefix.'post'));
 		
-		$css_class = esc_attr(get_theme_mod($prefix.'css_class'));
-		$css_id = esc_attr(get_theme_mod($prefix.'css_id'));
-		$allow = esc_attr(get_theme_mod($prefix.'active'));
-		$align = esc_attr(get_theme_mod($prefix.'align'));
-		$color_type = esc_attr(get_theme_mod($prefix.'color_type'));
+		$css_class = esc_attr(steed_mod($prefix.'css_class'));
+		$css_id = esc_attr(steed_mod($prefix.'css_id'));
+		$allow = esc_attr(steed_mod($prefix.'active'));
+		$align = esc_attr(steed_mod($prefix.'align'));
+		$color_type = esc_attr(steed_mod($prefix.'color_type'));
 		
 		$css_id = ($css_id != '') ? 'id="'.$css_id.'"' : NULL;
 		

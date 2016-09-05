@@ -1,4 +1,6 @@
 <?php
+$steed_mod_std = apply_filters('steed_mod_std', false);
+
 /**
  * Custom functions that act independently of the theme templates.
  *
@@ -57,3 +59,24 @@ if(!function_exists('steed_get_post_data')):
 		wp_reset_postdata();
 	}
 endif;
+
+
+function steed_mod($name, $std = NULL){
+	global $steed_mod_std;
+	
+	if(isset($steed_mod_std[$name])){
+		$std = $steed_mod_std[$name];
+	}
+	
+	return get_theme_mod($name, $std);
+}
+
+function steed_mod_std($name, $std = NULL){
+	global $steed_mod_std;
+	
+	if(isset($steed_mod_std[$name])){
+		$std = $steed_mod_std[$name];
+	}
+	
+	return $std;
+}

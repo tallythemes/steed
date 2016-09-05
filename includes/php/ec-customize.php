@@ -46,7 +46,7 @@ if(!function_exists('steed_ec_template_customize_section')):
 		));
 		
 		$uid = esc_attr($prefix.'active');
-		$wp_customize->add_setting($uid, array( 'default' => 'no', 'sanitize_callback' => 'sanitize_text_field', ));
+		$wp_customize->add_setting($uid, array( 'default' => steed_mod_std($uid), 'sanitize_callback' => 'sanitize_text_field', ));
 		$wp_customize->add_control( $uid, array(
 			'label'      => __('Active This Section', 'steed'),
 			'section'    => $customize_section_id,
@@ -59,7 +59,7 @@ if(!function_exists('steed_ec_template_customize_section')):
 		));
 		
 		$uid = esc_attr($prefix.'title');
-		$wp_customize->add_setting($uid, array( 'default' => '', 'sanitize_callback' => 'sanitize_text_field', ));
+		$wp_customize->add_setting($uid, array( 'default' => steed_mod_std($uid), 'sanitize_callback' => 'sanitize_text_field', ));
 		$wp_customize->add_control( $uid, array(
 			'label'      => __('Section Title', 'steed'),
 			'section'    => $customize_section_id,
@@ -68,7 +68,7 @@ if(!function_exists('steed_ec_template_customize_section')):
 		));
 		
 		$uid = esc_attr($prefix.'des');
-		$wp_customize->add_setting($uid, array( 'default' => '', 'sanitize_callback' => 'wp_kses_post', ));
+		$wp_customize->add_setting($uid, array( 'default' => steed_mod_std($uid), 'sanitize_callback' => 'wp_kses_post', ));
 		$wp_customize->add_control( $uid, array(
 			'label'      => __('Section Description', 'steed'),
 			'section'    => $customize_section_id,
@@ -77,7 +77,7 @@ if(!function_exists('steed_ec_template_customize_section')):
 		));
 		
 		$uid = esc_attr($prefix.'title_align');
-		$wp_customize->add_setting($uid, array( 'default' => 'no', 'sanitize_callback' => 'sanitize_text_field', ));
+		$wp_customize->add_setting($uid, array( 'default' => steed_mod_std($uid), 'sanitize_callback' => 'sanitize_text_field', ));
 		$wp_customize->add_control( $uid, array(
 			'label'      => __('Title Align ', 'steed'),
 			'section'    => $customize_section_id,
@@ -92,7 +92,7 @@ if(!function_exists('steed_ec_template_customize_section')):
 		));
 		
 		$uid = esc_attr($prefix.'padding_top');
-		$wp_customize->add_setting($uid, array( 'default' => '', 'sanitize_callback' => 'sanitize_text_field', ));
+		$wp_customize->add_setting($uid, array( 'default' => steed_mod_std($uid), 'sanitize_callback' => 'sanitize_text_field', ));
 		$wp_customize->add_control( $uid, array(
 			'label'      => __('Top Padding', 'steed'),
 			'section'    => $customize_section_id,
@@ -101,7 +101,7 @@ if(!function_exists('steed_ec_template_customize_section')):
 		));
 		
 		$uid = esc_attr($prefix.'padding_bottom');
-		$wp_customize->add_setting($uid, array( 'default' => '', 'sanitize_callback' => 'sanitize_text_field', ));
+		$wp_customize->add_setting($uid, array( 'default' => steed_mod_std($uid), 'sanitize_callback' => 'sanitize_text_field', ));
 		$wp_customize->add_control( $uid, array(
 			'label'      => __('Bottom Padding', 'steed'),
 			'section'    => $customize_section_id,
@@ -110,7 +110,7 @@ if(!function_exists('steed_ec_template_customize_section')):
 		));
 		
 		$uid = esc_attr($prefix.'bg_color');
-		$wp_customize->add_setting($uid, array( 'default' => '', 'sanitize_callback' => 'sanitize_hex_color', ));
+		$wp_customize->add_setting($uid, array( 'default' => steed_mod_std($uid), 'sanitize_callback' => 'sanitize_hex_color', ));
 		$wp_customize->add_control( new WP_Customize_Color_Control( $wp_customize, $uid, array(
 			'label'      => __('Background Color', 'steed'),
 			'section'    => $customize_section_id,
@@ -118,7 +118,7 @@ if(!function_exists('steed_ec_template_customize_section')):
 		)));
 		
 		$uid = esc_attr($prefix.'bg_img');
-		$wp_customize->add_setting($uid, array( 'default' => '', 'sanitize_callback' => 'esc_url', ));
+		$wp_customize->add_setting($uid, array( 'default' => steed_mod_std($uid), 'sanitize_callback' => 'esc_url', ));
 		$wp_customize->add_control( new WP_Customize_Image_Control( $wp_customize, $uid, array(
 			'label'      => __('Background Image', 'steed'),
 			'section'    => $customize_section_id,
@@ -126,7 +126,7 @@ if(!function_exists('steed_ec_template_customize_section')):
 		)));
 		
 		$uid = esc_attr($prefix.'bg_repeat');
-		$wp_customize->add_setting($uid, array( 'default' => '', 'sanitize_callback' => 'sanitize_text_field', ));
+		$wp_customize->add_setting($uid, array( 'default' => steed_mod_std($uid), 'sanitize_callback' => 'sanitize_text_field', ));
 		$wp_customize->add_control( $uid, array(
 			'label'      => __('Background Repeat', 'steed'),
 			'section'    => $customize_section_id,
@@ -141,7 +141,7 @@ if(!function_exists('steed_ec_template_customize_section')):
 		));
 		
 		$uid = esc_attr($prefix.'bg_attachment');
-		$wp_customize->add_setting($uid, array( 'default' => '', 'sanitize_callback' => 'sanitize_text_field', ));
+		$wp_customize->add_setting($uid, array( 'default' => steed_mod_std($uid), 'sanitize_callback' => 'sanitize_text_field', ));
 		$wp_customize->add_control( $uid, array(
 			'label'      => __('Background Attachment', 'steed'),
 			'section'    => $customize_section_id,
@@ -155,7 +155,7 @@ if(!function_exists('steed_ec_template_customize_section')):
 		));
 		
 		$uid = esc_attr($prefix.'bg_position');
-		$wp_customize->add_setting($uid, array( 'default' => '', 'sanitize_callback' => 'sanitize_text_field', ));
+		$wp_customize->add_setting($uid, array( 'default' => steed_mod_std($uid), 'sanitize_callback' => 'sanitize_text_field', ));
 		$wp_customize->add_control( $uid, array(
 			'label'      => __('Background Position', 'steed'),
 			'section'    => $customize_section_id,
@@ -168,7 +168,7 @@ if(!function_exists('steed_ec_template_customize_section')):
 			),
 		));
 		$uid = esc_attr($prefix.'bg_size');
-		$wp_customize->add_setting($uid, array( 'default' => '', 'sanitize_callback' => 'sanitize_text_field', ));
+		$wp_customize->add_setting($uid, array( 'default' => steed_mod_std($uid), 'sanitize_callback' => 'sanitize_text_field', ));
 		$wp_customize->add_control( $uid, array(
 			'label'      => __('Background Size', 'steed'),
 			'section'    => $customize_section_id,
@@ -177,7 +177,7 @@ if(!function_exists('steed_ec_template_customize_section')):
 		));
 		
 		$uid = esc_attr($prefix.'equal_height');
-		$wp_customize->add_setting($uid, array( 'default' => 'no', 'sanitize_callback' => 'sanitize_text_field', ));
+		$wp_customize->add_setting($uid, array( 'default' => steed_mod_std($uid), 'sanitize_callback' => 'sanitize_text_field', ));
 		$wp_customize->add_control( $uid, array(
 			'label'      => __('Equal Height', 'steed'),
 			'section'    => $customize_section_id,
@@ -190,7 +190,7 @@ if(!function_exists('steed_ec_template_customize_section')):
 		));
 		
 		$uid = esc_attr($prefix.'stretch');
-		$wp_customize->add_setting($uid, array( 'default' => 'no', 'sanitize_callback' => 'sanitize_text_field', ));
+		$wp_customize->add_setting($uid, array( 'default' => steed_mod_std($uid), 'sanitize_callback' => 'sanitize_text_field', ));
 		$wp_customize->add_control( $uid, array(
 			'label'      => __('Section Stretch', 'steed'),
 			'section'    => $customize_section_id,
@@ -205,7 +205,7 @@ if(!function_exists('steed_ec_template_customize_section')):
 		));
 		
 		$uid = esc_attr($prefix.'css_class');
-		$wp_customize->add_setting($uid, array( 'default' => '', 'sanitize_callback' => 'sanitize_text_field', ));
+		$wp_customize->add_setting($uid, array( 'default' => steed_mod_std($uid), 'sanitize_callback' => 'sanitize_text_field', ));
 		$wp_customize->add_control( $uid, array(
 			'label'      => __('CSS Class', 'steed'),
 			'section'    => $customize_section_id,
@@ -214,7 +214,7 @@ if(!function_exists('steed_ec_template_customize_section')):
 		));
 		
 		$uid = esc_attr($prefix.'css_id');
-		$wp_customize->add_setting($uid, array( 'default' => '', 'sanitize_callback' => 'sanitize_text_field', ));
+		$wp_customize->add_setting($uid, array( 'default' => steed_mod_std($uid), 'sanitize_callback' => 'sanitize_text_field', ));
 		$wp_customize->add_control( $uid, array(
 			'label'      => __('CSS ID', 'steed'),
 			'section'    => $customize_section_id,
@@ -223,7 +223,7 @@ if(!function_exists('steed_ec_template_customize_section')):
 		));
 		
 		$uid = esc_attr($prefix.'content_max_width');
-		$wp_customize->add_setting($uid, array( 'default' => '', 'sanitize_callback' => 'sanitize_text_field', ));
+		$wp_customize->add_setting($uid, array( 'default' => steed_mod_std($uid), 'sanitize_callback' => 'sanitize_text_field', ));
 		$wp_customize->add_control( $uid, array(
 			'label'      => __('Max Content Width', 'steed'),
 			'section'    => $customize_section_id,
@@ -232,7 +232,7 @@ if(!function_exists('steed_ec_template_customize_section')):
 		));
 		
 		$uid = esc_attr($prefix.'content_width');
-		$wp_customize->add_setting($uid, array( 'default' => '', 'sanitize_callback' => 'sanitize_text_field', ));
+		$wp_customize->add_setting($uid, array( 'default' => steed_mod_std($uid), 'sanitize_callback' => 'sanitize_text_field', ));
 		$wp_customize->add_control( $uid, array(
 			'label'      => __('Content Width', 'steed'),
 			'section'    => $customize_section_id,
@@ -255,7 +255,7 @@ if(!function_exists('steed_ec_template_customize_column')):
 		$column_name2 = ' ('.$column_name.')';
 		
 		$uid = esc_attr($prefix.'heading');
-		$wp_customize->add_setting($uid, array( 'default' => '', 'sanitize_callback' => 'wp_kses_post', ));
+		$wp_customize->add_setting($uid, array( 'default' => steed_mod_std($uid), 'sanitize_callback' => 'wp_kses_post', ));
 		$wp_customize->add_control( new steed_Customize_Control_heading( $wp_customize, $uid, array(
 			'label'      => $column_name,
 			'description'	=>__('All Settings of this column are here.', 'steed'),
@@ -264,7 +264,7 @@ if(!function_exists('steed_ec_template_customize_column')):
 		)));
 		
 		$uid = esc_attr($prefix.'active');
-		$wp_customize->add_setting($uid, array( 'default' => 'yes', 'sanitize_callback' => 'sanitize_text_field', ));
+		$wp_customize->add_setting($uid, array( 'default' => steed_mod_std($uid, 'yes'), 'sanitize_callback' => 'sanitize_text_field', ));
 		$wp_customize->add_control( $uid, array(
 			'label'      => __('Active ', 'steed').$column_name,
 			'section'    => $customize_section_id,
@@ -277,7 +277,7 @@ if(!function_exists('steed_ec_template_customize_column')):
 		));
 		
 		$uid = esc_attr($prefix.'padding');
-		$wp_customize->add_setting($uid, array( 'default' => '', 'sanitize_callback' => 'sanitize_text_field', ));
+		$wp_customize->add_setting($uid, array( 'default' => steed_mod_std($uid), 'sanitize_callback' => 'sanitize_text_field', ));
 		$wp_customize->add_control( $uid, array(
 			'label'      => __('Padding', 'steed').$column_name2,
 			'section'    => $customize_section_id,
@@ -286,7 +286,7 @@ if(!function_exists('steed_ec_template_customize_column')):
 		));
 		
 		$uid = esc_attr($prefix.'bg_color');
-		$wp_customize->add_setting($uid, array( 'default' => '', 'sanitize_callback' => 'sanitize_hex_color', ));
+		$wp_customize->add_setting($uid, array( 'default' => steed_mod_std($uid), 'sanitize_callback' => 'sanitize_hex_color', ));
 		$wp_customize->add_control( new WP_Customize_Color_Control( $wp_customize, $uid, array(
 			'label'      => __('Background Color', 'steed').$column_name2,
 			'section'    => $customize_section_id,
@@ -294,7 +294,7 @@ if(!function_exists('steed_ec_template_customize_column')):
 		)));
 		
 		$uid = esc_attr($prefix.'bg_img');
-		$wp_customize->add_setting($uid, array( 'default' => '', 'sanitize_callback' => 'esc_url', ));
+		$wp_customize->add_setting($uid, array( 'default' => steed_mod_std($uid), 'sanitize_callback' => 'esc_url', ));
 		$wp_customize->add_control( new WP_Customize_Image_Control( $wp_customize, $uid, array(
 			'label'      => __('Background Image', 'steed').$column_name2,
 			'section'    => $customize_section_id,
@@ -302,7 +302,7 @@ if(!function_exists('steed_ec_template_customize_column')):
 		)));
 		
 		$uid = esc_attr($prefix.'bg_repeat');
-		$wp_customize->add_setting($uid, array( 'default' => '', 'sanitize_callback' => 'sanitize_text_field', ));
+		$wp_customize->add_setting($uid, array( 'default' => steed_mod_std($uid), 'sanitize_callback' => 'sanitize_text_field', ));
 		$wp_customize->add_control( $uid, array(
 			'label'      => __('Background Repeat', 'steed').$column_name2,
 			'section'    => $customize_section_id,
@@ -317,7 +317,7 @@ if(!function_exists('steed_ec_template_customize_column')):
 		));
 		
 		$uid = esc_attr($prefix.'bg_attachment');
-		$wp_customize->add_setting($uid, array( 'default' => '', 'sanitize_callback' => 'sanitize_text_field', ));
+		$wp_customize->add_setting($uid, array( 'default' => steed_mod_std($uid), 'sanitize_callback' => 'sanitize_text_field', ));
 		$wp_customize->add_control( $uid, array(
 			'label'      => __('Background Attachment', 'steed').$column_name2,
 			'section'    => $customize_section_id,
@@ -331,7 +331,7 @@ if(!function_exists('steed_ec_template_customize_column')):
 		));
 		
 		$uid = esc_attr($prefix.'bg_position');
-		$wp_customize->add_setting($uid, array( 'default' => '', 'sanitize_callback' => 'sanitize_text_field', ));
+		$wp_customize->add_setting($uid, array( 'default' => steed_mod_std($uid), 'sanitize_callback' => 'sanitize_text_field', ));
 		$wp_customize->add_control( $uid, array(
 			'label'      => __('Background Position', 'steed').$column_name2,
 			'section'    => $customize_section_id,
@@ -344,7 +344,7 @@ if(!function_exists('steed_ec_template_customize_column')):
 			),
 		));
 		$uid = esc_attr($prefix.'bg_size');
-		$wp_customize->add_setting($uid, array( 'default' => '', 'sanitize_callback' => 'sanitize_text_field', ));
+		$wp_customize->add_setting($uid, array( 'default' => steed_mod_std($uid), 'sanitize_callback' => 'sanitize_text_field', ));
 		$wp_customize->add_control( $uid, array(
 			'label'      => __('Background Size', 'steed').$column_name2,
 			'section'    => $customize_section_id,
@@ -353,7 +353,7 @@ if(!function_exists('steed_ec_template_customize_column')):
 		));
 		
 		$uid = esc_attr($prefix.'css_class');
-		$wp_customize->add_setting($uid, array( 'default' => '', 'sanitize_callback' => 'sanitize_text_field', ));
+		$wp_customize->add_setting($uid, array( 'default' => steed_mod_std($uid), 'sanitize_callback' => 'sanitize_text_field', ));
 		$wp_customize->add_control( $uid, array(
 			'label'      => __('CSS Class', 'steed').$column_name2,
 			'section'    => $customize_section_id,
@@ -362,7 +362,7 @@ if(!function_exists('steed_ec_template_customize_column')):
 		));
 		
 		$uid = esc_attr($prefix.'css_id');
-		$wp_customize->add_setting($uid, array( 'default' => '', 'sanitize_callback' => 'sanitize_text_field', ));
+		$wp_customize->add_setting($uid, array( 'default' => steed_mod_std($uid), 'sanitize_callback' => 'sanitize_text_field', ));
 		$wp_customize->add_control( $uid, array(
 			'label'      => __('CSS ID', 'steed').$column_name2,
 			'section'    => $customize_section_id,
@@ -373,7 +373,7 @@ if(!function_exists('steed_ec_template_customize_column')):
 		
 		
 		$uid = esc_attr($prefix.'col');
-		$wp_customize->add_setting($uid, array( 'default' => '', 'sanitize_callback' => 'sanitize_text_field', ));
+		$wp_customize->add_setting($uid, array( 'default' => steed_mod_std($uid), 'sanitize_callback' => 'sanitize_text_field', ));
 		$wp_customize->add_control( $uid, array(
 			'label'      => __('Column Layout ', 'steed').$column_name2,
 			'section'    => $customize_section_id,
@@ -420,7 +420,7 @@ if(!function_exists('steed_ec_slideshow_customize')):
 		
 		
 		$uid = esc_attr($prefix.'active');
-		$wp_customize->add_setting($uid, array( 'default' => 'no', 'sanitize_callback' => 'sanitize_text_field', ));
+		$wp_customize->add_setting($uid, array( 'default' => steed_mod_std($uid), 'sanitize_callback' => 'sanitize_text_field', ));
 		$wp_customize->add_control( $uid, array(
 			'label'      => __('Active ', 'steed'),
 			'section'    => $customize_section_id,
@@ -434,7 +434,7 @@ if(!function_exists('steed_ec_slideshow_customize')):
 		
 		foreach($items as $key => $item){
 			$uid = esc_attr($prefix.$item);
-			$wp_customize->add_setting($uid, array( 'default' => '', 'sanitize_callback' => 'sanitize_text_field', ));
+			$wp_customize->add_setting($uid, array( 'default' => steed_mod_std($uid), 'sanitize_callback' => 'sanitize_text_field', ));
 			$wp_customize->add_control( $uid, array(
 				'label'      => __('Select a Page for Slide # ', 'steed') . ($key + 1),
 				'section'    => $customize_section_id,
@@ -444,7 +444,7 @@ if(!function_exists('steed_ec_slideshow_customize')):
 		}
 		
 		$uid = esc_attr($prefix.'image_size');
-		$wp_customize->add_setting($uid, array( 'default' => '', 'sanitize_callback' => 'sanitize_text_field', ));
+		$wp_customize->add_setting($uid, array( 'default' => steed_mod_std($uid), 'sanitize_callback' => 'sanitize_text_field', ));
 		$wp_customize->add_control( $uid, array(
 			'label'      => __('Image Size', 'steed'),
 			'section'    => $customize_section_id,
@@ -453,7 +453,7 @@ if(!function_exists('steed_ec_slideshow_customize')):
 		));
 		
 		$uid = esc_attr($prefix.'height');
-		$wp_customize->add_setting($uid, array( 'default' => '', 'sanitize_callback' => 'sanitize_text_field', ));
+		$wp_customize->add_setting($uid, array( 'default' => steed_mod_std($uid), 'sanitize_callback' => 'sanitize_text_field', ));
 		$wp_customize->add_control( $uid, array(
 			'label'      => __('Max Height', 'steed'),
 			'section'    => $customize_section_id,
@@ -462,7 +462,7 @@ if(!function_exists('steed_ec_slideshow_customize')):
 		));
 		
 		$uid = esc_attr($prefix.'css_class');
-		$wp_customize->add_setting($uid, array( 'default' => '', 'sanitize_callback' => 'sanitize_text_field', ));
+		$wp_customize->add_setting($uid, array( 'default' => steed_mod_std($uid), 'sanitize_callback' => 'sanitize_text_field', ));
 		$wp_customize->add_control( $uid, array(
 			'label'      => __('CSS Class', 'steed'),
 			'section'    => $customize_section_id,
@@ -471,7 +471,7 @@ if(!function_exists('steed_ec_slideshow_customize')):
 		));
 		
 		$uid = esc_attr($prefix.'css_id');
-		$wp_customize->add_setting($uid, array( 'default' => '', 'sanitize_callback' => 'sanitize_text_field', ));
+		$wp_customize->add_setting($uid, array( 'default' => steed_mod_std($uid), 'sanitize_callback' => 'sanitize_text_field', ));
 		$wp_customize->add_control( $uid, array(
 			'label'      => __('CSS ID', 'steed'),
 			'section'    => $customize_section_id,
@@ -502,7 +502,7 @@ if(!function_exists('steed_ec_text_customize')):
 		
 		
 		$uid = esc_attr($prefix.'active');
-		$wp_customize->add_setting($uid, array( 'default' => 'no', 'sanitize_callback' => 'sanitize_text_field', ));
+		$wp_customize->add_setting($uid, array( 'default' => steed_mod_std($uid), 'sanitize_callback' => 'sanitize_text_field', ));
 		$wp_customize->add_control( $uid, array(
 			'label'      => __('Active ', 'steed'),
 			'section'    => $customize_section_id,
@@ -515,7 +515,7 @@ if(!function_exists('steed_ec_text_customize')):
 		));
 		
 		$uid = esc_attr($prefix.'post');
-			$wp_customize->add_setting($uid, array( 'default' => '', 'sanitize_callback' => 'sanitize_text_field', ));
+			$wp_customize->add_setting($uid, array( 'default' => steed_mod_std($uid), 'sanitize_callback' => 'sanitize_text_field', ));
 			$wp_customize->add_control( $uid, array(
 				'label'      => __('Select a Page', 'steed'),
 				'section'    => $customize_section_id,
@@ -524,7 +524,7 @@ if(!function_exists('steed_ec_text_customize')):
 		));
 		
 		$uid = esc_attr($prefix.'align');
-		$wp_customize->add_setting($uid, array( 'default' => 'no', 'sanitize_callback' => 'sanitize_text_field', ));
+		$wp_customize->add_setting($uid, array( 'default' => steed_mod_std($uid, 'no'), 'sanitize_callback' => 'sanitize_text_field', ));
 		$wp_customize->add_control( $uid, array(
 			'label'      => __('Align ', 'steed'),
 			'section'    => $customize_section_id,
@@ -539,7 +539,7 @@ if(!function_exists('steed_ec_text_customize')):
 		));
 		
 		$uid = esc_attr($prefix.'css_class');
-		$wp_customize->add_setting($uid, array( 'default' => '', 'sanitize_callback' => 'sanitize_text_field', ));
+		$wp_customize->add_setting($uid, array( 'default' => steed_mod_std($uid), 'sanitize_callback' => 'sanitize_text_field', ));
 		$wp_customize->add_control( $uid, array(
 			'label'      => __('CSS Class', 'steed'),
 			'section'    => $customize_section_id,
@@ -548,7 +548,7 @@ if(!function_exists('steed_ec_text_customize')):
 		));
 		
 		$uid = esc_attr($prefix.'css_id');
-		$wp_customize->add_setting($uid, array( 'default' => '', 'sanitize_callback' => 'sanitize_text_field', ));
+		$wp_customize->add_setting($uid, array( 'default' => steed_mod_std($uid), 'sanitize_callback' => 'sanitize_text_field', ));
 		$wp_customize->add_control( $uid, array(
 			'label'      => __('CSS ID', 'steed'),
 			'section'    => $customize_section_id,
@@ -557,7 +557,7 @@ if(!function_exists('steed_ec_text_customize')):
 		));
 		
 		$uid = esc_attr($prefix.'color_type');
-		$wp_customize->add_setting($uid, array( 'default' => 'no', 'sanitize_callback' => 'sanitize_text_field', ));
+		$wp_customize->add_setting($uid, array( 'default' => steed_mod_std($uid), 'sanitize_callback' => 'sanitize_text_field', ));
 		$wp_customize->add_control( $uid, array(
 			'label'      => __('Color Type ', 'steed'),
 			'section'    => $customize_section_id,

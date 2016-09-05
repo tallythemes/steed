@@ -1,6 +1,6 @@
 /*
 	Responsive Menu
-------------------------------------------------------*/
+------------------------------------------------------------------------*/
 jQuery(document).ready(function($) {
 	"use strict";
 	
@@ -42,4 +42,44 @@ jQuery(document).ready(function($) {
 		$(".responsive-menu").slideUp();
 		$(".responsive-menu").removeClass('active');
 	});
+});
+
+
+/*
+	Make the WordPress Gallery masonry
+------------------------------------------------------------------------*/
+jQuery(document).ready(function($) {
+	"use strict";
+	var $container = $('.gallery');
+	$container.imagesLoaded(function () {
+		$container.masonry({
+			itemSelector: '.gallery-item',
+			animationOptions: {
+				duration: 250,
+				easing: 'linear',
+				queue: false
+			},
+			fitWidth : true,
+		});
+	});
+	
+	$(window).resize(function () {		
+		$container.masonry('layout');
+	});
+	
+	$('.gallery-item a[href$=".gif"], .gallery-item a[href$=".jpg"], .gallery-item a[href$=".png"]').magnificPopup({type:'image'});
+	
+});
+
+
+/*	
+	Register Lightbox by magnific-popup
+------------------------------------------------------------------------*/
+jQuery(document).ready(function($) {
+	"use strict";
+	
+	$('.image-lightbox').magnificPopup({type:'image'});
+	$('.video-lightbox').magnificPopup({type:'iframe'});
+	$('.inline-lightbox').magnificPopup({type:'inline'});
+	
 });
