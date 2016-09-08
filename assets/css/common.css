@@ -11,14 +11,13 @@
 # Alignments
 # Clearings
 # Widgets
-# Content
-	## Posts and pages
-	## Comments
 # Infinite scroll
 # Media
 	## Captions
 	## Galleries
 # Layout
+# Main Menu
+# Logo & title Styling
 --------------------------------------------------------------*/
 
 /*--------------------------------------------------------------
@@ -325,7 +324,9 @@ big {
 html {
 	box-sizing: border-box;
 }
-
+#page{
+	overflow:hidden;	
+}
 *,
 *:before,
 *:after { /* Inherit box-sizing to make it easier to change the property for components that leverage other behavior; see http://css-tricks.com/inheriting-box-sizing-probably-slightly-better-best-practice/ */
@@ -1831,10 +1832,9 @@ object {
 }
 
 
-
-/*
-	Menu
-==========================*/
+/*--------------------------------------------------------------
+## Main Menu
+--------------------------------------------------------------*/
 .main-navigation ul {
 	list-style: none;
 	margin: 0;
@@ -1983,3 +1983,41 @@ a.responsive-menu-close:hover{
 .responsive-menu ul li ul{ margin:0; padding:0; }
 .responsive-menu ul li ul li a{ font-size:90%; padding-left:20px; border-bottom:solid 1px #E9E9E9; background-color: #F0F0F0; }
 .responsive-menu ul li ul li ul li a{ font-size:80%; padding-left:30px; border-bottom:solid 1px #E9E9E9; background-color: #E4E4E4 ; }
+
+
+@media screen and (max-width: 940px){
+	a.responsive-menu-hand{
+		display: block;
+	}
+	.main-navigation{
+		display: none;
+	}
+}
+
+
+
+/*--------------------------------------------------------------
+## Logo & title Styling
+--------------------------------------------------------------*/
+.site-header .site-header-in{
+	position:relative;	
+}
+.site-header .site-title,
+.site-header .site-description{
+	margin-top:0;
+	margin-bottom:0;	
+}
+.site-header .site-title{
+	line-height:1.1;
+	font-size:24px;	
+}
+.site-header .site-title a{
+	text-decoration:none;
+	color:#000;	
+}
+.site-header .site-description{
+	font-size:14px;	
+}
+.site-header .ph1_logo img{
+	max-width:100%;	
+}

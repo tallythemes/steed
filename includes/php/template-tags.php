@@ -214,11 +214,11 @@ if ( ! function_exists( 'steed_custom_logo' ) ) :
 	
 		// Nothing in the output: Custom Logo is not supported, or there is no selected logo
 		// In both cases we display the site's name
-		if (empty($output)){
+		if ($output == ''){
 			if ( is_front_page() && is_home() ){
-				$output = '<h1  class="site-title"><a href="' . esc_url(home_url('/')) . '">'.get_bloginfo( 'name' ).'</a></h1>';
+				$output .= '<h1  class="site-title"><a href="' . esc_url(home_url('/')) . '">'.get_bloginfo( 'name' ).'</a></h1>';
 			}else{
-				$output = '<p  class="site-title"><a href="' . esc_url(home_url('/')) . '">'.get_bloginfo( 'name' ).'</a></p>';
+				$output .= '<p  class="site-title"><a href="' . esc_url(home_url('/')) . '">'.get_bloginfo( 'name' ).'</a></p>';
 			}
 			if ( $description || is_customize_preview() ){
 				$output .= '<p  class="site-description">'.$description.'</p>';

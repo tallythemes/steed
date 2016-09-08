@@ -174,6 +174,10 @@ add_action( 'widgets_init', 'steed_widgets_init' );
  * Enqueue scripts and styles.
  */
 function steed_scripts() {
+	
+	// Add custom fonts, used in the main stylesheet.
+	wp_enqueue_style( 'steed-fonts', steed_fonts_url(), array(), null );
+	
 	if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
 		wp_enqueue_script( 'comment-reply' );
 	}
@@ -186,7 +190,7 @@ function steed_scripts() {
 	
 	wp_register_style( 'magnific-popup', get_template_directory_uri() . '/assets/magnific-popup/magnific-popup.css', array(), '1.0.1' );
 	wp_enqueue_style( 'magnific-popup');
-	wp_register_script( 'magnific-popup', get_template_directory_uri() . '/assets/magnific-popup/jquery.magnific-popup.min.js', array('jquery'), '1.0.1', true );
+	wp_register_script( 'magnific-popup', get_template_directory_uri() . '/assets/magnific-popup/jquery.magnific-popup.min.js', array('jquery'),'1.0.1',true );
 	wp_enqueue_script( 'magnific-popup');
 	
 	wp_register_style( 'owl-carousel', get_template_directory_uri() . '/assets/owl-carousel/owl.carousel.css', array(), '2.4' );
@@ -214,9 +218,16 @@ function steed_scripts() {
 
 	wp_register_script( 'steed-javascript', get_template_directory_uri() . '/assets/js/custom-scripts.js', array('jquery', 'imagesloaded', 'jquery-masonry', 'magnific-popup'), '1.0', true );
 	wp_enqueue_script( 'steed-javascript' );
-		
 }
 add_action( 'wp_enqueue_scripts', 'steed_scripts' );
+
+
+function steed_custom_scripts(){
+	$custom_css = apply_filters('steed_custom_css', steed_custom_css());
+	
+	wp_add_inline_style( 'steed-style', $custom_css );
+}
+add_action( 'wp_enqueue_scripts', 'steed_custom_scripts', 11 );
 
 /**
  * Custom template tags for this theme.
