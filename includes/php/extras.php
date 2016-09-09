@@ -61,13 +61,7 @@ if(!function_exists('steed_get_post_data')):
 endif;
 
 
-function steed_mod($name, $std = NULL){
-	global $steed_mod_std;
-	
-	if(isset($steed_mod_std[$name])){
-		$std = $steed_mod_std[$name];
-	}
-	
+function steed_mod($name, $std = NULL){	
 	return get_theme_mod($name, $std);
 }
 

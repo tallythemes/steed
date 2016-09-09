@@ -230,6 +230,13 @@ function steed_custom_scripts(){
 add_action( 'wp_enqueue_scripts', 'steed_custom_scripts', 11 );
 
 /**
+ * kirki-helpers 
+ */
+require get_template_directory() . '/includes/kirki-helpers/include-kirki.php';
+require get_template_directory() . '/includes/kirki-helpers/class-my-theme-kirki.php';
+
+
+/**
  * Custom template tags for this theme.
  */
 require get_template_directory() . '/includes/php/template-tags.php';

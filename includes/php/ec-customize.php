@@ -1,6 +1,24 @@
 <?php
+$steed_ec_get_tpl = (isset($_GET['steed'])) ? $_GET['steed'] : NULL;
+
+function steed_ec_customizer_menu() {
+	add_theme_page( 'Home Page', 'Home Page', 'edit_theme_options', 'customize.php?steed=home' );
+}
+add_action( 'admin_menu', 'steed_ec_customizer_menu' );
+
+steed_Kirki::add_config( 'steed', array(
+	'capability'    => 'edit_theme_options',
+	'option_type'   => 'theme_mod',
+));
+steed_Kirki::add_config( 'steed', array(
+	'capability'    => 'edit_theme_options',
+	'option_type'   => 'theme_mod',
+));
+
+
 if(!function_exists('steed_ec_template_customize_build')):
-	function steed_ec_template_customize_build($wp_customize, $tpl){
+	function steed_ec_template_customize_build($tpl){
+	
 		$data = apply_filters('steed_ec_template_content', array());
 		if(isset($data[$tpl])){
 			if(is_array($data[$tpl])){
@@ -9,15 +27,15 @@ if(!function_exists('steed_ec_template_customize_build')):
 				$tpl_name = $tpl_data['title'];
 					
 				foreach($tpl_data['sections'] as $section){
-					steed_ec_template_customize_section($wp_customize, $tpl, $section, $tpl_name);
+					steed_ec_template_customize_section($tpl, $section, $tpl_name);
 					foreach($section['columns'] as $column){
-						steed_ec_template_customize_column($wp_customize, $tpl, $section, $column);
 						foreach($column['blocks'] as $block){
 							$block_function = $block['fn'].'_customize';
 							if(function_exists($block_function)){
-								$block_function($wp_customize, $tpl, $section, $column, $block);
+								$block_function($tpl, $section, $column, $block);
 							}
 						}
+						steed_ec_template_customize_column($tpl, $section, $column);
 					}
 				}//END Item foreach
 			}//Sub IF
@@ -28,60 +46,48 @@ if(!function_exists('steed_ec_template_customize_build')):
 endif;
 
 if(!function_exists('steed_ec_template_customize_section')):
-	function steed_ec_template_customize_section($wp_customize, $tpl, $section, $tpl_name){
+	function steed_ec_template_customize_section($tpl, $section, $tpl_name){
 		$prefix = $tpl.'_'.$section['id'].'_';
 		$customize_section_id = esc_attr($tpl.'_'.$section['id'].'_settings');
 		$customize_panel_id = esc_attr($tpl.'_'.$section['id']);
 		
-		$wp_customize->add_panel( esc_attr($customize_panel_id), array(
+		steed_Kirki::add_panel( esc_attr($customize_panel_id), array(
 			'title' => esc_attr($tpl_name . ' ' .$section['title']),
 			'description' => '',
 			'priority' => 10,
-		));
-		
-		$wp_customize->add_section( $customize_section_id, array(
+		));		
+		steed_Kirki::add_section( $customize_section_id, array(
 			'title' => __('Section Settings', 'steed'),
 			'priority' => 10,
 			'panel' => esc_attr($customize_panel_id),
 		));
-		
-		$uid = esc_attr($prefix.'active');
-		$wp_customize->add_setting($uid, array( 'default' => steed_mod_std($uid), 'sanitize_callback' => 'sanitize_text_field', ));
-		$wp_customize->add_control( $uid, array(
+		steed_Kirki::add_field( 'steed', array(
 			'label'      => __('Active This Section', 'steed'),
 			'section'    => $customize_section_id,
-			'settings'   => $uid,
-			'type'       => 'radio',
+			'settings'   => esc_attr($prefix.'active'),
+			'type'       => 'select',
+			'default'     => 'yes',
 			'choices'    => array(
-				'yes' => 'Yes',
-				'no' => 'No',
+				'yes' => 'Enable',
+				'no' => 'Disable',
 			),
 		));
-		
-		$uid = esc_attr($prefix.'title');
-		$wp_customize->add_setting($uid, array( 'default' => steed_mod_std($uid), 'sanitize_callback' => 'sanitize_text_field', ));
-		$wp_customize->add_control( $uid, array(
+		steed_Kirki::add_field( 'steed', array(
 			'label'      => __('Section Title', 'steed'),
 			'section'    => $customize_section_id,
-			'settings'   => $uid,
+			'settings'   => esc_attr($prefix.'title'),
 			'type'       => 'text',
 		));
-		
-		$uid = esc_attr($prefix.'des');
-		$wp_customize->add_setting($uid, array( 'default' => steed_mod_std($uid), 'sanitize_callback' => 'wp_kses_post', ));
-		$wp_customize->add_control( $uid, array(
+		steed_Kirki::add_field( 'steed', array(
 			'label'      => __('Section Description', 'steed'),
 			'section'    => $customize_section_id,
-			'settings'   => $uid,
+			'settings'   => esc_attr($prefix.'des'),
 			'type'       => 'textarea',
 		));
-		
-		$uid = esc_attr($prefix.'title_align');
-		$wp_customize->add_setting($uid, array( 'default' => steed_mod_std($uid), 'sanitize_callback' => 'sanitize_text_field', ));
-		$wp_customize->add_control( $uid, array(
+		steed_Kirki::add_field( 'steed', array(
 			'label'      => __('Title Align ', 'steed'),
 			'section'    => $customize_section_id,
-			'settings'   => $uid,
+			'settings'   => esc_attr($prefix.'title_align'),
 			'type'       => 'select',
 			'choices'    => array(
 				'left' => 'Left',
@@ -90,47 +96,34 @@ if(!function_exists('steed_ec_template_customize_section')):
 				'none' => 'None',
 			),
 		));
-		
-		$uid = esc_attr($prefix.'padding_top');
-		$wp_customize->add_setting($uid, array( 'default' => steed_mod_std($uid), 'sanitize_callback' => 'sanitize_text_field', ));
-		$wp_customize->add_control( $uid, array(
-			'label'      => __('Top Padding', 'steed'),
+		steed_Kirki::add_field( 'steed', array(
+			'label'      => __('Padding', 'steed'),
 			'section'    => $customize_section_id,
-			'settings'   => $uid,
-			'type'       => 'text',
+			'settings'   => esc_attr($prefix.'padding'),
+			'type'       => 'spacing',
+			'default'     => array(
+				'top'    => '10px',
+				'bottom' => '10px',
+				'left'   => '10px',
+				'right'  => '10px',
+			),
 		));
-		
-		$uid = esc_attr($prefix.'padding_bottom');
-		$wp_customize->add_setting($uid, array( 'default' => steed_mod_std($uid), 'sanitize_callback' => 'sanitize_text_field', ));
-		$wp_customize->add_control( $uid, array(
-			'label'      => __('Bottom Padding', 'steed'),
-			'section'    => $customize_section_id,
-			'settings'   => $uid,
-			'type'       => 'text',
-		));
-		
-		$uid = esc_attr($prefix.'bg_color');
-		$wp_customize->add_setting($uid, array( 'default' => steed_mod_std($uid), 'sanitize_callback' => 'sanitize_hex_color', ));
-		$wp_customize->add_control( new WP_Customize_Color_Control( $wp_customize, $uid, array(
+		steed_Kirki::add_field( 'steed', array(
 			'label'      => __('Background Color', 'steed'),
 			'section'    => $customize_section_id,
-			'settings'   => $uid,
-		)));
-		
-		$uid = esc_attr($prefix.'bg_img');
-		$wp_customize->add_setting($uid, array( 'default' => steed_mod_std($uid), 'sanitize_callback' => 'esc_url', ));
-		$wp_customize->add_control( new WP_Customize_Image_Control( $wp_customize, $uid, array(
+			'settings'   => esc_attr($prefix.'bg_color'),
+			'type'       => 'color',
+		));
+		steed_Kirki::add_field( 'steed', array(
 			'label'      => __('Background Image', 'steed'),
 			'section'    => $customize_section_id,
-			'settings'   => $uid,
-		)));
-		
-		$uid = esc_attr($prefix.'bg_repeat');
-		$wp_customize->add_setting($uid, array( 'default' => steed_mod_std($uid), 'sanitize_callback' => 'sanitize_text_field', ));
-		$wp_customize->add_control( $uid, array(
+			'settings'   => esc_attr($prefix.'bg_img'),
+			'type'       => 'image',
+		));
+		steed_Kirki::add_field( 'steed', array(
 			'label'      => __('Background Repeat', 'steed'),
 			'section'    => $customize_section_id,
-			'settings'   => $uid,
+			'settings'   => esc_attr($prefix.'bg_repeat'),
 			'type'       => 'select',
 			'choices'    => array(
 				'no-repeat'  => __('No Repeat', 'steed'),
@@ -139,13 +132,10 @@ if(!function_exists('steed_ec_template_customize_section')):
                 'repeat-y'   => __('Tile Vertically', 'steed'),
 			),
 		));
-		
-		$uid = esc_attr($prefix.'bg_attachment');
-		$wp_customize->add_setting($uid, array( 'default' => steed_mod_std($uid), 'sanitize_callback' => 'sanitize_text_field', ));
-		$wp_customize->add_control( $uid, array(
+		steed_Kirki::add_field( 'steed', array(
 			'label'      => __('Background Attachment', 'steed'),
 			'section'    => $customize_section_id,
-			'settings'   => $uid,
+			'settings'   => esc_attr($prefix.'bg_attachment'),
 			'type'       => 'select',
 			'choices'    => array(
 				'scroll'     => __('Scroll', 'steed'),
@@ -153,13 +143,10 @@ if(!function_exists('steed_ec_template_customize_section')):
                 
 			),
 		));
-		
-		$uid = esc_attr($prefix.'bg_position');
-		$wp_customize->add_setting($uid, array( 'default' => steed_mod_std($uid), 'sanitize_callback' => 'sanitize_text_field', ));
-		$wp_customize->add_control( $uid, array(
+		steed_Kirki::add_field( 'steed', array(
 			'label'      => __('Background Position', 'steed'),
 			'section'    => $customize_section_id,
-			'settings'   => $uid,
+			'settings'   => esc_attr($prefix.'bg_position'),
 			'type'       => 'select',
 			'choices'    => array(
 				'left'       => __('Left', 'steed'),
@@ -167,34 +154,26 @@ if(!function_exists('steed_ec_template_customize_section')):
                 'right'      => __('Right', 'steed'),
 			),
 		));
-		$uid = esc_attr($prefix.'bg_size');
-		$wp_customize->add_setting($uid, array( 'default' => steed_mod_std($uid), 'sanitize_callback' => 'sanitize_text_field', ));
-		$wp_customize->add_control( $uid, array(
+		steed_Kirki::add_field( 'steed', array(
 			'label'      => __('Background Size', 'steed'),
 			'section'    => $customize_section_id,
-			'settings'   => $uid,
+			'settings'   => esc_attr($prefix.'bg_size'),
 			'type'       => 'text',
 		));
-		
-		$uid = esc_attr($prefix.'equal_height');
-		$wp_customize->add_setting($uid, array( 'default' => steed_mod_std($uid), 'sanitize_callback' => 'sanitize_text_field', ));
-		$wp_customize->add_control( $uid, array(
+		steed_Kirki::add_field( 'steed', array(
 			'label'      => __('Equal Height', 'steed'),
 			'section'    => $customize_section_id,
-			'settings'   => $uid,
+			'settings'   => esc_attr($prefix.'equal_height'),
 			'type'       => 'select',
 			'choices'    => array(
 				'no' => 'No',
 				'yes' => 'Yes',
 			),
 		));
-		
-		$uid = esc_attr($prefix.'stretch');
-		$wp_customize->add_setting($uid, array( 'default' => steed_mod_std($uid), 'sanitize_callback' => 'sanitize_text_field', ));
-		$wp_customize->add_control( $uid, array(
+		steed_Kirki::add_field( 'steed', array(
 			'label'      => __('Section Stretch', 'steed'),
 			'section'    => $customize_section_id,
-			'settings'   => $uid,
+			'settings'   => esc_attr($prefix.'stretch'),
 			'type'       => 'select',
 			'choices'    => array(
 				'' => 'Default',
@@ -203,110 +182,80 @@ if(!function_exists('steed_ec_template_customize_section')):
 				'stretch_row_content_no_spaces' => 'Stretch row and content (no paddings)',
 			),
 		));
-		
-		$uid = esc_attr($prefix.'css_class');
-		$wp_customize->add_setting($uid, array( 'default' => steed_mod_std($uid), 'sanitize_callback' => 'sanitize_text_field', ));
-		$wp_customize->add_control( $uid, array(
+		steed_Kirki::add_field( 'steed', array(
 			'label'      => __('CSS Class', 'steed'),
 			'section'    => $customize_section_id,
-			'settings'   => $uid,
+			'settings'   => esc_attr($prefix.'css_class'),
 			'type'       => 'text',
 		));
-		
-		$uid = esc_attr($prefix.'css_id');
-		$wp_customize->add_setting($uid, array( 'default' => steed_mod_std($uid), 'sanitize_callback' => 'sanitize_text_field', ));
-		$wp_customize->add_control( $uid, array(
+		steed_Kirki::add_field( 'steed', array(
 			'label'      => __('CSS ID', 'steed'),
 			'section'    => $customize_section_id,
-			'settings'   => $uid,
+			'settings'   => esc_attr($prefix.'css_id'),
 			'type'       => 'text',
 		));
-		
-		$uid = esc_attr($prefix.'content_max_width');
-		$wp_customize->add_setting($uid, array( 'default' => steed_mod_std($uid), 'sanitize_callback' => 'sanitize_text_field', ));
-		$wp_customize->add_control( $uid, array(
+		steed_Kirki::add_field( 'steed', array(
 			'label'      => __('Max Content Width', 'steed'),
 			'section'    => $customize_section_id,
-			'settings'   => $uid,
+			'settings'   => esc_attr($prefix.'content_max_width'),
 			'type'       => 'text',
 		));
-		
-		$uid = esc_attr($prefix.'content_width');
-		$wp_customize->add_setting($uid, array( 'default' => steed_mod_std($uid), 'sanitize_callback' => 'sanitize_text_field', ));
-		$wp_customize->add_control( $uid, array(
+		steed_Kirki::add_field( 'steed', array(
 			'label'      => __('Content Width', 'steed'),
 			'section'    => $customize_section_id,
-			'settings'   => $uid,
+			'settings'   => esc_attr($prefix.'content_width'),
 			'type'       => 'text',
 		));
 		
-		return $wp_customize;
 	}
 endif;
 
 
 if(!function_exists('steed_ec_template_customize_column')):
-	function steed_ec_template_customize_column($wp_customize, $tpl, $section, $column){
+	function steed_ec_template_customize_column($tpl, $section, $column){
 		$prefix = $tpl.'_'.$section['id'].'_'.$column['id'].'_';
 		$customize_panel_id = esc_attr($tpl.'_'.$section['id']);
-		$customize_section_id = esc_attr($tpl.'_'.$section['id'].'_settings');
+		$customize_section_id = esc_attr($tpl.'_'.$section['id'].'_'.$column['id'].'_settings');
+		$column_name = esc_attr($column['title']).__(' Column (Settings)', 'steed');
 		
-		$column_name = esc_attr($column['title']).__(' Column', 'steed');
-		$column_name2 = ' ('.$column_name.')';
+		steed_Kirki::add_section( $customize_section_id, array(
+			'title' => $column_name,
+			'priority' => 10,
+			'panel' => esc_attr($customize_panel_id),
+		));
 		
-		$uid = esc_attr($prefix.'heading');
-		$wp_customize->add_setting($uid, array( 'default' => steed_mod_std($uid), 'sanitize_callback' => 'wp_kses_post', ));
-		$wp_customize->add_control( new steed_Customize_Control_heading( $wp_customize, $uid, array(
-			'label'      => $column_name,
-			'description'	=>__('All Settings of this column are here.', 'steed'),
+		steed_Kirki::add_field( 'steed', array(
+			'label'      => __('Active ', 'steed'),
 			'section'    => $customize_section_id,
-			'settings'   => $uid,
-		)));
-		
-		$uid = esc_attr($prefix.'active');
-		$wp_customize->add_setting($uid, array( 'default' => steed_mod_std($uid, 'yes'), 'sanitize_callback' => 'sanitize_text_field', ));
-		$wp_customize->add_control( $uid, array(
-			'label'      => __('Active ', 'steed').$column_name,
-			'section'    => $customize_section_id,
-			'settings'   => $uid,
-			'type'       => 'radio',
+			'settings'   => esc_attr($prefix.'active'),
+			'type'       => 'select',
 			'choices'    => array(
 				'yes' => 'Yes',
 				'no' => 'No',
 			),
 		));
-		
-		$uid = esc_attr($prefix.'padding');
-		$wp_customize->add_setting($uid, array( 'default' => steed_mod_std($uid), 'sanitize_callback' => 'sanitize_text_field', ));
-		$wp_customize->add_control( $uid, array(
-			'label'      => __('Padding', 'steed').$column_name2,
+		steed_Kirki::add_field( 'steed', array(
+			'label'      => __('Padding', 'steed'),
 			'section'    => $customize_section_id,
-			'settings'   => $uid,
+			'settings'   => esc_attr($prefix.'padding'),
 			'type'       => 'text',
 		));
-		
-		$uid = esc_attr($prefix.'bg_color');
-		$wp_customize->add_setting($uid, array( 'default' => steed_mod_std($uid), 'sanitize_callback' => 'sanitize_hex_color', ));
-		$wp_customize->add_control( new WP_Customize_Color_Control( $wp_customize, $uid, array(
-			'label'      => __('Background Color', 'steed').$column_name2,
+		steed_Kirki::add_field( 'steed', array(
+			'label'      => __('Background Color', 'steed'),
 			'section'    => $customize_section_id,
-			'settings'   => $uid,
-		)));
-		
-		$uid = esc_attr($prefix.'bg_img');
-		$wp_customize->add_setting($uid, array( 'default' => steed_mod_std($uid), 'sanitize_callback' => 'esc_url', ));
-		$wp_customize->add_control( new WP_Customize_Image_Control( $wp_customize, $uid, array(
-			'label'      => __('Background Image', 'steed').$column_name2,
+			'settings'   => esc_attr($prefix.'bg_color'),
+			'type'       => 'color',
+		));
+		steed_Kirki::add_field( 'steed', array(
+			'label'      => __('Background Image', 'steed'),
 			'section'    => $customize_section_id,
-			'settings'   => $uid,
-		)));
-		
-		$uid = esc_attr($prefix.'bg_repeat');
-		$wp_customize->add_setting($uid, array( 'default' => steed_mod_std($uid), 'sanitize_callback' => 'sanitize_text_field', ));
-		$wp_customize->add_control( $uid, array(
-			'label'      => __('Background Repeat', 'steed').$column_name2,
+			'settings'   => esc_attr($prefix.'bg_img'),
+			'type'       => 'image',
+		));
+		steed_Kirki::add_field( 'steed', array(
+			'label'      => __('Background Repeat', 'steed'),
 			'section'    => $customize_section_id,
-			'settings'   => $uid,
+			'settings'   => esc_attr($prefix.'bg_repeat'),
 			'type'       => 'select',
 			'choices'    => array(
 				'no-repeat'  => __('No Repeat', 'steed'),
@@ -315,13 +264,10 @@ if(!function_exists('steed_ec_template_customize_column')):
                 'repeat-y'   => __('Tile Vertically', 'steed'),
 			),
 		));
-		
-		$uid = esc_attr($prefix.'bg_attachment');
-		$wp_customize->add_setting($uid, array( 'default' => steed_mod_std($uid), 'sanitize_callback' => 'sanitize_text_field', ));
-		$wp_customize->add_control( $uid, array(
-			'label'      => __('Background Attachment', 'steed').$column_name2,
+		steed_Kirki::add_field( 'steed', array(
+			'label'      => __('Background Attachment', 'steed'),
 			'section'    => $customize_section_id,
-			'settings'   => $uid,
+			'settings'   => esc_attr($prefix.'bg_attachment'),
 			'type'       => 'select',
 			'choices'    => array(
 				'scroll'     => __('Scroll', 'steed'),
@@ -329,13 +275,10 @@ if(!function_exists('steed_ec_template_customize_column')):
                 
 			),
 		));
-		
-		$uid = esc_attr($prefix.'bg_position');
-		$wp_customize->add_setting($uid, array( 'default' => steed_mod_std($uid), 'sanitize_callback' => 'sanitize_text_field', ));
-		$wp_customize->add_control( $uid, array(
-			'label'      => __('Background Position', 'steed').$column_name2,
+		steed_Kirki::add_field( 'steed', array(
+			'label'      => __('Background Position', 'steed'),
 			'section'    => $customize_section_id,
-			'settings'   => $uid,
+			'settings'   => esc_attr($prefix.'bg_position'),
 			'type'       => 'select',
 			'choices'    => array(
 				'left'       => __('Left', 'steed'),
@@ -343,41 +286,28 @@ if(!function_exists('steed_ec_template_customize_column')):
                 'right'      => __('Right', 'steed'),
 			),
 		));
-		$uid = esc_attr($prefix.'bg_size');
-		$wp_customize->add_setting($uid, array( 'default' => steed_mod_std($uid), 'sanitize_callback' => 'sanitize_text_field', ));
-		$wp_customize->add_control( $uid, array(
-			'label'      => __('Background Size', 'steed').$column_name2,
+		steed_Kirki::add_field( 'steed', array(
+			'label'      => __('Background Size', 'steed'),
 			'section'    => $customize_section_id,
-			'settings'   => $uid,
+			'settings'   => esc_attr($prefix.'bg_size'),
 			'type'       => 'text',
 		));
-		
-		$uid = esc_attr($prefix.'css_class');
-		$wp_customize->add_setting($uid, array( 'default' => steed_mod_std($uid), 'sanitize_callback' => 'sanitize_text_field', ));
-		$wp_customize->add_control( $uid, array(
-			'label'      => __('CSS Class', 'steed').$column_name2,
+		steed_Kirki::add_field( 'steed', array(
+			'label'      => __('CSS Class', 'steed'),
 			'section'    => $customize_section_id,
-			'settings'   => $uid,
+			'settings'   => esc_attr($prefix.'css_class'),
 			'type'       => 'text',
 		));
-		
-		$uid = esc_attr($prefix.'css_id');
-		$wp_customize->add_setting($uid, array( 'default' => steed_mod_std($uid), 'sanitize_callback' => 'sanitize_text_field', ));
-		$wp_customize->add_control( $uid, array(
-			'label'      => __('CSS ID', 'steed').$column_name2,
+		steed_Kirki::add_field( 'steed', array(
+			'label'      => __('CSS ID', 'steed'),
 			'section'    => $customize_section_id,
-			'settings'   => $uid,
+			'settings'   => esc_attr($prefix.'css_id'),
 			'type'       => 'text',
 		));
-		
-		
-		
-		$uid = esc_attr($prefix.'col');
-		$wp_customize->add_setting($uid, array( 'default' => steed_mod_std($uid), 'sanitize_callback' => 'sanitize_text_field', ));
-		$wp_customize->add_control( $uid, array(
-			'label'      => __('Column Layout ', 'steed').$column_name2,
+		steed_Kirki::add_field( 'steed', array(
+			'label'      => __('Column Layout ', 'steed'),
 			'section'    => $customize_section_id,
-			'settings'   => $uid,
+			'settings'   => esc_attr($prefix.'col'),
 			'type'       => 'select',
 			'choices'    => array(
 				1 => '1',
@@ -394,8 +324,6 @@ if(!function_exists('steed_ec_template_customize_column')):
 				12 => '12',
 			),
 		));
-		
-		return $wp_customize;
 	}
 endif;
 
@@ -404,82 +332,101 @@ endif;
 	Slideshow
 -----------------------------------*/
 if(!function_exists('steed_ec_slideshow_customize')):
-	function steed_ec_slideshow_customize($wp_customize, $tpl, $section, $column, $block){
+	function steed_ec_slideshow_customize($tpl, $section, $column, $block){
 		
 		$prefix = $tpl.'_'.$section['id'].'_'.$column['id'].'_'.$block['id'].'_slideshow_';
 		$customize_panel_id = esc_attr($tpl.'_'.$section['id']);
 		$customize_section_id = esc_attr($tpl.'_'.$section['id'].'_'.$column['id'].'_'.$block['id'].'_slideshow_');
 		
-		$items = array('post_1', 'post_2', 'post_3', 'post_4', 'post_5', 'post_6', 'post_7', 'post_8', 'post_9', 'post_10');
-		
-		$wp_customize->add_section( $customize_section_id, array(
-			'title' => esc_attr($block['title']),
+		steed_Kirki::add_section( $customize_section_id, array(
+			'title' => esc_attr($block['title'].' (Content)'),
 			'priority' => 10,
 			'panel' => esc_attr($customize_panel_id),
 		));
-		
-		
-		$uid = esc_attr($prefix.'active');
-		$wp_customize->add_setting($uid, array( 'default' => steed_mod_std($uid), 'sanitize_callback' => 'sanitize_text_field', ));
-		$wp_customize->add_control( $uid, array(
+		steed_Kirki::add_field( 'steed', array(
 			'label'      => __('Active ', 'steed'),
 			'section'    => $customize_section_id,
-			'settings'   => $uid,
-			'type'       => 'radio',
+			'settings'   => esc_attr($prefix.'active'),
+			'type'       => 'select',
 			'choices'    => array(
 				'yes' => 'Yes',
 				'no' => 'No',
 			),
 		));
-		
-		foreach($items as $key => $item){
-			$uid = esc_attr($prefix.$item);
-			$wp_customize->add_setting($uid, array( 'default' => steed_mod_std($uid), 'sanitize_callback' => 'sanitize_text_field', ));
-			$wp_customize->add_control( $uid, array(
-				'label'      => __('Select a Page for Slide # ', 'steed') . ($key + 1),
-				'section'    => $customize_section_id,
-				'settings'   => $uid,
-				'type'       => 'dropdown-pages',
-			));
-		}
-		
-		$uid = esc_attr($prefix.'image_size');
-		$wp_customize->add_setting($uid, array( 'default' => steed_mod_std($uid), 'sanitize_callback' => 'sanitize_text_field', ));
-		$wp_customize->add_control( $uid, array(
+		steed_Kirki::add_field( 'steed', array(
+			'label'      => __('Slide Items', 'steed') . ($key + 1),
+			'section'    => $customize_section_id,
+			'settings'   => esc_attr($prefix.'items'),
+			'type'       => 'repeater',
+			'fields' => array(
+				'image' => array(
+					'type'        => 'image',
+					'label'       => esc_attr__( 'Image', 'steed' ),
+					'description' => '',
+					'default'     => '',
+				),
+				'title' => array(
+					'type'        => 'text',
+					'label'       => esc_attr__( 'Title', 'steed' ),
+					'description' => '',
+					'default'     => '',
+				),
+				'des' => array(
+					'type'        => 'textarea',
+					'label'       => esc_attr__( 'Description', 'steed' ),
+					'description' => '',
+					'default'     => '',
+				),
+				'button_1' => array(
+					'type'        => 'text',
+					'label'       => esc_attr__( 'Button #1 Text', 'steed' ),
+					'description' => '',
+					'default'     => '',
+				),
+				'link_1' => array(
+					'type'        => 'text',
+					'label'       => esc_attr__( 'Button #1 Link', 'steed' ),
+					'description' => '',
+					'default'     => '',
+				),
+				'button_2' => array(
+					'type'        => 'text',
+					'label'       => esc_attr__( 'Button #2 Text', 'steed' ),
+					'description' => '',
+					'default'     => '',
+				),
+				'link_2' => array(
+					'type'        => 'text',
+					'label'       => esc_attr__( 'Button #2 Link', 'steed' ),
+					'description' => '',
+					'default'     => '',
+				),
+			)
+		));
+		steed_Kirki::add_field( 'steed', array(
 			'label'      => __('Image Size', 'steed'),
 			'section'    => $customize_section_id,
-			'settings'   => $uid,
+			'settings'   => esc_attr($prefix.'image_size'),
 			'type'       => 'text',
 		));
-		
-		$uid = esc_attr($prefix.'height');
-		$wp_customize->add_setting($uid, array( 'default' => steed_mod_std($uid), 'sanitize_callback' => 'sanitize_text_field', ));
-		$wp_customize->add_control( $uid, array(
+		steed_Kirki::add_field( 'steed', array(
 			'label'      => __('Max Height', 'steed'),
 			'section'    => $customize_section_id,
-			'settings'   => $uid,
+			'settings'   => esc_attr($prefix.'height'),
 			'type'       => 'text',
 		));
-		
-		$uid = esc_attr($prefix.'css_class');
-		$wp_customize->add_setting($uid, array( 'default' => steed_mod_std($uid), 'sanitize_callback' => 'sanitize_text_field', ));
-		$wp_customize->add_control( $uid, array(
+		steed_Kirki::add_field( 'steed', array(
 			'label'      => __('CSS Class', 'steed'),
 			'section'    => $customize_section_id,
-			'settings'   => $uid,
+			'settings'   => esc_attr($prefix.'css_class'),
 			'type'       => 'text',
 		));
-		
-		$uid = esc_attr($prefix.'css_id');
-		$wp_customize->add_setting($uid, array( 'default' => steed_mod_std($uid), 'sanitize_callback' => 'sanitize_text_field', ));
-		$wp_customize->add_control( $uid, array(
+		steed_Kirki::add_field( 'steed', array(
 			'label'      => __('CSS ID', 'steed'),
 			'section'    => $customize_section_id,
-			'settings'   => $uid,
+			'settings'   => esc_attr($prefix.'css_id'),
 			'type'       => 'text',
 		));
-		
-		return $wp_customize;
 	}
 endif;
 
@@ -488,47 +435,37 @@ endif;
 	Text
 -----------------------------------*/
 if(!function_exists('steed_ec_text_customize')):
-	function steed_ec_text_customize($wp_customize, $tpl, $section, $column, $block){
+	function steed_ec_text_customize($tpl, $section, $column, $block){
 		
 		$prefix = $tpl.'_'.$section['id'].'_'.$column['id'].'_'.$block['id'].'_text_';
 		$customize_panel_id = esc_attr($tpl.'_'.$section['id']);
 		$customize_section_id = esc_attr($tpl.'_'.$section['id'].'_'.$column['id'].'_'.$block['id'].'_text_');
 		
-		$wp_customize->add_section( $customize_section_id, array(
-			'title' => esc_attr($block['title']),
+		steed_Kirki::add_section( $customize_section_id, array(
+			'title' => esc_attr($block['title'].' (Content)'),
 			'priority' => 10,
 			'panel' => esc_attr($customize_panel_id),
 		));
-		
-		
-		$uid = esc_attr($prefix.'active');
-		$wp_customize->add_setting($uid, array( 'default' => steed_mod_std($uid), 'sanitize_callback' => 'sanitize_text_field', ));
-		$wp_customize->add_control( $uid, array(
+		steed_Kirki::add_field( 'steed', array(
 			'label'      => __('Active ', 'steed'),
 			'section'    => $customize_section_id,
-			'settings'   => $uid,
-			'type'       => 'radio',
+			'settings'   => esc_attr($prefix.'active'),
+			'type'       => 'select',
 			'choices'    => array(
 				'yes' => 'Yes',
 				'no' => 'No',
 			),
 		));
-		
-		$uid = esc_attr($prefix.'post');
-			$wp_customize->add_setting($uid, array( 'default' => steed_mod_std($uid), 'sanitize_callback' => 'sanitize_text_field', ));
-			$wp_customize->add_control( $uid, array(
-				'label'      => __('Select a Page', 'steed'),
-				'section'    => $customize_section_id,
-				'settings'   => $uid,
-				'type'       => 'dropdown-pages',
+		steed_Kirki::add_field( 'steed', array(
+			'label'      => __('Text Content', 'steed'),
+			'section'    => $customize_section_id,
+			'settings'   => esc_attr($prefix.'post'),
+			'type'       => 'textarea',
 		));
-		
-		$uid = esc_attr($prefix.'align');
-		$wp_customize->add_setting($uid, array( 'default' => steed_mod_std($uid, 'no'), 'sanitize_callback' => 'sanitize_text_field', ));
-		$wp_customize->add_control( $uid, array(
+		steed_Kirki::add_field( 'steed', array(
 			'label'      => __('Align ', 'steed'),
 			'section'    => $customize_section_id,
-			'settings'   => $uid,
+			'settings'   => esc_attr($prefix.'align'),
 			'type'       => 'select',
 			'choices'    => array(
 				'left' => 'Left',
@@ -537,31 +474,22 @@ if(!function_exists('steed_ec_text_customize')):
 				'none' => 'None',
 			),
 		));
-		
-		$uid = esc_attr($prefix.'css_class');
-		$wp_customize->add_setting($uid, array( 'default' => steed_mod_std($uid), 'sanitize_callback' => 'sanitize_text_field', ));
-		$wp_customize->add_control( $uid, array(
+		steed_Kirki::add_field( 'steed', array(
 			'label'      => __('CSS Class', 'steed'),
 			'section'    => $customize_section_id,
-			'settings'   => $uid,
+			'settings'   => esc_attr($prefix.'css_class'),
 			'type'       => 'text',
 		));
-		
-		$uid = esc_attr($prefix.'css_id');
-		$wp_customize->add_setting($uid, array( 'default' => steed_mod_std($uid), 'sanitize_callback' => 'sanitize_text_field', ));
-		$wp_customize->add_control( $uid, array(
+		steed_Kirki::add_field( 'steed', array(
 			'label'      => __('CSS ID', 'steed'),
 			'section'    => $customize_section_id,
-			'settings'   => $uid,
+			'settings'   => esc_attr($prefix.'css_id'),
 			'type'       => 'text',
 		));
-		
-		$uid = esc_attr($prefix.'color_type');
-		$wp_customize->add_setting($uid, array( 'default' => steed_mod_std($uid), 'sanitize_callback' => 'sanitize_text_field', ));
-		$wp_customize->add_control( $uid, array(
+		steed_Kirki::add_field( 'steed', array(
 			'label'      => __('Color Type ', 'steed'),
 			'section'    => $customize_section_id,
-			'settings'   => $uid,
+			'settings'   => esc_attr($prefix.'color_type'),
 			'type'       => 'select',
 			'choices'    => array(
 				'none' => 'None',
@@ -569,7 +497,10 @@ if(!function_exists('steed_ec_text_customize')):
 				'light' => 'Light',
 			),
 		));
-		
-		return $wp_customize;
 	}
 endif;
+
+
+//if($steed_ec_get_tpl == 'home'){
+	steed_ec_template_customize_build('home');
+//}
