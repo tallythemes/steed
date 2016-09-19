@@ -119,8 +119,8 @@ function steed_widgets_init() {
 		'description'   => esc_html__( 'Add widgets here.', 'steed' ),
 		'before_widget' => '<section id="%1$s" class="widget %2$s">',
 		'after_widget'  => '</section>',
-		'before_title'  => '<h2 class="widget-title">',
-		'after_title'   => '</h2>',
+		'before_title'  => '<h4 class="widget-title">',
+		'after_title'   => '</h4>',
 	));
 	register_sidebar( array(
 		'name'          => esc_html__( 'Header', 'steed' ),
@@ -128,8 +128,8 @@ function steed_widgets_init() {
 		'description'   => esc_html__( 'Add widgets here.', 'steed' ),
 		'before_widget' => '<section id="%1$s" class="widget %2$s">',
 		'after_widget'  => '</section>',
-		'before_title'  => '<h2 class="widget-title">',
-		'after_title'   => '</h2>',
+		'before_title'  => '<h4 class="widget-title">',
+		'after_title'   => '</h4>',
 	));
 	register_sidebar( array(
 		'name'          => esc_html__( 'Footer 1', 'steed' ),
@@ -137,8 +137,8 @@ function steed_widgets_init() {
 		'description'   => esc_html__( 'Add widgets here.', 'steed' ),
 		'before_widget' => '<section id="%1$s" class="widget %2$s">',
 		'after_widget'  => '</section>',
-		'before_title'  => '<h2 class="widget-title">',
-		'after_title'   => '</h2>',
+		'before_title'  => '<h4 class="widget-title">',
+		'after_title'   => '</h4>',
 	));
 	register_sidebar( array(
 		'name'          => esc_html__( 'Footer 2', 'steed' ),
@@ -146,8 +146,8 @@ function steed_widgets_init() {
 		'description'   => esc_html__( 'Add widgets here.', 'steed' ),
 		'before_widget' => '<section id="%1$s" class="widget %2$s">',
 		'after_widget'  => '</section>',
-		'before_title'  => '<h2 class="widget-title">',
-		'after_title'   => '</h2>',
+		'before_title'  => '<h4 class="widget-title">',
+		'after_title'   => '</h4>',
 	));
 	register_sidebar( array(
 		'name'          => esc_html__( 'Footer 3', 'steed' ),
@@ -155,8 +155,8 @@ function steed_widgets_init() {
 		'description'   => esc_html__( 'Add widgets here.', 'steed' ),
 		'before_widget' => '<section id="%1$s" class="widget %2$s">',
 		'after_widget'  => '</section>',
-		'before_title'  => '<h2 class="widget-title">',
-		'after_title'   => '</h2>',
+		'before_title'  => '<h4 class="widget-title">',
+		'after_title'   => '</h4>',
 	));
 	register_sidebar( array(
 		'name'          => esc_html__( 'Header Social Icon', 'steed' ),
@@ -164,8 +164,8 @@ function steed_widgets_init() {
 		'description'   => esc_html__( 'Add a widget that show social icon', 'steed' ),
 		'before_widget' => '<section id="%1$s" class="widget %2$s">',
 		'after_widget'  => '</section>',
-		'before_title'  => '<h2 class="widget-title">',
-		'after_title'   => '</h2>',
+		'before_title'  => '<h4 class="widget-title">',
+		'after_title'   => '</h4>',
 	));
 }
 add_action( 'widgets_init', 'steed_widgets_init' );
@@ -204,11 +204,6 @@ function steed_scripts() {
 	wp_register_script( 'imagesloaded', get_template_directory_uri() . '/assets/imagesloaded/imagesloaded.pkgd.min.js', array('jquery'), '4.1.0', true );
 	wp_enqueue_script( 'imagesloaded');
 	
-	wp_register_style( 'steed-ec', get_template_directory_uri() . '/assets/css/ec.css', array(), '1.0' );
-	wp_enqueue_style( 'steed-ec');
-	wp_register_script( 'steed-ec', get_template_directory_uri() . '/assets/js/ec.js', array('jquery', 'owl-carousel', 'imagesloaded', 'jquery-masonry', 'magnific-popup'), '1.0', true );
-	wp_enqueue_script( 'steed-ec');
-	
 	wp_register_script( 'steed-skip-link-focus-fix', get_template_directory_uri() . '/assets/js/skip-link-focus-fix.js', array(), '1.0', true );
 	wp_enqueue_script( 'steed-skip-link-focus-fix' );
 	
@@ -229,12 +224,6 @@ function steed_custom_scripts(){
 }
 add_action( 'wp_enqueue_scripts', 'steed_custom_scripts', 11 );
 
-/**
- * kirki-helpers 
- */
-require get_template_directory() . '/includes/kirki-helpers/include-kirki.php';
-require get_template_directory() . '/includes/kirki-helpers/class-my-theme-kirki.php';
-
 
 /**
  * Custom template tags for this theme.
@@ -246,15 +235,6 @@ require get_template_directory() . '/includes/php/template-tags.php';
  */
 require get_template_directory() . '/includes/php/extras.php';
 
-/**
- * Extra Content customize functions are here
- */
-require get_template_directory() . '/includes/php/ec-customize.php';
-
-/**
- * Extra Content HTML functions are here
- */
-require get_template_directory() . '/includes/php/ec-html.php';
 
 /**
  * Customizer additions.

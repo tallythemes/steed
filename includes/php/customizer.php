@@ -46,26 +46,3 @@ function steed_customizer_button_set(){
 	) );
 }
 add_action( 'customize_controls_enqueue_scripts', 'steed_customizer_button_set' );
-
-
-if( class_exists( 'WP_Customize_Control' ) ):
-	class steed_Customize_Control_heading extends WP_Customize_Control {
-		
-		public $label;
-		public $description;
-		
-		public function render_content(){
-			$description = wp_kses_post( $this->description );
-			$label = wp_kses_post( $this->label );
-			?>
-            <div class="tally_Customize_Control_heading" style="padding: 10px 15px; border: 1px solid #080808; background-color: #080808; margin-left: -12px;
-    margin-right: -12px; border-left: 0; border-right: 0; margin-bottom: 10px; margin-top: 20px; color: #fff;">
-              	<?php
-					if($label){ echo '<h4 style="margin-bottom: 0; margin-top: 0; font-size: 16px; font-weight: bold;">'.$label.'</h4>'; }
-					if($description){ echo '<p style="margin-bottom: 0; margin-top: 2px;">'.$description.'</p>'; }
-				?>
-            </div>
-            <?php
-		}
-	}
-endif;

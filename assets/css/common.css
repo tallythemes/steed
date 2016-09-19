@@ -1497,10 +1497,6 @@ a:active {
 #comments {
     position: relative;
     margin-bottom: 30px;
-    border-bottom: 3px double #D6D6D6;
-	padding: 22px 25px 20px;
-    background: #fff;
-    box-shadow: 0px 0px 2px rgba(0,0,0,0.1);
 }
 .comments-title {
     margin-bottom: 25px;
@@ -1812,6 +1808,9 @@ object {
 .site-content.full-width{
 	padding-bottom:0;
 	padding-top:0;	
+}
+.no-padding{
+	padding:0 !important;	
 }
 
 .left-sidebar #primary{

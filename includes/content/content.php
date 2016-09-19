@@ -15,6 +15,8 @@
             <?php the_post_thumbnail('large'); ?>
         </div>
     <?php endif; ?>
+    
+    <?php if ( !is_single() ) : ?>
 	<header class="entry-header">
 		<?php
 		if ( !is_single() ) :
@@ -28,6 +30,7 @@
 		<?php
 		endif; ?>
 	</header><!-- .entry-header -->
+    <?php endif; ?>
 
 	<div class="entry-content">
 		<?php
