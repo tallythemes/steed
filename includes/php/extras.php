@@ -160,3 +160,282 @@ function steed_custom_css(){
 	
 	return $css;
 }
+
+
+
+if ( ! function_exists( 'steed_element_menu' ) ) :
+	function steed_element_menu($settings) {
+		wp_nav_menu( array( 'theme_location' => $settings['theme_location'], 'menu_id' => $settings['menu_id'] ) );
+	}
+endif;
+
+
+if ( ! function_exists( 'steed_element_menuHand' ) ) :
+	function steed_element_menuHand($settings) {
+		echo '<a href="#'.$settings['menu_id'].'" class="responsive-menu-hand"><i class="fa fa-align-justify"></i></a>';
+	}
+endif;
+
+
+if ( ! function_exists( 'steed_element_ResponsiveMenu' ) ) :
+	function steed_element_ResponsiveMenu($settings) {
+		echo '<div class="responsive-menu">';
+			echo '<a href="#" class="responsive-menu-close"><i class="fa fa-close"></i></a>';
+		echo '</div>';
+	}
+endif;
+
+
+if ( ! function_exists( 'steed_element_socialIcons' ) ) :
+	function steed_element_socialIcons($the_prefix) {
+		$prefix = esc_attr($the_prefix);
+		$icon_1 = get_theme_mod($prefix.'social_icon_1', 'fa-facebook');
+		$text_1 = esc_url(get_theme_mod($prefix.'social_text_1', '#'));
+		$icon_2 = get_theme_mod($prefix.'social_icon_2', 'fa-twitter');
+		$text_2 = esc_url(get_theme_mod($prefix.'social_text_2', '#'));
+		$icon_3 = get_theme_mod($prefix.'social_icon_3', 'fa-linkedin');
+		$text_3 = esc_url(get_theme_mod($prefix.'social_text_3', '#'));
+		$icon_4 = get_theme_mod($prefix.'social_icon_4', '');
+		$text_4 = esc_url(get_theme_mod($prefix.'social_text_4', ''));
+		$icon_5 = get_theme_mod($prefix.'social_icon_5', '');
+		$text_5 = esc_url(get_theme_mod($prefix.'social_text_5', ''));
+		$icon_6 = get_theme_mod($prefix.'social_icon_6', '');
+		$text_6 = esc_url(get_theme_mod($prefix.'social_text_6', ''));
+		
+		?>
+        <div class="social-icons">
+			<?php if(!empty($icon_1) && !empty($text_1)): ?>
+				<a href="<?php echo $text_1; ?>" rel="nofollow">
+					<?php
+						if(strpos($icon_1, 'fa') !== false){
+							echo '<i class="fa '.esc_attr($icon_1).'"></i>';	
+						}else{
+							echo '<img src="'.esc_url($icon_1).'" alt="">';	
+						}
+					?>
+				</a>
+			<?php endif; ?>
+			<?php if(!empty($icon_2) && !empty($text_2)): ?>
+				<a href="<?php echo $text_2; ?>" rel="nofollow">
+					<?php
+						if(strpos($icon_2, 'fa-') !== false){
+							echo '<i class="fa '.esc_attr($icon_2).'"></i>';	
+						}else{
+							echo '<img src="'.esc_url($icon_2).'" alt="">';	
+						}
+					?>
+				</a>
+			<?php endif; ?>
+			<?php if(!empty($icon_3) && !empty($text_3)): ?>
+				<a href="<?php echo $text_3; ?>" rel="nofollow">
+					<?php
+						if(strpos($icon_3, 'fa-') !== false){
+							echo '<i class="fa '.esc_attr($icon_3).'"></i>';	
+						}else{
+							echo '<img src="'.esc_url($icon_3).'" alt="">';	
+						}
+					?>
+				</a>
+			<?php endif; ?>
+			<?php if(!empty($icon_4) && !empty($text_4)): ?>
+				<a href="<?php echo $text_4; ?>" rel="nofollow">
+					<?php
+						if(strpos($icon_4, 'fa-') !== false){
+							echo '<i class="fa '.esc_attr($icon_4).'"></i>';	
+						}else{
+							echo '<img src="'.esc_url($icon_4).'" alt="">';	
+						}
+					?>
+				</a>
+			<?php endif; ?>
+			<?php if(!empty($icon_5) && !empty($text_5)): ?>
+				<a href="<?php echo $text_5; ?>" rel="nofollow">
+					<?php
+						if(strpos($icon_5, 'fa-') !== false){
+							echo '<i class="fa '.esc_attr($icon_5).'"></i>';	
+						}else{
+							echo '<img src="'.esc_url($icon_5).'" alt="">';	
+						}
+					?>
+				</a>
+			<?php endif; ?>
+			<?php if(!empty($icon_6) && !empty($text_6)): ?>
+				<a href="<?php echo $text_6; ?>" rel="nofollow">
+					<?php
+						if(strpos($icon_6, 'fa-') !== false){
+							echo '<i class="fa '.esc_attr($icon_6).'"></i>';	
+						}else{
+							echo '<img src="'.esc_url($icon_6).'" alt="">';	
+						}
+					?>
+				</a>
+			<?php endif; ?>
+		</div>
+        <?php
+	}
+endif;
+
+if ( ! function_exists( 'steed_element_text' ) ) :
+	function steed_element_text($prefix) {
+		$active = get_theme_mod($prefix.'active', '');
+		$text = get_theme_mod($prefix.'text', '');
+		
+		if(esc_attr($active) == 'yes'){
+
+			/* Security Check for Text */
+			if(preg_match("/^[0-9]{3}-[0-9]{4}-[0-9]{4}$/", $text)){
+				$the_text = '<a href="tel:'.esc_attr($text).'">'.esc_attr($text).'</a>';
+			}
+			elseif(filter_var($text, FILTER_VALIDATE_EMAIL)){
+				$the_text = '<a href="mailto:'.esc_attr($text).'">'.esc_attr($text).'</a>';
+			}
+			else{
+				$the_text = wp_kses_post($line1);
+			}
+			
+			if(esc_attr($text) != ''){
+			echo '<div class="elementText">';
+				echo '<div class="elementText_in">';
+					echo $the_text;
+				echo '</div>';
+			echo '</div>';
+			}
+		}
+	}
+endif;
+
+
+if ( ! function_exists( 'steed_element_iconText' ) ) :
+	function steed_element_iconText($prefix) {
+		$active = get_theme_mod($prefix.'active', '');
+		$icon = get_theme_mod($prefix.'icon', '');
+		$line1 = get_theme_mod($prefix.'line1', '');
+		$line2 = get_theme_mod($prefix.'line2', '');
+		
+		if(esc_attr($active) == 'yes'){
+			$the_icon = $icon;
+			$the_line1 = $line1;
+			$the_line2 = $line2;
+			
+			/* Security Check for icon */
+			if(strpos($icon, 'fa-') !== false){
+				$the_icon = '<i class="fa '.esc_attr($icon).'"></i>';;
+			}
+			elseif(!filter_var($icon, FILTER_VALIDATE_URL) === false){
+				$the_icon = '<img src="'.esc_url($icon).'" alt="">';
+			}
+			else{
+				$the_icon = wp_kses_post($icon);
+			}
+			
+			/* Security Check for Line1 */
+			if(preg_match("/^[0-9]{3}-[0-9]{4}-[0-9]{4}$/", $line1)){
+				$the_line1 = '<a href="tel:'.esc_attr($line1).'">'.esc_attr($line1).'</a>';
+			}
+			elseif(filter_var($line1, FILTER_VALIDATE_EMAIL)){
+				$the_line1 = '<a href="mailto:'.esc_attr($line1).'">'.esc_attr($line1).'</a>';
+			}
+			else{
+				$the_line1 = wp_kses_post($line1);
+			}
+			
+			/* Security Check for Line2 */
+			if(preg_match("/^[0-9]{3}-[0-9]{4}-[0-9]{4}$/", $line2)){
+				$the_line2 = '<a href="tel:'.esc_attr($line2).'">'.esc_attr($line2).'</a>';
+			}
+			elseif(filter_var($line2, FILTER_VALIDATE_EMAIL)){
+				$the_line2 = '<a href="mailto:'.esc_attr($line2).'">'.esc_attr($line2).'</a>';
+			}
+			else{
+				$the_line2 = wp_kses_post($line2);
+			}
+			
+			$line_check_class = ((esc_attr($line1) != '') && (esc_attr($line2) != '')) ? 'both_line' : 'single_line';
+			$icon_check_class = (esc_attr($icon) != '') ? 'has_icon' : 'no_icon';
+			
+			echo '<div class="iconText '.$icon_check_class.' '.$line_check_class.'">';
+				echo '<div class="iconText_in">';
+					if(esc_attr($icon) != ''){
+					echo '<div class="iconText_icon">';
+						echo $the_icon;
+					echo '</div>';
+					}
+					if((esc_attr($line1) != '') || (esc_attr($line2) != '')){
+					echo '<div class="iconText_content">';
+						if(esc_attr($line1) != ''){
+						echo '<strong>'.$the_line1.'</strong>';
+						}
+						if(esc_attr($line2) != ''){
+						echo '<span>'.$the_line2.'</span>';
+						}
+					echo '</div>';
+					}
+				echo '</div>';
+			echo '</div>';
+		}
+	}
+endif;
+
+
+if ( ! function_exists( 'steed_element_searchBar' ) ) :
+	function steed_element_searchBar() {
+		
+	}
+endif;
+
+
+if ( ! function_exists( 'steed_element_searchIcon' ) ) :
+	function steed_element_searchIcon() {
+		
+	}
+endif;
+
+
+if ( ! function_exists( 'steed_element_hamburgerMenu' ) ) :
+	function steed_element_hamburgerMenu() {
+		
+	}
+endif;
+
+
+if ( ! function_exists( 'steed_element_loginRegister' ) ) :
+	function steed_element_loginRegister() {
+		
+	}
+endif;
+
+
+if ( ! function_exists( 'steed_element_shoppingBag' ) ) :
+	function steed_element_shoppingBag() {
+		
+	}
+endif;
+
+
+if ( ! function_exists( 'steed_element_button' ) ) :
+	function steed_element_button() {
+		
+	}
+endif;
+
+
+if ( ! function_exists( 'steed_element_widget' ) ) :
+	function steed_element_widget() {
+		
+	}
+endif;
+
+
+if ( ! function_exists( 'steed_element_copyText' ) ) :
+	function steed_element_copyText() {
+		
+	}
+endif;
+
+
+
+if ( ! function_exists( 'steed_element_creditText' ) ) :
+	function steed_element_creditText() {
+		
+	}
+endif;

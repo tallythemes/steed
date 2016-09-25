@@ -229,3 +229,70 @@ if ( ! function_exists( 'steed_custom_logo' ) ) :
 		echo wp_kses($output, wp_kses_allowed_html( 'post' ));
 	}
 endif;
+
+
+function steed_site_part_html_render($name){
+	$configs = apply_filters('steed_site_part_render_'.$name, array());
+	$prefix = $configs['prefix'];
+	$title = $configs['title'];
+	$class = $configs['class'];
+	$div_id = $configs['div_id'];
+	
+	echo '<div class="'.$section['class'].'">';
+		echo '<div class="'.$section['class_in'].'">';
+			foreach($configs['section'] as $s_key => $section){
+				echo '<div class="'.$section['class'].'">';
+					echo '<div class="'.$section['class_in'].'">';
+						foreach($section['items'] as $i_key =>  $item){
+							echo '<div class="'.$item['class'].'">';
+								echo '<div class="'.$item['class_in'].'">';
+									foreach($config['elements'] as $e_key =>  $element){
+										$function = 'steed_element_'.$element['fn'];
+										$e_prefix = $prefix.$section['prefix'].$item['prefix'].$element['prefix'];
+										if(function_exists($function)){
+											$function($prefix, $e_prefix['settings']);
+										}
+									}
+								echo '</div>';
+							echo '</div>';
+						}
+					echo '</div>';
+				echo '</div>';
+			}
+		echo '</div>';
+	echo '</div>';
+}
+
+function steed_site_part_customize_render($wp_customize){
+	$configs = apply_filters('steed_site_part_render_'.$name, array());
+	$prefix = $configs['prefix'];
+	$title = $configs['title'];
+	
+	$wp_customize->add_panel( $prefix.'panel', array(
+		'title' => $title.' Settings',
+		'priority' => 10,
+	));
+	
+	foreach($configs['section'] as $section){
+		
+		$section_prefix_id = $prefix.$section['prefix'].'settings';
+		
+		$wp_customize->add_section( $section_prefix_id, array(
+			'title' => $section['title'],
+			'priority' => 10,
+			'panel' => $prefix.'panel',
+		));
+		
+		foreach($section['items'] as $item){
+			foreach($config['elements'] as $element){
+				$function = 'steed_element_customize_'.$element['fn'];
+				$e_prefix = $prefix.$section['prefix'].$item['prefix'].$element['prefix'];
+				if(function_exists($function)){
+					$function($e_prefix, $section_prefix_id, $element['settings'], $wp_customize);
+				}
+			}
+		}
+	}
+	
+	return $wp_customize;	
+}
