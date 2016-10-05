@@ -164,7 +164,7 @@ function steed_custom_css(){
 
 
 if ( ! function_exists( 'steed_element_menu' ) ) :
-	function steed_element_menu($settings) {
+	function steed_element_menu($prefix, $settings) {
 		wp_nav_menu( array( 'theme_location' => $settings['theme_location'], 'menu_id' => $settings['menu_id'] ) );
 	}
 endif;
@@ -200,8 +200,7 @@ if ( ! function_exists( 'steed_element_socialIcons' ) ) :
 		$icon_5 = get_theme_mod($prefix.'social_icon_5', '');
 		$text_5 = esc_url(get_theme_mod($prefix.'social_text_5', ''));
 		$icon_6 = get_theme_mod($prefix.'social_icon_6', '');
-		$text_6 = esc_url(get_theme_mod($prefix.'social_text_6', ''));
-		
+		$text_6 = esc_url(get_theme_mod($prefix.'social_text_6', ''));		
 		?>
         <div class="social-icons">
 			<?php if(!empty($icon_1) && !empty($text_1)): ?>
@@ -307,7 +306,7 @@ endif;
 
 if ( ! function_exists( 'steed_element_iconText' ) ) :
 	function steed_element_iconText($prefix) {
-		$active = get_theme_mod($prefix.'active', '');
+		$active = get_theme_mod($prefix.'active', 'yes');
 		$icon = get_theme_mod($prefix.'icon', '');
 		$line1 = get_theme_mod($prefix.'line1', '');
 		$line2 = get_theme_mod($prefix.'line2', '');
@@ -437,5 +436,38 @@ endif;
 if ( ! function_exists( 'steed_element_creditText' ) ) :
 	function steed_element_creditText() {
 		
+	}
+endif;
+
+
+if ( ! function_exists( 'steed_element_logo' ) ) :
+	function steed_element_logo() {
+		
+		$output = '';
+		$description = get_bloginfo( 'description', 'display' );
+		$custom_logo_id = esc_attr(get_theme_mod( 'custom_logo' ));
+		
+		// Try to retrieve the Custom Logo
+		if (function_exists('get_custom_logo')){
+			if($custom_logo_id){
+				$output = get_custom_logo();
+			}
+		}
+	
+		// Nothing in the output: Custom Logo is not supported, or there is no selected logo
+		// In both cases we display the site's name
+		if ($output == ''){
+			if ( is_front_page() && is_home() ){
+				$output .= '<h1  class="site-title"><a href="' . esc_url(home_url('/')) . '">'.get_bloginfo( 'name' ).'</a></h1>';
+			}else{
+				$output .= '<p  class="site-title"><a href="' . esc_url(home_url('/')) . '">'.get_bloginfo( 'name' ).'</a></p>';
+			}
+			if ( $description || is_customize_preview() ){
+				$output .= '<p  class="site-description">'.$description.'</p>';
+			}
+		}
+		
+		/*Validating using wp_kses as the output contain images and h1 tags*/
+		echo wp_kses($output, wp_kses_allowed_html( 'post' ));
 	}
 endif;

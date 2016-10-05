@@ -224,6 +224,102 @@ function steed_custom_scripts(){
 }
 add_action( 'wp_enqueue_scripts', 'steed_custom_scripts', 11 );
 
+add_filter('steed_site_part_render_site_header', 'steed_site_part_render_site_header_array');
+function steed_site_part_render_site_header_array(){
+	
+	$sections = array();
+	
+	/* Branding */
+	$items = array();
+	
+	$items[] = array(
+		'before' => '<div class="site-logo">',
+		'after' => '</div>',
+		'elements' => array(
+			array(
+				'title' => 'Logo',
+				'fn' => 'logo',
+				'prefix' => 'logo_',
+				'settings' => '',
+			),
+		),
+	);
+	
+	$items[] = array(
+		'before' => '<div class="header-icon-text">',
+		'after' => '</div>',
+		'elements' => array(
+			array(
+				'title' => 'Phone',
+				'fn' => 'iconText',
+				'prefix' => 'phone_',
+				'settings' => '',
+			),
+			array(
+				'title' => 'Email',
+				'fn' => 'iconText',
+				'prefix' => 'email_',
+				'settings' => '',
+			),
+			array(
+				'title' => 'Address',
+				'fn' => 'iconText',
+				'prefix' => 'address_',
+				'settings' => '',
+			),
+		),
+	);
+	
+	$sections[] = array(
+		'before' => '<div class="branding"><div class="branding-in">',
+		'after' => '</div></div>',
+		'items' => $items,
+	);
+	
+	
+	
+	/* sitenav */
+	$items = array();
+	
+	$items[] = array(
+		'before' => '<div class="main-menu main-navigation">',
+		'after' => '</div>',
+		'elements' => array(
+			array(
+				'title' => 'Menu',
+				'fn' => 'menu',
+				'prefix' => 'menu_',
+				'settings' => array('theme_location' => 'primary', 'menu_id' => 'primary'),
+			),
+		),
+	);
+	$items[] = array(
+		'before' => '<div class="header-social-icons">',
+		'after' => '</div>',
+		'elements' => array(
+			array(
+				'title' => 'Social Icons',
+				'fn' => 'socialIcons',
+				'prefix' => 'social_icons_',
+				'settings' => '',
+			),
+		),
+	);
+	$sections[] = array(
+		'before' => '<div class="sitenav"><div class="sitenav-in">',
+		'after' => '</div></div>',
+		'items' => $items,
+	);
+	
+	return array(
+		'prefix' => 'siteheader_',
+		'title' => 'Site Header',
+		'before' => '<div class="site-header" id="masthead"><div class="site-header-in">',
+		'after' => '</div></div>',
+		'section' => $sections,
+	);
+}
+
 
 /**
  * Custom template tags for this theme.

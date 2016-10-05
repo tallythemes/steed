@@ -11,9 +11,11 @@
  * @param WP_Customize_Manager $wp_customize Theme Customizer object.
  */
 function steed_customize_register( $wp_customize ) {
-	$wp_customize->get_setting( 'blogname' )->transport         = 'postMessage';
-	$wp_customize->get_setting( 'blogdescription' )->transport  = 'postMessage';
-	$wp_customize->get_setting( 'header_textcolor' )->transport = 'postMessage';
+	//$wp_customize->get_setting( 'blogname' )->transport         = 'postMessage';
+	//$wp_customize->get_setting( 'blogdescription' )->transport  = 'postMessage';
+	//$wp_customize->get_setting( 'header_textcolor' )->transport = 'postMessage';
+	
+	steed_site_part_customize_render('site_header', $wp_customize);
 }
 add_action( 'customize_register', 'steed_customize_register' );
 
@@ -46,3 +48,170 @@ function steed_customizer_button_set(){
 	) );
 }
 add_action( 'customize_controls_enqueue_scripts', 'steed_customizer_button_set' );
+
+
+
+function steed_element_customize_socialIcons($prefix, $section_prefix_id, $element_settings, $wp_customize){
+	$uid = $prefix.'social_icon_1';
+	$wp_customize->add_setting($uid, array( 'default' => 'fa-facebook', 'sanitize_callback' => 'sanitize_text_field', ));
+	$wp_customize->add_control( $uid, array(
+		'label'      => __('Social #1 Icon', 'steed'),
+		'section'    => $section_prefix_id,
+		'settings'   => $uid,
+		'type'       => 'text',
+		'description' => 'Font Awesome Icon class or the image URL of the social media.',
+	));
+	$uid = $prefix.'social_text_1';
+	$wp_customize->add_setting($uid, array( 'default' => '#', 'sanitize_callback' => 'esc_url', ));
+	$wp_customize->add_control( $uid, array(
+		'label'      => __('Social #1 Link', 'steed'),
+		'section'    => $section_prefix_id,
+		'settings'   => $uid,
+		'type'       => 'text',
+		'description' => 'Enter the Full URL incloding <code>http://</code>',
+	));
+	
+	$uid = $prefix.'social_icon_2';
+	$wp_customize->add_setting($uid, array( 'default' => 'fa-twitter', 'sanitize_callback' => 'sanitize_text_field', ));
+	$wp_customize->add_control( $uid, array(
+		'label'      => __('Social #2 Icon', 'steed'),
+		'section'    => $section_prefix_id,
+		'settings'   => $uid,
+		'type'       => 'text',
+		'description' => 'Font Awesome Icon class or the image URL of the social media.',
+	));
+	$uid = $prefix.'social_text_2';
+	$wp_customize->add_setting($uid, array( 'default' => '#', 'sanitize_callback' => 'esc_url', ));
+	$wp_customize->add_control( $uid, array(
+		'label'      => __('Social #2 Link', 'steed'),
+		'section'    => $section_prefix_id,
+		'settings'   => $uid,
+		'type'       => 'text',
+		'description' => 'Enter the Full URL incloding <code>http://</code>',
+	));
+	
+	$uid = $prefix.'social_icon_3';
+	$wp_customize->add_setting($uid, array( 'default' => 'fa-linkedin', 'sanitize_callback' => 'sanitize_text_field', ));
+	$wp_customize->add_control( $uid, array(
+		'label'      => __('Social #3 Icon', 'steed'),
+		'section'    => $section_prefix_id,
+		'settings'   => $uid,
+		'type'       => 'text',
+		'description' => 'Font Awesome Icon class or the image URL of the social media.',
+	));
+	$uid = $prefix.'social_text_3';
+	$wp_customize->add_setting($uid, array( 'default' => '#', 'sanitize_callback' => 'esc_url', ));
+	$wp_customize->add_control( $uid, array(
+		'label'      => __('Social #3 Link', 'steed'),
+		'section'    => $section_prefix_id,
+		'settings'   => $uid,
+		'type'       => 'text',
+		'description' => 'Enter the Full URL incloding <code>http://</code>',
+	));
+	
+	$uid = $prefix.'social_icon_4';
+	$wp_customize->add_setting($uid, array( 'default' => '', 'sanitize_callback' => 'sanitize_text_field', ));
+	$wp_customize->add_control( $uid, array(
+		'label'      => __('Social #4 Icon', 'steed'),
+		'section'    => $section_prefix_id,
+		'settings'   => $uid,
+		'type'       => 'text',
+		'description' => 'Font Awesome Icon class or the image URL of the social media.',
+	));
+	$uid = $prefix.'social_text_4';
+	$wp_customize->add_setting($uid, array( 'default' => '', 'sanitize_callback' => 'esc_url', ));
+	$wp_customize->add_control( $uid, array(
+		'label'      => __('Social #4 Link', 'steed'),
+		'section'    => $section_prefix_id,
+		'settings'   => $uid,
+		'type'       => 'text',
+		'description' => 'Enter the Full URL incloding <code>http://</code>',
+	));
+	
+	$uid = $prefix.'social_icon_5';
+	$wp_customize->add_setting($uid, array( 'default' => '', 'sanitize_callback' => 'sanitize_text_field', ));
+	$wp_customize->add_control( $uid, array(
+		'label'      => __('Social #5 Icon', 'steed'),
+		'section'    => $section_prefix_id,
+		'settings'   => $uid,
+		'type'       => 'text',
+		'description' => 'Font Awesome Icon class or the image URL of the social media.',
+	));
+	$uid = $prefix.'social_text_5';
+	$wp_customize->add_setting($uid, array( 'default' => '', 'sanitize_callback' => 'esc_url', ));
+	$wp_customize->add_control( $uid, array(
+		'label'      => __('Social #5 Link', 'steed'),
+		'section'    => $section_prefix_id,
+		'settings'   => $uid,
+		'type'       => 'text',
+		'description' => 'Enter the Full URL incloding <code>http://</code>',
+	));
+	
+	$uid = $prefix.'social_icon_6';
+	$wp_customize->add_setting($uid, array( 'default' => '', 'sanitize_callback' => 'sanitize_text_field', ));
+	$wp_customize->add_control( $uid, array(
+		'label'      => __('Social #6 Icon', 'steed'),
+		'section'    => $section_prefix_id,
+		'settings'   => $uid,
+		'type'       => 'text',
+		'description' => 'Font Awesome Icon class or the image URL of the social media.',
+	));
+	$uid = $prefix.'social_text_6';
+	$wp_customize->add_setting($uid, array( 'default' => '', 'sanitize_callback' => 'esc_url', ));
+	$wp_customize->add_control( $uid, array(
+		'label'      => __('Social #6 Link', 'steed'),
+		'section'    => $section_prefix_id,
+		'settings'   => $uid,
+		'type'       => 'text',
+		'description' => 'Enter the Full URL incloding <code>http://</code>',
+	));
+	
+	return $wp_customize;
+}
+
+
+
+function steed_element_customize_iconText($prefix, $section_prefix_id, $element_settings, $wp_customize){
+	$uid = $prefix.'active';
+	$wp_customize->add_setting($uid, array( 'default' => 'yes', 'sanitize_callback' => 'sanitize_text_field', ));
+	$wp_customize->add_control( $uid, array(
+		'label'      => __('Active', 'steed'),
+		'section'    => $section_prefix_id,
+		'settings'   => $uid,
+		'type'       => 'select',
+		'description' => '',
+		'choices' => array(
+			'yes' => 'yes',
+			'no' => 'no',
+		),
+	));
+	$uid = $prefix.'icon';
+	$wp_customize->add_setting($uid, array( 'default' => '', 'sanitize_callback' => 'sanitize_text_field', ));
+	$wp_customize->add_control( $uid, array(
+		'label'      => __('Icon', 'steed'),
+		'section'    => $section_prefix_id,
+		'settings'   => $uid,
+		'type'       => 'text',
+		'description' => 'Font Awesome Icon class or the image URL of the social media.',
+	));
+	$uid = $prefix.'line1';
+	$wp_customize->add_setting($uid, array( 'default' => '', 'sanitize_callback' => 'sanitize_text_field', ));
+	$wp_customize->add_control( $uid, array(
+		'label'      => __('Line 1', 'steed'),
+		'section'    => $section_prefix_id,
+		'settings'   => $uid,
+		'type'       => 'text',
+		'description' => '',
+	));
+	$uid = $prefix.'line2';
+	$wp_customize->add_setting($uid, array( 'default' => '', 'sanitize_callback' => 'sanitize_text_field', ));
+	$wp_customize->add_control( $uid, array(
+		'label'      => __('Line 2', 'steed'),
+		'section'    => $section_prefix_id,
+		'settings'   => $uid,
+		'type'       => 'text',
+		'description' => '',
+	));
+	
+	return $wp_customize;
+}
