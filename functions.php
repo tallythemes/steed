@@ -233,7 +233,7 @@ function steed_site_part_render_site_header_array(){
 	$items = array();
 	
 	$items[] = array(
-		'before' => '<div class="site-logo">',
+		'before' => '<div class="site-logo col-md-3 text_md_left text_xs_center">',
 		'after' => '</div>',
 		'elements' => array(
 			array(
@@ -241,38 +241,46 @@ function steed_site_part_render_site_header_array(){
 				'fn' => 'logo',
 				'prefix' => 'logo_',
 				'settings' => '',
+				'before' => '',
+				'after' => '',
 			),
 		),
 	);
 	
 	$items[] = array(
-		'before' => '<div class="header-icon-text">',
-		'after' => '</div>',
+		'before' => '<div class="header-icon-text col-md-9"><div class="row">',
+		'after' => '</div></div>',
 		'elements' => array(
 			array(
 				'title' => 'Phone',
 				'fn' => 'iconText',
 				'prefix' => 'phone_',
 				'settings' => '',
+				'before' => '<div class="col-sm-4 text_lg_right text_xs_center">',
+				'after' => '</div>',
 			),
 			array(
 				'title' => 'Email',
 				'fn' => 'iconText',
 				'prefix' => 'email_',
 				'settings' => '',
+				'before' => '<div class="col-sm-4 text_lg_right text_xs_center">',
+				'after' => '</div>',
 			),
 			array(
 				'title' => 'Address',
 				'fn' => 'iconText',
 				'prefix' => 'address_',
 				'settings' => '',
+				'before' => '<div class="col-sm-4 text_lg_right text_xs_center">',
+				'after' => '</div>',
 			),
 		),
 	);
 	
 	$sections[] = array(
-		'before' => '<div class="branding"><div class="branding-in">',
-		'after' => '</div></div>',
+		'before' => '<div class="branding"><div class="branding-in container-width"><div class="row">',
+		'after' => '</div></div></div>',
 		'items' => $items,
 	);
 	
@@ -289,12 +297,14 @@ function steed_site_part_render_site_header_array(){
 				'title' => 'Menu',
 				'fn' => 'menu',
 				'prefix' => 'menu_',
-				'settings' => array('theme_location' => 'primary', 'menu_id' => 'primary'),
+				'settings' => array('theme_location' => 'primary', 'menu_id' => 'primary_menu'),
+				'before' => '',
+				'after' => '',
 			),
 		),
 	);
 	$items[] = array(
-		'before' => '<div class="header-social-icons">',
+		'before' => '<div class="header-social-icons text_lg_right text_xs_center float_right">',
 		'after' => '</div>',
 		'elements' => array(
 			array(
@@ -302,11 +312,13 @@ function steed_site_part_render_site_header_array(){
 				'fn' => 'socialIcons',
 				'prefix' => 'social_icons_',
 				'settings' => '',
+				'before' => '',
+				'after' => '',
 			),
 		),
 	);
 	$sections[] = array(
-		'before' => '<div class="sitenav"><div class="sitenav-in">',
+		'before' => '<div class="sitenav"><div class="sitenav-in container-width">',
 		'after' => '</div></div>',
 		'items' => $items,
 	);

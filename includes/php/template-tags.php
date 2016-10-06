@@ -246,7 +246,9 @@ function steed_site_part_html_render($name){
 							$function = 'steed_element_'.$element['fn'];
 							$e_prefix = $prefix.$element['prefix'];
 							if(function_exists($function)){
-								$function($e_prefix, $element['settings']);	
+								echo $element['before']."\n";
+									$function($e_prefix, $element['settings']);
+								echo $element['after']."\n";
 							}
 						}
 					echo $item['after']."\n";

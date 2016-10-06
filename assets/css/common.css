@@ -18,6 +18,7 @@
 # Layout
 # Main Menu
 # Logo & title Styling
+# Element IconText
 --------------------------------------------------------------*/
 
 /*--------------------------------------------------------------
@@ -638,6 +639,8 @@ a:active {
 .site-footer:after {
 	clear: both;
 }
+
+
 
 
 
@@ -1842,7 +1845,6 @@ object {
 .main-navigation li {
     position: relative;
     float: left;
-    margin-left: 10px;
 }
 .main-navigation a {
     display: block;
@@ -2019,4 +2021,140 @@ a.responsive-menu-close:hover{
 }
 .site-header .ph1_logo img{
 	max-width:100%;	
+}
+
+
+/*--------------------------------------------------------------
+# Alignment
+--------------------------------------------------------------*/
+.text_xs_left{
+	text-align:left;	
+}
+.text_xs_right{
+	text-align:right;	
+}
+.text_xs_center{
+	text-align:center;	
+}
+.float_xs_left{
+	float:left;
+}
+.float_xs_right{
+	float:right;	
+}
+.float_xs_none{
+	float:none;	
+}
+@media (min-width: 768px) {
+	.text_sm_left{
+		text-align:left;	
+	}
+	.text_sm_right{
+		text-align:right;	
+	}
+	.text_sm_center{
+		text-align:center;	
+	}
+	.float_sm_left{
+		float:left;
+	}
+	.float_sm_right{
+		float:right;	
+	}
+	.float_sm_none{
+		float:none;	
+	}	
+}
+@media (min-width: 992px) {
+	.text_md_left{
+		text-align:left;	
+	}
+	.text_md_right{
+		text-align:right;	
+	}
+	.text_md_center{
+		text-align:center;	
+	}
+	.float_md_left{
+		float:left;
+	}
+	.float_md_right{
+		float:right;	
+	}
+	.float_md_none{
+		float:none;	
+	}
+}
+@media (min-width: 1200px) {
+	.text_lg_left{
+		text-align:left;	
+	}
+	.text_lg_right{
+		text-align:right;	
+	}
+	.text_lg_center{
+		text-align:center;	
+	}
+	.float_lg_left{
+		float:left;
+	}
+	.float_lg_right{
+		float:right;	
+	}
+	.float_lg_none{
+		float:none;	
+	}
+}
+
+
+
+/*--------------------------------------------------------------
+# Element IconText
+--------------------------------------------------------------*/
+.iconText{
+	position:relative;
+	min-height: 50px;
+	display:inline-block;
+}
+.iconText_icon{
+	position:absolute;	
+}
+.iconText_icon i.fa{
+	font-size:34px;	
+}
+.iconText_content{
+	padding-left:40px;
+	text-align: left;
+}
+.iconText_content strong{
+	display:block;
+}
+.iconText_content span{
+	display:block;
+}
+
+
+/*--------------------------------------------------------------
+# Element Social Icons
+--------------------------------------------------------------*/
+.social-icons{
+	
+}
+.social-icons a{
+    text-decoration: none;
+    height: 30px;
+    width: 30px;
+    color: initial;
+    display: inline-block;
+    text-align: center;
+}
+.social-icons img{
+	max-width:100%;
+}
+.social-icons i.fa{
+    font-size: 18px;
+    line-height: 30px;	
+}
+.social-icons a:hover{
+	opacity:0.7;
 }
