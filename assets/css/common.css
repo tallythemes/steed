@@ -1994,6 +1994,11 @@ a.responsive-menu-close:hover{
 		display: none;
 	}
 }
+@media screen and (max-width: 782px){
+	.admin-bar a.responsive-menu-close{
+		margin-top:46px;	
+	}
+}
 
 
 
@@ -2131,6 +2136,10 @@ a.responsive-menu-close:hover{
 }
 .iconText_content span{
 	display:block;
+}
+.iconText_icon img{
+	height:30px;
+	width:30px;
 }
 
 

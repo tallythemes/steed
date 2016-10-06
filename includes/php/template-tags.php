@@ -233,56 +233,62 @@ endif;
 
 
 function steed_site_part_html_render($name){
-	$configs = apply_filters('steed_site_part_render_'.$name, array());
-	$prefix = $configs['prefix'];
-	$title = $configs['title'];
-
-	echo $configs['before']."\n";
-		foreach($configs['section'] as $section){
-			echo $section['before']."\n";
-				foreach($section['items'] as $item){
-					echo $item['before']."\n";
-						foreach($item['elements'] as $element){
-							$function = 'steed_element_'.$element['fn'];
-							$e_prefix = $prefix.$element['prefix'];
-							if(function_exists($function)){
-								echo $element['before']."\n";
-									$function($e_prefix, $element['settings']);
-								echo $element['after']."\n";
+	$configs = apply_filters('steed_site_part_render__'.$name, NULL);
+	
+	if(is_array($configs)){
+		$prefix = $configs['prefix'];
+		$title = $configs['title'];
+	
+		echo $configs['before']."\n";
+			foreach($configs['section'] as $section){
+				echo $section['before']."\n";
+					foreach($section['items'] as $item){
+						echo $item['before']."\n";
+							foreach($item['elements'] as $element){
+								$function = 'steed_element_'.$element['fn'];
+								$e_prefix = $prefix.$element['prefix'];
+								if(function_exists($function)){
+									echo $element['before']."\n";
+										$function($e_prefix, $element['settings']);
+									echo $element['after']."\n";
+								}
 							}
-						}
-					echo $item['after']."\n";
-				}
-			echo $section['after']."\n";
-		}
-	echo $configs['after']."\n";
+						echo $item['after']."\n";
+					}
+				echo $section['after']."\n";
+			}
+		echo $configs['after']."\n";
+	}
 }
 
 function steed_site_part_customize_render($name, $wp_customize){
-	$configs = apply_filters('steed_site_part_render_'.$name, array());
-	$prefix = $configs['prefix'];
-	$title = $configs['title'];
+	$configs = apply_filters('steed_site_part_render__'.$name, NULL);
 	
-	$wp_customize->add_panel( $prefix.'panel', array(
-		'title' => $title.' Settings',
-		'priority' => 10,
-	));
-	
-	foreach($configs['section'] as $section){		
-		foreach($section['items'] as $item){
-			foreach($item['elements'] as $element){
-				$function = 'steed_element_customize_'.$element['fn'];
-				$e_prefix = $prefix.$element['prefix'];
-				$section_prefix_id = $prefix.$element['prefix'].'_section';
-				if(function_exists($function)){
-					
-					$wp_customize->add_section( $section_prefix_id, array(
-						'title' => $element['title'],
-						'priority' => 10,
-						'panel' => $prefix.'panel',
-					));
-					
-					$function($e_prefix, $section_prefix_id, $element['settings'], $wp_customize);
+	if(is_array($configs)){
+		$prefix = $configs['prefix'];
+		$title = $configs['title'];
+		
+		$wp_customize->add_panel( $prefix.'panel', array(
+			'title' => $title.' Settings',
+			'priority' => 10,
+		));
+		
+		foreach($configs['section'] as $section){		
+			foreach($section['items'] as $item){
+				foreach($item['elements'] as $element){
+					$function = 'steed_element_customize_'.$element['fn'];
+					$e_prefix = $prefix.$element['prefix'];
+					$section_prefix_id = $prefix.$element['prefix'].'_section';
+					if(function_exists($function)){
+						
+						$wp_customize->add_section( $section_prefix_id, array(
+							'title' => $element['title'],
+							'priority' => 10,
+							'panel' => $prefix.'panel',
+						));
+						
+						$function($e_prefix, $section_prefix_id, $element['settings'], $wp_customize);
+					}
 				}
 			}
 		}
@@ -290,3 +296,40 @@ function steed_site_part_customize_render($name, $wp_customize){
 	
 	return $wp_customize;	
 }
+
+
+
+function steed_site_part_widget_init() {
+	$all_configs = array();
+	
+	$all_configs[] = apply_filters('steed_site_part_render__site_header', NULL);
+	$all_configs[] = apply_filters('steed_site_part_render__after_site_header', NULL);
+	$all_configs[] = apply_filters('steed_site_part_render__site_footer', NULL);
+	
+	foreach($all_configs as $configs){
+		if(is_array($configs)){
+			$prefix = $configs['prefix'];
+			if(isset($configs['section'])){
+				foreach($configs['section'] as $section){		
+					foreach($section['items'] as $item){
+						foreach($item['elements'] as $element){
+							$e_prefix = $prefix.$element['prefix'];
+							if($element['fn'] == 'widget'){
+								register_sidebar( array(
+									'name'          => $element['title'],
+									'id'            => $e_prefix,
+									'description'   => '',
+									'before_widget' => '<section id="%1$s" class="widget %2$s">',
+									'after_widget'  => '</section>',
+									'before_title'  => '<h2 class="widget-title">',
+									'after_title'   => '</h2>',
+								));
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}
+add_action( 'widgets_init', 'steed_site_part_widget_init' );

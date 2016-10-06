@@ -304,7 +304,7 @@ function steed_site_part_render_site_header_array(){
 		),
 	);
 	$items[] = array(
-		'before' => '<div class="header-social-icons text_lg_right text_xs_center float_right">',
+		'before' => '<div class="header-social-icons text_lg_right text_xs_center float_lg_right">',
 		'after' => '</div>',
 		'elements' => array(
 			array(

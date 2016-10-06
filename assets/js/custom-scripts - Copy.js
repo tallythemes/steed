@@ -6,6 +6,7 @@ jQuery(document).ready(function($) {
 	
 	var ph1_responsive_menu = $(".responsive-menu");
 	
+	$( "#site-navigation > div > ul" ).clone().appendTo( ph1_responsive_menu );
     $( "<i class='fa fa-angle-down'></i>" ).appendTo( $( ".responsive-menu > ul li.menu-item-has-children" ) );
     
     var ttes_menu_panels = $('.responsive-menu > ul li.menu-item-has-children ul.sub-menu').hide();
@@ -26,12 +27,10 @@ jQuery(document).ready(function($) {
 	});
     
 	$('a.responsive-menu-hand').click(function() {
-		$( $(this).attr('href') ).clone().appendTo( ph1_responsive_menu );
-		
 		if($(".responsive-menu").hasClass('active')){
+        
 			$(".responsive-menu").slideUp();
 			$(".responsive-menu").removeClass('active');
-			$(".responsive-menu ul").remove();
 		}else{
 			$(".responsive-menu").slideDown();
 			$(".responsive-menu").addClass('active');
@@ -42,10 +41,7 @@ jQuery(document).ready(function($) {
 	$('a.responsive-menu-close').click(function() {
 		$(".responsive-menu").slideUp();
 		$(".responsive-menu").removeClass('active');
-		$(".responsive-menu ul").remove();
 	});
-	
-	
 });
 
 

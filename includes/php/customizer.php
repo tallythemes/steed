@@ -16,6 +16,8 @@ function steed_customize_register( $wp_customize ) {
 	//$wp_customize->get_setting( 'header_textcolor' )->transport = 'postMessage';
 	
 	steed_site_part_customize_render('site_header', $wp_customize);
+	steed_site_part_customize_render('after_site_header', $wp_customize);
+	steed_site_part_customize_render('site_footer', $wp_customize);
 }
 add_action( 'customize_register', 'steed_customize_register' );
 

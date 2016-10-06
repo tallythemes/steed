@@ -171,14 +171,14 @@ endif;
 
 
 if ( ! function_exists( 'steed_element_menuHand' ) ) :
-	function steed_element_menuHand($settings) {
+	function steed_element_menuHand($prefix, $settings) {
 		echo '<a href="#'.$settings['menu_id'].'" class="responsive-menu-hand"><i class="fa fa-align-justify"></i></a>';
 	}
 endif;
 
 
 if ( ! function_exists( 'steed_element_ResponsiveMenu' ) ) :
-	function steed_element_ResponsiveMenu($settings) {
+	function steed_element_ResponsiveMenu($prefix, $settings) {
 		echo '<div class="responsive-menu">';
 			echo '<a href="#" class="responsive-menu-close"><i class="fa fa-close"></i></a>';
 		echo '</div>';
@@ -419,15 +419,15 @@ endif;
 
 
 if ( ! function_exists( 'steed_element_widget' ) ) :
-	function steed_element_widget() {
-		
+	function steed_element_widget($prefix) {
+		dynamic_sidebar( $prefix );
 	}
 endif;
 
 
 if ( ! function_exists( 'steed_element_copyText' ) ) :
-	function steed_element_copyText() {
-		
+	function steed_element_copyText($prefix) {
+		echo  wp_kses_post(get_theme_mod($prefix.'copytext', ''));
 	}
 endif;
 
@@ -435,7 +435,7 @@ endif;
 
 if ( ! function_exists( 'steed_element_creditText' ) ) :
 	function steed_element_creditText() {
-		
+		echo '<p>Theme Designed By <a href="'.esc_url('http://tallythemes.com').'" title="Sazzad Hu">Sazzad Hu</a> | Powered by <a href="'.esc_url('http://wordpress.org').'">WordPress</a></p>';
 	}
 endif;
 
