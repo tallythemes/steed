@@ -120,7 +120,9 @@ function steed_category_transient_flusher() {
 add_action( 'edit_category', 'steed_category_transient_flusher' );
 add_action( 'save_post',     'steed_category_transient_flusher' );
 
-
+function steed_mal(){
+	return apply_filters('steed_mal_ready', false);
+}
 
 if ( ! function_exists( 'steed_site_header' ) ) :
 
@@ -234,6 +236,7 @@ endif;
 
 function steed_site_part_html_render($name){
 	$configs = apply_filters('steed_site_part_render__'.$name, NULL);
+	$mal = steed_mal();
 	
 	if(is_array($configs)){
 		$prefix = $configs['prefix'];
@@ -247,10 +250,15 @@ function steed_site_part_html_render($name){
 							foreach($item['elements'] as $element){
 								$function = 'steed_element_'.$element['fn'];
 								$e_prefix = $prefix.$element['prefix'];
+								$show_hide_std = (isset($element['show_hide_std'])) ? $element['show_hide_std'] : 'yes';
+								$mod_active = esc_attr(get_theme_mod($e_prefix.'active', $show_hide_std));
 								if(function_exists($function)){
-									echo $element['before']."\n";
-										$function($e_prefix, $element['settings']);
-									echo $element['after']."\n";
+									$e_active  = ($show_hide_std == 'n/a')? 'yes' : $mod_active;
+									if($e_active == 'yes'){
+										echo $element['before']."\n";
+											$function($e_prefix, $element['settings']);
+										echo $element['after']."\n";
+									}
 								}
 							}
 						echo $item['after']."\n";
@@ -263,30 +271,71 @@ function steed_site_part_html_render($name){
 
 function steed_site_part_customize_render($name, $wp_customize){
 	$configs = apply_filters('steed_site_part_render__'.$name, NULL);
+	$mal = steed_mal();
 	
 	if(is_array($configs)){
 		$prefix = $configs['prefix'];
 		$title = $configs['title'];
+		$is_panel = (isset($configs['is_panel'])) ? $configs['is_panel'] : true;
 		
-		$wp_customize->add_panel( $prefix.'panel', array(
-			'title' => $title.' Settings',
-			'priority' => 10,
-		));
+		if($is_panel){
+			$wp_customize->add_panel( $prefix.'panel', array(
+				'title' => $title.' Settings',
+				'priority' => 10,
+			));
+		}else{
+			$section_prefix_id = $prefix.'panel';
+			$wp_customize->add_section( $section_prefix_id, array(
+				'title' => $title.' Settings',
+				'priority' => 10,
+			));
+		}
 		
 		foreach($configs['section'] as $section){		
 			foreach($section['items'] as $item){
 				foreach($item['elements'] as $element){
 					$function = 'steed_element_customize_'.$element['fn'];
 					$e_prefix = $prefix.$element['prefix'];
-					$section_prefix_id = $prefix.$element['prefix'].'_section';
+					$show_hide_std = (isset($element['show_hide_std'])) ? $element['show_hide_std'] : 'yes';
+					
+					if($is_panel){
+						$section_prefix_id = $prefix.$element['prefix'].'_section';
+					}
+					
 					if(function_exists($function)){
+						if($is_panel){
+							$wp_customize->add_section( $section_prefix_id, array(
+								'title' => $element['title'],
+								'priority' => 10,
+								'panel' => $prefix.'panel',
+							));
+						}
 						
-						$wp_customize->add_section( $section_prefix_id, array(
-							'title' => $element['title'],
-							'priority' => 10,
-							'panel' => $prefix.'panel',
-						));
+						$wp_customize->add_setting($e_prefix.'infoheading', array( 'default' => '', 'sanitize_callback' => '', ));
+						$wp_customize->add_control( new steed_Customize_Control_heading($wp_customize, $e_prefix.'infoheading', 
+							array(
+								'label' => $element['title'],
+								'description' => '',
+								'section'    => $section_prefix_id,
+							)) 
+						);
 						
+						if($mal && ($show_hide_std != 'n/a')){
+							$uid = $e_prefix.'active';
+							$wp_customize->add_setting($uid, array( 'default' => $show_hide_std, 'sanitize_callback' => 'sanitize_text_field', ));
+							$wp_customize->add_control( $uid, array(
+								'label'      => __('Active', 'steed'),
+								'section'    => $section_prefix_id,
+								'settings'   => $uid,
+								'type'       => 'select',
+								'description' => '',
+								'choices' => array(
+									'yes' => 'yes',
+									'no' => 'no',
+								),
+							));
+						}
+											
 						$function($e_prefix, $section_prefix_id, $element['settings'], $wp_customize);
 					}
 				}

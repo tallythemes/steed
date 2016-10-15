@@ -434,8 +434,14 @@ endif;
 
 
 if ( ! function_exists( 'steed_element_creditText' ) ) :
-	function steed_element_creditText() {
-		echo '<p>Theme Designed By <a href="'.esc_url('http://tallythemes.com').'" title="Sazzad Hu">Sazzad Hu</a> | Powered by <a href="'.esc_url('http://wordpress.org').'">WordPress</a></p>';
+	function steed_element_creditText($prefix) {
+		$mod_show = esc_attr(get_theme_mod($prefix.'show', 'yes'));
+		
+		if($mod_show == 'no'){
+			echo '';
+		}else{
+			echo '<p>Theme Designed By <a href="'.esc_url('http://tallythemes.com').'" title="Sazzad Hu">Sazzad Hu</a> | Powered by <a href="'.esc_url('http://wordpress.org').'">WordPress</a></p>';	
+		}
 	}
 endif;
 
