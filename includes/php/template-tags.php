@@ -387,7 +387,7 @@ function steed_site_part_customize_render($name, $wp_customize){
 				$section_prefix = $prefix.$section_key;
 			}
 			
-			steed_customizer_print_part_style($wp_customize, $section_prefix_id, $section_prefix, $section);
+			
 			
 			foreach($section['items'] as $item_key => $item){
 				
@@ -439,6 +439,7 @@ function steed_site_part_customize_render($name, $wp_customize){
 				
 				steed_customizer_print_part_style($wp_customize, $section_prefix_id, $item_prefix, $item);
 			}
+			steed_customizer_print_part_style($wp_customize, $section_prefix_id, $section_prefix, $section);
 		}
 	}
 	

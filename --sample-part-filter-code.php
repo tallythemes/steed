@@ -35,15 +35,6 @@ function medicals_widgets_init() {
 		'before_title'  => '<h2 class="widget-title">',
 		'after_title'   => '</h2>',
 	));
-	register_sidebar( array(
-		'name'          => esc_html__( 'Home Page', 'medicals' ),
-		'id'            => 'home_page',
-		'description'   => esc_html__( 'Home Page Contents', 'medicals' ),
-		'before_widget' => '<section id="%1$s" class="widget %2$s">',
-		'after_widget'  => '</section>',
-		'before_title'  => '<h2 class="widget-title">',
-		'after_title'   => '</h2>',
-	));
 }
 add_action( 'widgets_init', 'medicals_widgets_init' );
 
@@ -60,6 +51,10 @@ function medicals_site_part_render_site_header_array(){
 	$items[] = array(
 		'before' => '<div class="site-logo col-md-3 text_md_left">',
 		'after' => '</div>',
+		'title' => 'Header Style',
+		'style_padding' => 'n/a',
+		'style_bg' => array('color' => '#fff'),
+		'style_colorMood' => 'dark',
 		'show_hide' => NULL,
 		'elements' => array(
 			array(
@@ -86,6 +81,10 @@ function medicals_site_part_render_site_header_array(){
 	$items[] = array(
 		'before' => '<div class="header-icon-text col-md-9"><div class="row">',
 		'after' => '</div></div>',
+		'title' => 'n/a',
+		'style_padding' => 'n/a',
+		'style_bg' => 'n/a',
+		'style_colorMood' => 'n/a',
 		'show_hide' => NULL,
 		'elements' => array(
 			array(
@@ -95,7 +94,7 @@ function medicals_site_part_render_site_header_array(){
 				'settings' => '',
 				'before' => '<div class="col-md-4 text_lg_right text_xs_center">',
 				'after' => '</div>',
-				'show_hide_std' => 'yes',
+				'show_hide_std' => 'yes', //n/a, yes, no
 			),
 			array(
 				'title' => 'Contact',
@@ -135,6 +134,10 @@ function medicals_site_part_render_site_header_array(){
 	$items[] = array(
 		'before' => '<div class="main-menu main-navigation">',
 		'after' => '</div>',
+		'title' => 'Navigation Background',
+		'style_padding' => 'n/a',
+		'style_bg' => array('color' => '#fff'),
+		'style_colorMood' => 'dark',
 		'show_hide' => NULL,
 		'elements' => array(
 			array(
@@ -151,6 +154,10 @@ function medicals_site_part_render_site_header_array(){
 	$items[] = array(
 		'before' => '<div class="header-social-icons text_md_right text_xs_center float_md_right">',
 		'after' => '</div>',
+		'title' => 'n/a',
+		'style_padding' => 'n/a',
+		'style_bg' => 'n/a',
+		'style_colorMood' => 'n/a',
 		'show_hide' => NULL,
 		'elements' => array(
 			array(
@@ -189,6 +196,10 @@ function medicals_ResponsiveMenu_render_site_header_array(){
 	$items[] = array(
 		'before' => '',
 		'after' => '',
+		'title' => 'n/a',
+		'style_padding' => 'n/a',
+		'style_bg' => 'n/a',
+		'style_colorMood' => 'n/a',
 		'show_hide' => NULL,
 		'elements' => array(
 			array(
@@ -226,47 +237,35 @@ function medicals_site_part_render_site_footer_array(){
 	
 	
 	$items[] = array(
-		'before' => '<div class="footer_widgets"><div class="footer_widgets_in container-width"><div class="row">',
-		'after' => '</div></div></div>',
+		'prefix' => 'footer_widgets_area',
+		'before' => '<div class="footer_widgets %colorMood%" style="%bg% %padding%"><div class="footer_widgets_in container-width">',
+		'after' => '</div></div>',
 		'show_hide' => NULL,
+		'style_title' => 'Widgets area Style',
+		'style_padding' => array('top' => '40px', 'bottom' => '40px'),
+		'style_bg' => array('color' => '#000'),
+		'style_colorMood' => 'light',
 		'elements' => array(
 			array(
-				'title' => 'Footer Widgets 1',
-				'fn' => 'widget',
-				'prefix' => 'widget1',
+				'title' => 'Footer Widgets',
+				'fn' => 'footerWidgets',
+				'prefix' => 'footer_widgets',
 				'settings' => '',
-				'before' => '<div class="col-md-3 col-sm-6">',
-				'after' => '</div>',
-			),
-			array(
-				'title' => 'Footer Widgets 2',
-				'fn' => 'widget',
-				'prefix' => 'widget2',
-				'settings' => '',
-				'before' => '<div class="col-md-3 col-sm-6">',
-				'after' => '</div>',
-			),
-			array(
-				'title' => 'Footer Widgets 3',
-				'fn' => 'widget',
-				'prefix' => 'widget3',
-				'settings' => '',
-				'before' => '<div class="col-md-3 col-sm-6">',
-				'after' => '</div>',
-			),
-			array(
-				'title' => 'Footer Widgets 4',
-				'fn' => 'widget',
-				'prefix' => 'widget4',
-				'settings' => '',
-				'before' => '<div class="col-md-3 col-sm-6">',
-				'after' => '</div>',
+				'before' => '',
+				'after' => '',
+				'style_padding' => 'n/a',
+				'style_bg' => 'n/a',
+				'style_colorMood' => 'n/a',
 			),
 		),
 	);
 	$items[] = array(
-		'before' => '<div class="copybar"><div class="copybar_in container-width">',
+		'before' => '<div class="copybar %colorMood%" style="%bg% %padding%"><div class="copybar_in container-width">',
 		'after' => '</div></div>',
+		'style_title' => 'Bottom area Style',
+		'style_padding' => array('top' => '20px', 'bottom' => '20px'),
+		'style_bg' => array('color' => '#444'),
+		'style_colorMood' => 'light',
 		'show_hide' => NULL,
 		'elements' => array(
 			array(
@@ -276,6 +275,7 @@ function medicals_site_part_render_site_footer_array(){
 				'settings' => '',
 				'before' => '',
 				'after' => '',
+				'show_hide_std' => 'n/a',
 			),
 			array(
 				'title' => 'Footer Credit',
@@ -284,6 +284,7 @@ function medicals_site_part_render_site_footer_array(){
 				'settings' => '',
 				'before' => '',
 				'after' => '',
+				'show_hide_std' => 'n/a',
 			),
 		),
 	);
@@ -299,6 +300,6 @@ function medicals_site_part_render_site_footer_array(){
 		'before' => '<div class="site-footer" ><div class="site-footer-in">',
 		'after' => '</div></div>',
 		'section' => $sections,
-		'panel' => false,
+		'is_panel' => false,
 	);
 }
