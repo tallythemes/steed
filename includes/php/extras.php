@@ -425,6 +425,54 @@ if ( ! function_exists( 'steed_element_widget' ) ) :
 endif;
 
 
+if ( ! function_exists( 'steed_element_footerWidgets' ) ) :
+	function steed_element_footerWidgets($prefix) {
+		
+		$layout = esc_attr(get_theme_mod($prefix.'layout', '3/3/3/3'));
+		$layout_tab = esc_attr(get_theme_mod($prefix.'layout_tab', '6'));
+		$layout_mobile = esc_attr(get_theme_mod($prefix.'layout_mobile', '12'));
+		
+		$widget_1 = false;
+		$widget_2 = false;
+		$widget_3 = false;
+		$widget_4 = false;
+		$widget_1_col = '12';
+		$widget_2_col = '12';
+		$widget_3_col = '12';
+		$widget_4_col = '12';
+		$layout_array = explode("/", $layout);
+		
+		if(isset($layout_array[0])){ $widget_1 = true; $widget_1_col = $layout_array[0]; }
+		if(isset($layout_array[1])){ $widget_2 = true; $widget_2_col = $layout_array[1]; }
+		if(isset($layout_array[2])){ $widget_3 = true; $widget_3_col = $layout_array[2]; }
+		if(isset($layout_array[3])){ $widget_4 = true; $widget_4_col = $layout_array[3]; }
+		
+		echo '<div class="row">';
+			if($widget_1){ 
+				echo '<div class="col-md-'.$widget_1_col.' col-sm-'.$layout_tab.' col-xs-'.$layout_mobile.' ">';
+					dynamic_sidebar( $prefix.'_1' );
+				echo '</div>';
+			}
+			if($widget_2){ 
+				echo '<div class="col-md-'.$widget_2_col.' col-sm-'.$layout_tab.' col-xs-'.$layout_mobile.'">';
+					dynamic_sidebar( $prefix.'_2' );
+				echo '</div>';
+			}
+			if($widget_3){ 
+				echo '<div class="col-md-'.$widget_3_col.' col-sm-'.$layout_tab.' col-xs-'.$layout_mobile.'">';
+					dynamic_sidebar( $prefix.'_3' );
+				echo '</div>';
+			}
+			if($widget_4){ 
+				echo '<div class="col-md-'.$widget_4_col.' col-sm-'.$layout_tab.' col-xs-'.$layout_mobile.'">';
+					dynamic_sidebar( $prefix.'_4' );
+				echo '</div>';
+			}
+		echo '</div>';
+	}
+endif;
+
+
 if ( ! function_exists( 'steed_element_copyText' ) ) :
 	function steed_element_copyText($prefix) {
 		echo  wp_kses_post(get_theme_mod($prefix.'copytext', ''));

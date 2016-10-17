@@ -292,7 +292,14 @@ function steed_site_part_customize_render($name, $wp_customize){
 		}
 		
 		foreach($configs['section'] as $section){		
-			foreach($section['items'] as $item){
+			foreach($section['items'] as $item_key => $item){
+				
+				if(isset($item['prefix'])){
+					$item_prefix = $prefix.$item['prefix'];
+				}else{
+					$item_prefix = $prefix.$item_key;
+				}
+				
 				foreach($item['elements'] as $element){
 					$function = 'steed_element_customize_'.$element['fn'];
 					$e_prefix = $prefix.$element['prefix'];
@@ -339,6 +346,37 @@ function steed_site_part_customize_render($name, $wp_customize){
 						$function($e_prefix, $section_prefix_id, $element['settings'], $wp_customize);
 					}
 				}
+				
+				//Item Style
+				if(isset($item['style_title'])){
+					if($item['style_title'] != ''){
+						$uid = 'item_infoheading_'.$item_key;
+						$wp_customize->add_setting($uid, array( 'default' => '', 'sanitize_callback' => '', ));
+						$wp_customize->add_control( new steed_Customize_Control_heading($wp_customize, $uid, 
+							array(
+								'label' => $item['style_title'],
+								'description' => '',
+								'section'    => $section_prefix_id,
+							)) 
+						);
+					}
+				}
+				
+				if(isset($item['style_bg'])){
+					if($item['style_bg'] != 'n/a'){
+						steed_customizer_background($wp_customize, $section_prefix_id, $item_prefix, $item['style_bg']);
+					}
+				}
+				if(isset($item['style_padding'])){
+					if($item['style_padding'] != 'n/a'){
+						steed_customizer_padding($wp_customize, $section_prefix_id, $item_prefix, $item['style_padding']);
+					}
+				}
+				if(isset($item['style_colorMood'])){
+					if($item['style_colorMood'] != 'n/a'){
+						steed_customizer_colorMood($wp_customize, $section_prefix_id, $item_prefix, $item['style_colorMood']);
+					}
+				}
 			}
 		}
 	}
@@ -367,6 +405,44 @@ function steed_site_part_widget_init() {
 								register_sidebar( array(
 									'name'          => $element['title'],
 									'id'            => $e_prefix,
+									'description'   => '',
+									'before_widget' => '<section id="%1$s" class="widget %2$s">',
+									'after_widget'  => '</section>',
+									'before_title'  => '<h2 class="widget-title">',
+									'after_title'   => '</h2>',
+								));
+							}
+							if($element['fn'] == 'footerWidgets'){
+								register_sidebar( array(
+									'name'          => $element['title']. '#1',
+									'id'            => $e_prefix.'_1',
+									'description'   => '',
+									'before_widget' => '<section id="%1$s" class="widget %2$s">',
+									'after_widget'  => '</section>',
+									'before_title'  => '<h2 class="widget-title">',
+									'after_title'   => '</h2>',
+								));
+								register_sidebar( array(
+									'name'          => $element['title']. '#2',
+									'id'            => $e_prefix.'_2',
+									'description'   => '',
+									'before_widget' => '<section id="%1$s" class="widget %2$s">',
+									'after_widget'  => '</section>',
+									'before_title'  => '<h2 class="widget-title">',
+									'after_title'   => '</h2>',
+								));
+								register_sidebar( array(
+									'name'          => $element['title']. '#3',
+									'id'            => $e_prefix.'_3',
+									'description'   => '',
+									'before_widget' => '<section id="%1$s" class="widget %2$s">',
+									'after_widget'  => '</section>',
+									'before_title'  => '<h2 class="widget-title">',
+									'after_title'   => '</h2>',
+								));
+								register_sidebar( array(
+									'name'          => $element['title']. '#4',
+									'id'            => $e_prefix.'_4',
 									'description'   => '',
 									'before_widget' => '<section id="%1$s" class="widget %2$s">',
 									'after_widget'  => '</section>',
