@@ -233,6 +233,87 @@ if ( ! function_exists( 'steed_custom_logo' ) ) :
 endif;
 
 
+function steed_css_background($prefix, $std){
+	$std_image = (isset($std['image'])) ? $std['image'] : '';
+	$std_color = (isset($std['color'])) ? $std['color'] : '';
+	$std_repeat = (isset($std['repeat'])) ? $std['repeat'] : '';
+	$std_attachment = (isset($std['attachment'])) ? $std['attachment'] : '';
+	$std_position = (isset($std['position'])) ? $std['position'] : '';
+	$std_size = (isset($std['size'])) ? $std['size'] : '';
+	
+	$image = esc_url(get_theme_mod($prefix.'image', $std_image));
+	$color = sanitize_hex_color(get_theme_mod($prefix.'color', $std_color));
+	$repeat = esc_attr(get_theme_mod($prefix.'repeat', $std_repeat));
+	$attachment = esc_attr(get_theme_mod($prefix.'attachment', $std_attachment));
+	$position = esc_attr(get_theme_mod($prefix.'position', $std_position));
+	$size = esc_attr(get_theme_mod($prefix.'size', $std_size));
+	
+	
+	$css = '';
+	$css .= ($image != '') ? 'background-image:url('.$image.'); ' : '';
+	$css .= ($color != '') ? 'background-color:'.$color.'; ' : '';
+	$css .= ($repeat != '') ? 'background-repeat:'.$repeat.'; ' : '';
+	$css .= ($attachment != '') ? 'background-attachment:'.$attachment.'; ' : '';
+	$css .= ($position != '') ? 'background-position:'.$position.'; ' : '';
+	$css .= ($size != '') ? 'background-size:'.$size.'; ' : '';
+	
+	return $css;
+}
+
+function steed_css_padding($prefix, $std){
+	$std_top= (isset($std['top'])) ? $std['top'] : '';
+	$std_bottom = (isset($std['bottom'])) ? $std['bottom'] : '';
+
+	$top = esc_attr(get_theme_mod($prefix.'top', $std_top));
+	$bottom = esc_attr(get_theme_mod($prefix.'bottom', $std_bottom));
+	
+	$css = '';
+	$css .= ($top != '') ? 'padding-top:'.$top.'; ' : '';
+	$css .= ($bottom != '') ? 'padding-bottom:'.$bottom.'; ' : '';
+	
+	return $css;
+}
+
+
+function steed_css_colorMood($prefix, $std){
+	$std_colorMood= (isset($std['colorMood'])) ? $std['colorMood'] : '';
+	$colorMood = esc_attr(get_theme_mod($prefix.'colorMood', $std_colorMood));
+	return $colorMood;
+}
+
+
+function steed_search_replace_style_of_part($prefix, $string, $data){
+	
+	$std_bg = '';
+	$std_padding = '';
+	$std_colorMood = '';
+		
+	if(isset($data['style_bg'])){
+		if($data['style_bg'] != 'n/a'){
+			$std_bg = $data['style_bg'];
+		}
+	}
+	if(isset($data['style_padding'])){
+		if($data['style_padding'] != 'n/a'){
+			$std_padding = $data['style_padding'];
+		}
+	}
+	if(isset($data['style_colorMood'])){
+		if($data['style_colorMood'] != 'n/a'){
+			$std_colorMood = $data['style_colorMood'];
+		}
+	}
+	
+	$bg = steed_css_background($prefix.'bg_', $std_bg);
+	$padding = steed_css_padding($prefix.'padding_', $std_padding);
+	$colorMood = 'textMood-'.steed_css_colorMood($prefix.'colorMood_', $std_colorMood);
+	
+	$search = array('%bg%', '%padding%', '%colorMood%');
+	$replace = array($bg, $padding, $colorMood);
+	return str_replace($search, $replace, $string);
+}
+
+
 
 function steed_site_part_html_render($name){
 	$configs = apply_filters('steed_site_part_render__'.$name, NULL);
@@ -243,10 +324,24 @@ function steed_site_part_html_render($name){
 		$title = $configs['title'];
 	
 		echo $configs['before']."\n";
-			foreach($configs['section'] as $section){
-				echo $section['before']."\n";
-					foreach($section['items'] as $item){
-						echo $item['before']."\n";
+			foreach($configs['section'] as $section_key => $section){
+				
+				if(isset($section['prefix'])){
+					$section_prefix = $prefix.$section['prefix'];
+				}else{
+					$section_prefix = $prefix.$section_key;
+				}
+				
+				echo steed_search_replace_style_of_part($section_prefix, $section['before'], $section)."\n";
+					foreach($section['items'] as $item_key => $item){
+						
+						if(isset($item['prefix'])){
+							$item_prefix = $prefix.$item['prefix'];
+						}else{
+							$item_prefix = $prefix.$item_key;
+						}
+				
+						echo steed_search_replace_style_of_part($item_prefix, $item['before'], $item)."\n";
 							foreach($item['elements'] as $element){
 								$function = 'steed_element_'.$element['fn'];
 								$e_prefix = $prefix.$element['prefix'];
@@ -278,20 +373,22 @@ function steed_site_part_customize_render($name, $wp_customize){
 		$title = $configs['title'];
 		$is_panel = (isset($configs['is_panel'])) ? $configs['is_panel'] : true;
 		
-		if($is_panel){
-			$wp_customize->add_panel( $prefix.'panel', array(
-				'title' => $title.' Settings',
-				'priority' => 10,
-			));
-		}else{
-			$section_prefix_id = $prefix.'panel';
+		$section_prefix_id = $prefix.'panel';
 			$wp_customize->add_section( $section_prefix_id, array(
 				'title' => $title.' Settings',
 				'priority' => 10,
-			));
-		}
+		));
 		
-		foreach($configs['section'] as $section){		
+		foreach($configs['section'] as $section_key => $section){
+			
+			if(isset($section['prefix'])){
+				$section_prefix = $prefix.$section['prefix'];
+			}else{
+				$section_prefix = $prefix.$section_key;
+			}
+			
+			steed_customizer_print_part_style($wp_customize, $section_prefix_id, $section_prefix, $section);
+			
 			foreach($section['items'] as $item_key => $item){
 				
 				if(isset($item['prefix'])){
@@ -310,14 +407,7 @@ function steed_site_part_customize_render($name, $wp_customize){
 					}
 					
 					if(function_exists($function)){
-						if($is_panel){
-							$wp_customize->add_section( $section_prefix_id, array(
-								'title' => $element['title'],
-								'priority' => 10,
-								'panel' => $prefix.'panel',
-							));
-						}
-						
+												
 						$wp_customize->add_setting($e_prefix.'infoheading', array( 'default' => '', 'sanitize_callback' => '', ));
 						$wp_customize->add_control( new steed_Customize_Control_heading($wp_customize, $e_prefix.'infoheading', 
 							array(
@@ -347,36 +437,7 @@ function steed_site_part_customize_render($name, $wp_customize){
 					}
 				}
 				
-				//Item Style
-				if(isset($item['style_title'])){
-					if($item['style_title'] != ''){
-						$uid = 'item_infoheading_'.$item_key;
-						$wp_customize->add_setting($uid, array( 'default' => '', 'sanitize_callback' => '', ));
-						$wp_customize->add_control( new steed_Customize_Control_heading($wp_customize, $uid, 
-							array(
-								'label' => $item['style_title'],
-								'description' => '',
-								'section'    => $section_prefix_id,
-							)) 
-						);
-					}
-				}
-				
-				if(isset($item['style_bg'])){
-					if($item['style_bg'] != 'n/a'){
-						steed_customizer_background($wp_customize, $section_prefix_id, $item_prefix, $item['style_bg']);
-					}
-				}
-				if(isset($item['style_padding'])){
-					if($item['style_padding'] != 'n/a'){
-						steed_customizer_padding($wp_customize, $section_prefix_id, $item_prefix, $item['style_padding']);
-					}
-				}
-				if(isset($item['style_colorMood'])){
-					if($item['style_colorMood'] != 'n/a'){
-						steed_customizer_colorMood($wp_customize, $section_prefix_id, $item_prefix, $item['style_colorMood']);
-					}
-				}
+				steed_customizer_print_part_style($wp_customize, $section_prefix_id, $item_prefix, $item);
 			}
 		}
 	}

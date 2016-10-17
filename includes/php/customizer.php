@@ -231,6 +231,40 @@ function steed_customizer_colorMood($wp_customize, $section_prefix_id, $prefix, 
 }
 
 
+function steed_customizer_print_part_style($wp_customize, $section_prefix_id, $prefix, $data){
+
+	if(isset($data['style_title'])){
+		if($data['style_title'] != ''){
+			$uid =	'item_infoheading_'.$prefix;
+			$wp_customize->add_setting($uid, array( 'default' => '', 'sanitize_callback' => '', ));
+			$wp_customize->add_control( new steed_Customize_Control_heading($wp_customize, $uid, 
+				array(
+				'label' => $data['style_title'],
+				'description' => '',
+				'section' => $section_prefix_id,
+				)) 
+			);
+		}
+	}
+				
+	if(isset($data['style_bg'])){
+		if($data['style_bg'] != 'n/a'){
+			steed_customizer_background($wp_customize, $section_prefix_id, $prefix.'bg_', $data['style_bg']);
+		}
+	}
+	if(isset($data['style_padding'])){
+		if($data['style_padding'] != 'n/a'){
+			steed_customizer_padding($wp_customize, $section_prefix_id, $prefix.'padding_', $data['style_padding']);
+		}
+	}
+	if(isset($data['style_colorMood'])){
+		if($data['style_colorMood'] != 'n/a'){
+			steed_customizer_colorMood($wp_customize, $section_prefix_id, $prefix.'colorMood_', $data['style_colorMood']);
+		}
+	}	
+}
+
+
 
 function steed_element_customize_socialIcons($prefix, $section_prefix_id, $element_settings, $wp_customize){
 	
