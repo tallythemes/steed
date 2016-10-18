@@ -152,11 +152,202 @@ endif;
 
 
 function steed_custom_css(){
+	$std_colors = array(
+		'primary' => '#359a34',
+		'accent' => '#2a6b29',
+		'dark' => array(
+			'text' => '#555',
+			'meta' => '#999',
+			'heading' => '#000',
+			'sub_heading' => '#333',
+			'border' => '#999',
+			'sub_border' => '#f0f0f0',
+			'bg' => '#fff',
+			'sub_bg' => '#f1f1f1',
+		),
+		'light' => array(
+			'text' => '#d6d6d6',
+			'meta' => '#999',
+			'heading' => '#fff',
+			'sub_heading' => '#333',
+			'border' => '#999',
+			'sub_border' => '#f0f0f0',
+			'bg' => '#000',
+			'sub_bg' => '#f1f1f1',
+		),
+	);
+	$colors = apply_filters('steed_colors', $std_colors);
+	
+	$primary_color = $colors['primary'];
+	$accent_color = $colors['accent'];
+	
+	$dark_colors = $colors['dark'];
+	$light_colors = $colors['light'];
+	
 	$css = '';
 	
-	$css .= 'body{ font-family:'. steed_fonts_style(2) .'; }';
-	$css .= '.main-navigation, .main-navigation a{ font-family:'. steed_fonts_style(1) .'; }';
-	$css .= 'h1, h2, h3, h4, h5, h6{ font-family:'. steed_fonts_style(0) .'; }';
+	/* Font */
+	$css .= 'body{ font-family:'.steed_fonts_style(2).'; }';
+	$css .= '.main-navigation, .main-navigation a{ font-family:'. steed_fonts_style(1).'; }';
+	$css .= 'h1, h2, h3, h4, h5, h6{ font-family:'. steed_fonts_style(0).'; }';
+	
+	/* Primary & Accent */
+	$css .= 'a, a:visited{ color:'.$primary_color.'; }';
+	$css .= 'a:hover{ color:'.$accent_color.'; }';
+	
+	$css .= '.pc_bg{ background-color:'.$primary_color.'; }';
+	$css .= '.pc_bg_hover:hover{ background-color:'.$primary_color.'; }';
+	$css .= '.pc_border{ border-color:'.$primary_color.'; }';
+	$css .= '.pc_border_hover:hover{ border-color:'.$primary_color.'; }';
+	$css .= '.pc_text{ color:'.$primary_color.'; }';
+	$css .= '.pc_text_hover:hover{ color:'.$primary_color.'; }';
+	
+	$css .= '.ac_bg{ background-color:'.$accent_color.'; }';
+	$css .= '.ac_bg_hover:hover{ background-color:'.$accent_color.'; }';
+	$css .= '.ac_border{ border-color:'.$accent_color.'; }';
+	$css .= '.ac_border_hover:hover{ border-color:'.$accent_color.'; }';
+	$css .= '.ac_text{ color:'.$accent_color.'; }';
+	$css .= '.ac_text_hover:hover{ color:'.$accent_color.'; }';
+	
+	/* Dark Text */
+	$css .= 'body{ color:'.$dark_colors['text'].'; }';
+	$css .= '.tc_bg{ background-color:'.$dark_colors['text'].'; }';
+	$css .= '.tc_bg_hover:hover{ background-color:'.$dark_colors['text'].'; }';
+	$css .= '.tc_border{ border-color:'.$dark_colors['text'].'; }';
+	$css .= '.tc_border_hover:hover{ border-color:'.$dark_colors['text'].'; }';
+	$css .= '.tc_text{ color:'.$dark_colors['text'].'; }';
+	$css .= '.tc_text_hover:hover{ color:'.$dark_colors['text'].'; }';
+	
+	/* Dark heading */
+	$css .= 'h1, h2, h3, h4, h5, h6{ color:'.$dark_colors['heading'].'; }';
+	$css .= '.hc_bg{ background-color:'.$dark_colors['heading'].'; }';
+	$css .= '.hc_bg_hover:hover{ background-color:'.$dark_colors['heading'].'; }';
+	$css .= '.hc_border{ border-color:'.$dark_colors['heading'].'; }';
+	$css .= '.hc_border_hover:hover{ border-color:'.$dark_colors['heading'].'; }';
+	$css .= '.hc_text{ color:'.$dark_colors['heading'].'; }';
+	$css .= '.hc_text_hover:hover{ color:'.$dark_colors['heading'].'; }';
+	
+	/* Dark Sub-Heading */
+	$css .= '.hsc_bg{ background-color:'.$dark_colors['sub_heading'].'; }';
+	$css .= '.hsc_bg_hover:hover{ background-color:'.$dark_colors['sub_heading'].'; }';
+	$css .= '.hsc_border{ border-color:'.$dark_colors['sub_heading'].'; }';
+	$css .= '.hsc_border_hover:hover{ border-color:'.$dark_colors['sub_heading'].'; }';
+	$css .= '.hsc_text{ color:'.$dark_colors['sub_heading'].'; }';
+	$css .= '.hsc_text_hover:hover{ color:'.$dark_colors['sub_heading'].'; }';
+	
+	/* Dark Meta */
+	$css .= '.mc_bg{ background-color:'.$dark_colors['meta'].'; }';
+	$css .= '.mc_bg_hover:hover{ background-color:'.$dark_colors['meta'].'; }';
+	$css .= '.mc_border{ border-color:'.$dark_colors['meta'].'; }';
+	$css .= '.mc_border_hover:hover{ border-color:'.$dark_colors['meta'].'; }';
+	$css .= '.mc_text{ color:'.$dark_colors['meta'].'; }';
+	$css .= '.mc_text_hover:hover{ color:'.$dark_colors['meta'].'; }';
+	
+	/* Dark Border */
+	$css .= '.bc_bg{ background-color:'.$dark_colors['border'].'; }';
+	$css .= '.bc_bg_hover:hover{ background-color:'.$dark_colors['border'].'; }';
+	$css .= '.bc_border{ border-color:'.$dark_colors['border'].'; }';
+	$css .= '.bc_border_hover:hover{ border-color:'.$dark_colors['border'].'; }';
+	$css .= '.bc_text{ color:'.$dark_colors['border'].'; }';
+	$css .= '.bc_text_hover:hover{ color:'.$dark_colors['border'].'; }';
+	
+	/* Dark Sub-Border */
+	$css .= '.bsc_bg{ background-color:'.$dark_colors['sub_border'].'; }';
+	$css .= '.bsc_bg_hover:hover{ background-color:'.$dark_colors['sub_border'].'; }';
+	$css .= '.bsc_border{ border-color:'.$dark_colors['sub_border'].'; }';
+	$css .= '.bsc_border_hover:hover{ border-color:'.$dark_colors['sub_border'].'; }';
+	$css .= '.bsc_text{ color:'.$dark_colors['sub_border'].'; }';
+	$css .= '.bsc_text_hover:hover{ color:'.$dark_colors['sub_border'].'; }';
+	
+	/* Dark BG */
+	$css .= '.bgc_bg{ background-color:'.$dark_colors['bg'].'; }';
+	$css .= '.bgc_bg_hover:hover{ background-color:'.$dark_colors['bg'].'; }';
+	$css .= '.bgc_border{ border-color:'.$dark_colors['bg'].'; }';
+	$css .= '.bgc_border_hover:hover{ border-color:'.$dark_colors['bg'].'; }';
+	$css .= '.bgc_text{ color:'.$dark_colors['bg'].'; }';
+	$css .= '.bgc_text_hover:hover{ color:'.$dark_colors['bg'].'; }';
+	
+	/* Dark Sub BG */
+	$css .= '.bgsc_bg{ background-color:'.$dark_colors['bg'].'; }';
+	$css .= '.bgsc_bg_hover:hover{ background-color:'.$dark_colors['bg'].'; }';
+	$css .= '.bgsc_border{ border-color:'.$dark_colors['bg'].'; }';
+	$css .= '.bgsc_border_hover:hover{ border-color:'.$dark_colors['bg'].'; }';
+	$css .= '.bgsc_text{ color:'.$dark_colors['bg'].'; }';
+	$css .= '.bgsc_text_hover:hover{ color:'.$dark_colors['bg'].'; }';
+	
+		
+	
+	/* Light Text */
+	$css .= '.color-light { color:'.$light_colors['text'].'; }';
+	$css .= '.color-light .tc_bg{ background-color:'.$light_colors['text'].'; }';
+	$css .= '.color-light .tc_bg_hover:hover{ background-color:'.$light_colors['text'].'; }';
+	$css .= '.color-light .tc_border{ border-color:'.$light_colors['text'].'; }';
+	$css .= '.color-light .tc_border_hover:hover{ border-color:'.$light_colors['text'].'; }';
+	$css .= '.color-light .tc_text{ color:'.$light_colors['text'].'; }';
+	$css .= '.color-light .tc_text_hover:hover{ color:'.$light_colors['text'].'; }';
+	
+	/* Light heading */
+	$css .= '.color-light h1, .color-light h2, .color-light h3, .color-light h4, .color-light h5, .color-light h6{ color:'.$light_colors['heading'].'; }';
+	$css .= '.color-light .hc_bg{ background-color:'.$light_colors['heading'].'; }';
+	$css .= '.color-light .hc_bg_hover:hover{ background-color:'.$light_colors['heading'].'; }';
+	$css .= '.color-light .hc_border{ border-color:'.$light_colors['heading'].'; }';
+	$css .= '.color-light .hc_border_hover:hover{ border-color:'.$light_colors['heading'].'; }';
+	$css .= '.color-light .hc_text{ color:'.$light_colors['heading'].'; }';
+	$css .= '.color-light .hc_text_hover:hover{ color:'.$light_colors['heading'].'; }';
+	
+	/* Light Sub-Heading */
+	$css .= '.color-light .hsc_bg{ background-color:'.$light_colors['sub_heading'].'; }';
+	$css .= '.color-light .hsc_bg_hover:hover{ background-color:'.$light_colors['sub_heading'].'; }';
+	$css .= '.color-light .hsc_border{ border-color:'.$light_colors['sub_heading'].'; }';
+	$css .= '.color-light .hsc_border_hover:hover{ border-color:'.$light_colors['sub_heading'].'; }';
+	$css .= '.color-light .hsc_text{ color:'.$light_colors['sub_heading'].'; }';
+	$css .= '.color-light .hsc_text_hover:hover{ color:'.$light_colors['sub_heading'].'; }';
+	
+	/* Light Meta */
+	$css .= '.color-light .mc_bg{ background-color:'.$light_colors['meta'].'; }';
+	$css .= '.color-light .mc_bg_hover:hover{ background-color:'.$light_colors['meta'].'; }';
+	$css .= '.color-light .mc_border{ border-color:'.$light_colors['meta'].'; }';
+	$css .= '.color-light .mc_border_hover:hover{ border-color:'.$light_colors['meta'].'; }';
+	$css .= '.color-light .mc_text{ color:'.$light_colors['meta'].'; }';
+	$css .= '.color-light .mc_text_hover:hover{ color:'.$light_colors['meta'].'; }';
+	
+	/* Light Border */
+	$css .= '.color-light .bc_bg{ background-color:'.$light_colors['border'].'; }';
+	$css .= '.color-light .bc_bg_hover:hover{ background-color:'.$light_colors['border'].'; }';
+	$css .= '.color-light .bc_border{ border-color:'.$light_colors['border'].'; }';
+	$css .= '.color-light .bc_border_hover:hover{ border-color:'.$light_colors['border'].'; }';
+	$css .= '.color-light .bc_text{ color:'.$light_colors['border'].'; }';
+	$css .= '.color-light .bc_text_hover:hover{ color:'.$light_colors['border'].'; }';
+	
+	/* Light Sub-Border */
+	$css .= '.color-light .bsc_bg{ background-color:'.$light_colors['sub_border'].'; }';
+	$css .= '.color-light .bsc_bg_hover:hover{ background-color:'.$light_colors['sub_border'].'; }';
+	$css .= '.color-light .bsc_border{ border-color:'.$light_colors['sub_border'].'; }';
+	$css .= '.color-light .bsc_border_hover:hover{ border-color:'.$light_colors['sub_border'].'; }';
+	$css .= '.color-light .bsc_text{ color:'.$light_colors['sub_border'].'; }';
+	$css .= '.color-light .bsc_text_hover:hover{ color:'.$light_colors['sub_border'].'; }';
+	
+	/* Light BG */
+	$css .= '.color-light .bgc_bg{ background-color:'.$light_colors['bg'].'; }';
+	$css .= '.color-light .bgc_bg_hover:hover{ background-color:'.$light_colors['bg'].'; }';
+	$css .= '.color-light .bgc_border{ border-color:'.$light_colors['bg'].'; }';
+	$css .= '.color-light .bgc_border_hover:hover{ border-color:'.$light_colors['bg'].'; }';
+	$css .= '.color-light .bgc_text{ color:'.$light_colors['bg'].'; }';
+	$css .= '.color-light .bgc_text_hover:hover{ color:'.$light_colors['bg'].'; }';
+	
+	/* Light Sub BG */
+	$css .= '.color-light .bgsc_bg{ background-color:'.$light_colors['bg'].'; }';
+	$css .= '.color-light .bgsc_bg_hover:hover{ background-color:'.$light_colors['bg'].'; }';
+	$css .= '.color-light .bgsc_border{ border-color:'.$light_colors['bg'].'; }';
+	$css .= '.color-light .bgsc_border_hover:hover{ border-color:'.$light_colors['bg'].'; }';
+	$css .= '.color-light .bgsc_text{ color:'.$light_colors['bg'].'; }';
+	$css .= '.color-light .bgsc_text_hover:hover{ color:'.$light_colors['bg'].'; }';
+	
+	
+	
+	/* Navigation */
+	$css .= '.main-navigation a, .main-navigation a:visited{ color:'.$dark_colors['heading'].'; }';
+	$css .= '.main-navigation a:hover, .main-navigation .current_page_item > a, .main-navigation .current-menu-item > a, .main-navigation .current_page_ancestor > a{ color:'.$primary_color.'; }';
 	
 	return $css;
 }
@@ -512,9 +703,9 @@ if ( ! function_exists( 'steed_element_logo' ) ) :
 		// In both cases we display the site's name
 		if ($output == ''){
 			if ( is_front_page() && is_home() ){
-				$output .= '<h1  class="site-title"><a href="' . esc_url(home_url('/')) . '">'.get_bloginfo( 'name' ).'</a></h1>';
+				$output .= '<h1  class="site-title"><a href="' . esc_url(home_url('/')) . '" class="hc_text">'.get_bloginfo( 'name' ).'</a></h1>';
 			}else{
-				$output .= '<p  class="site-title"><a href="' . esc_url(home_url('/')) . '">'.get_bloginfo( 'name' ).'</a></p>';
+				$output .= '<p  class="site-title"><a href="' . esc_url(home_url('/')) . '" class="hc_text">'.get_bloginfo( 'name' ).'</a></p>';
 			}
 			if ( $description || is_customize_preview() ){
 				$output .= '<p  class="site-description">'.$description.'</p>';
@@ -523,5 +714,24 @@ if ( ! function_exists( 'steed_element_logo' ) ) :
 		
 		/*Validating using wp_kses as the output contain images and h1 tags*/
 		echo wp_kses($output, wp_kses_allowed_html( 'post' ));
+	}
+endif;
+
+
+if ( ! function_exists( 'steed_element_pageHeading' ) ) :
+	function steed_element_pageHeading() {
+		
+		if(is_search()){
+			?>
+			<h1 class="page-title"><?php printf( esc_html__( 'Search Results for: %s', 'steed' ), '<span>' . get_search_query() . '</span>' ); ?></h1>
+			<?php
+		}elseif(is_single()){
+			the_title( '<h1 class="entry-title">', '</h1>' );
+			echo '<div class="entry-meta">';
+				steed_posted_on();
+			echo '</div>';
+		}else{
+			the_title( '<h1 class="entry-title">', '</h1>' );	
+		}
 	}
 endif;

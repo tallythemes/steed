@@ -306,7 +306,7 @@ function steed_search_replace_style_of_part($prefix, $string, $data){
 	
 	$bg = steed_css_background($prefix.'bg_', $std_bg);
 	$padding = steed_css_padding($prefix.'padding_', $std_padding);
-	$colorMood = 'textMood-'.steed_css_colorMood($prefix.'colorMood_', $std_colorMood);
+	$colorMood = 'color-'.steed_css_colorMood($prefix.'colorMood_', $std_colorMood);
 	
 	$search = array('%bg%', '%padding%', '%colorMood%');
 	$replace = array($bg, $padding, $colorMood);
@@ -354,6 +354,7 @@ function steed_site_part_html_render($name){
 											$function($e_prefix, $element['settings']);
 										echo $element['after']."\n";
 									}
+									
 								}
 							}
 						echo $item['after']."\n";
@@ -371,12 +372,11 @@ function steed_site_part_customize_render($name, $wp_customize){
 	if(is_array($configs)){
 		$prefix = $configs['prefix'];
 		$title = $configs['title'];
-		$is_panel = (isset($configs['is_panel'])) ? $configs['is_panel'] : true;
 		
 		$section_prefix_id = $prefix.'panel';
-			$wp_customize->add_section( $section_prefix_id, array(
-				'title' => $title.' Settings',
-				'priority' => 10,
+		$wp_customize->add_section( $section_prefix_id, array(
+			'title' => $title.' Settings',
+			'priority' => 10,
 		));
 		
 		foreach($configs['section'] as $section_key => $section){
@@ -386,8 +386,6 @@ function steed_site_part_customize_render($name, $wp_customize){
 			}else{
 				$section_prefix = $prefix.$section_key;
 			}
-			
-			
 			
 			foreach($section['items'] as $item_key => $item){
 				
@@ -401,10 +399,6 @@ function steed_site_part_customize_render($name, $wp_customize){
 					$function = 'steed_element_customize_'.$element['fn'];
 					$e_prefix = $prefix.$element['prefix'];
 					$show_hide_std = (isset($element['show_hide_std'])) ? $element['show_hide_std'] : 'yes';
-					
-					if($is_panel){
-						$section_prefix_id = $prefix.$element['prefix'].'_section';
-					}
 					
 					if(function_exists($function)){
 												
@@ -454,6 +448,7 @@ function steed_site_part_widget_init() {
 	$all_configs[] = apply_filters('steed_site_part_render__site_header', NULL);
 	$all_configs[] = apply_filters('steed_site_part_render__after_site_header', NULL);
 	$all_configs[] = apply_filters('steed_site_part_render__site_footer', NULL);
+	$all_configs[] = apply_filters('steed_site_part_render__site_subheader', NULL);
 	
 	foreach($all_configs as $configs){
 		if(is_array($configs)){
