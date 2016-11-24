@@ -1,4 +1,4 @@
 <?php 
-steed_site_part_html_render('site_header');
-steed_site_part_html_render('after_site_header');
-?>
+do_action('steed_before_header');
+do_action('steed_header');
+do_action('steed_after_header');

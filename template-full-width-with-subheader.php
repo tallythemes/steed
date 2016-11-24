@@ -9,7 +9,6 @@
 ?>
 <?php get_header(); ?>
 	<?php steed_site_header(); ?>
-    <?php steed_site_subheader(); ?>
     <?php steed_before_site_content(array('in_class' => 'no-sidebar', 'class' => 'full-width')); ?>
 
 		<?php steed_before_primary_content(); ?>

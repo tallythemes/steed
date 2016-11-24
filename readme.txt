@@ -1,11 +1,15 @@
 === Steed ===
 
+Steed WordPress Theme, Copyright (C) 2016, TallyThemes
+Steed is distributed under the terms of the GNU GPL
+
+
 Contributors: TallyThemes
 Tags: one-column, two-columns, right-sidebar, custom-menu, editor-style, featured-images, post-formats, rtl-language-support, sticky-post, threaded-comments, translation-ready, blog
 
 Requires at least: 4.0
-Tested up to: 4.5.3
-Stable tag: 1.2
+Tested up to: 4.7
+Stable tag: 2.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -33,10 +37,19 @@ Font Awesome 4.6.3 by @davegand
 License - http://fontawesome.io/license (Font: SIL OFL 1.1, CSS: MIT License)
 Source: http://fontawesome.io
 
+TGM-Plugin-Activation
+Copyright (c) 2011, Thomas Griffin ( GPL-2.0+ )
+
+All images: CC0 by Pixabay, https://pixabay.com/en/service/terms/
+
 == Changelog ==
 
 = 1.0 - 22 August 2016  =
 * Initial release
+
+= 2.0 - 16 November 2016  =
+* Updated the FontAwesome to 4.7.0
+* Added all Common CSS style to a new CSS file common.css
 
 
 

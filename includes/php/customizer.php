@@ -11,14 +11,40 @@
  * @param WP_Customize_Manager $wp_customize Theme Customizer object.
  */
 function steed_customize_register( $wp_customize ) {
-	//$wp_customize->get_setting( 'blogname' )->transport         = 'postMessage';
-	//$wp_customize->get_setting( 'blogdescription' )->transport  = 'postMessage';
-	//$wp_customize->get_setting( 'header_textcolor' )->transport = 'postMessage';
+	$wp_customize->get_setting( 'blogname' )->transport         = 'postMessage';
+	$wp_customize->get_setting( 'blogdescription' )->transport  = 'postMessage';
+	$wp_customize->get_setting( 'header_textcolor' )->transport = 'postMessage';
 	
-	steed_site_part_customize_render('site_header', $wp_customize);
-	steed_site_part_customize_render('after_site_header', $wp_customize);
-	steed_site_part_customize_render('site_footer', $wp_customize);
-	steed_site_part_customize_render('site_subheader', $wp_customize);
+	if(function_exists('steed_mal')){
+		$wp_customize->add_section( 'site_content_style' , array(
+			'title'		=> __( 'Content area Style & BG', 'steed' ),
+			'priority'	=> 160,
+			//'panel'		=> '',
+		));
+
+		steed_customizer_padding('content_area_', 'site_content_style', NULL, $wp_customize);
+		steed_customizer_colorMood('content_area_', 'site_content_style', NULL, $wp_customize);
+		/**/steed_Customize_Control_heading('content_area_1_', 'site_content_style', 'Background', NULL, $wp_customize);
+		steed_customizer_background('content_area_', 'site_content_style', NULL, $wp_customize);
+		
+		
+		
+		$wp_customize->add_section( 'site_colors' , array(
+			'title'		=> __( 'All Colors', 'steed' ),
+			'priority'	=> 160,
+			//'panel'		=> '',
+		));
+		//https://www.materialpalette.com/red/green
+		steed_Customize_Control_color('primary_l_', 'site_colors', 'Primary Light Color', NULL, $wp_customize);
+		steed_Customize_Control_color('primary_', 'site_colors', 'Primary Color', NULL, $wp_customize);
+		steed_Customize_Control_color('primary_d_', 'site_colors', 'Primary Dark Color', NULL, $wp_customize);
+		steed_Customize_Control_color('accent_', 'site_colors', 'Accent Color', NULL, $wp_customize);
+		steed_Customize_Control_color('light_', 'site_colors', 'Light Color', NULL, $wp_customize);
+		steed_Customize_Control_color('dim_light_', 'site_colors', 'Dim Light Color', NULL, $wp_customize);
+		steed_Customize_Control_color('dim_dark_', 'site_colors', 'Dim Dark Color', NULL, $wp_customize);
+		steed_Customize_Control_color('dark_', 'site_colors', 'Dark Color', NULL, $wp_customize);
+		
+	}
 }
 add_action( 'customize_register', 'steed_customize_register' );
 
@@ -34,23 +60,27 @@ add_action( 'customize_preview_init', 'steed_customize_preview_js' );
 function steed_customizer_button_set(){
 	
 	$info = apply_filters('steed_customizer_info', array(
-		'text' => __('<strong>Love this theme? Just click on the button just Above and start downloading</strong>','steed'),
+		'text' => __('<strong>Love this theme? Just click on the button Above and start downloading</strong>','steed'),
 		'button_1_text' => __('Download More FREE Themes', 'steed'),
-		'button_2_text' => __('Theme Documentation', 'steed'),
+		//'button_2_text' => __('Theme Documentation', 'steed'),
 		'button_1_url' => esc_url('http://tallythemes.com/product-category/free-wordpress-themes/'),
-		'button_2_url' => esc_url('http://tallythemes.com/steed-documentation'),
+		//'button_2_url' => esc_url('http://tallythemes.com/steed-documentation'),
 	));
 	
 	wp_enqueue_script( 'steed-customizer-buttons', get_template_directory_uri() . '/assets/js/customizer-button.js', array("jquery"), '1.0', true  );
 	wp_localize_script( 'steed-customizer-buttons', 'steed_objectL10n', array(
 		'text' => $info['text'],
 		'btn_1_text' => $info['button_1_text'],
-		'btn_2_text' => $info['button_2_text'],
+		//'btn_2_text' => $info['button_2_text'],
 		'btn_1_url' => $info['button_1_url'],
-		'btn_2_url' => $info['button_2_url'],
+		//'btn_2_url' => $info['button_2_url'],
 	) );
+	
+	
+	
 }
 add_action( 'customize_controls_enqueue_scripts', 'steed_customizer_button_set' );
+
 
 
 if( class_exists( 'WP_Customize_Control' ) ):
@@ -72,8 +102,34 @@ if( class_exists( 'WP_Customize_Control' ) ):
 	}
 endif;
 
+function steed_Customize_Control_heading($prefix, $section_prefix_id, $title="", $des ="", $wp_customize){
+	$uid = $prefix.'heading_aa';
+	$wp_customize->add_setting($uid, array( 'default' => '', 'sanitize_callback' => 'sanitize_text_field', ));
+	$wp_customize->add_control(new steed_Customize_Control_heading($wp_customize, $uid, array(
+		'label'      => $title,
+		'section'    => $section_prefix_id,
+		'settings'   => $uid,
+		'description' => $des,
+	)));
+	return $wp_customize;	
+}
 
-function steed_customizer_background($wp_customize, $section_prefix_id, $prefix, $std){
+function steed_Customize_Control_color($prefix, $section_prefix_id, $title="", $des ="", $wp_customize, $std = ''){
+	$uid = $prefix.'color';
+	$wp_customize->add_setting($uid, array( 'default' => $std, 'sanitize_callback' => 'sanitize_hex_color', ));
+	$wp_customize->add_control( new WP_Customize_Color_Control($wp_customize, $uid, array(
+		'label'      => $title,
+		'section'    => $section_prefix_id,
+		'settings'   => $uid,
+		'description' => $des,
+	)));
+	
+	return $wp_customize;	
+}
+
+
+
+function steed_customizer_background($prefix, $section_prefix_id, $element_settings, $wp_customize){
 	
 	$std_image = '';
 	$std_color = '';
@@ -82,14 +138,14 @@ function steed_customizer_background($wp_customize, $section_prefix_id, $prefix,
 	$std_position = '';
 	$std_size = '';
 	
-	$std_image = (isset($std['image'])) ? $std['image'] : '';
-	$std_color = (isset($std['color'])) ? $std['color'] : '';
-	$std_repeat = (isset($std['repeat'])) ? $std['repeat'] : '';
-	$std_attachment = (isset($std['attachment'])) ? $std['attachment'] : '';
-	$std_position = (isset($std['position'])) ? $std['position'] : '';
-	$std_size = (isset($std['size'])) ? $std['size'] : '';
+	$std_image = (isset($element_settings['std-image'])) ? $element_settings['std-image'] : '';
+	$std_color = (isset($element_settings['std-color'])) ? $element_settings['std-color'] : '';
+	$std_repeat = (isset($element_settings['std-repeat'])) ? $element_settings['std-repeat'] : '';
+	$std_attachment = (isset($element_settings['std-attachment'])) ? $element_settings['std-attachment'] : '';
+	$std_position = (isset($element_settings['std-position'])) ? $element_settings['std-position'] : '';
+	$std_size = (isset($element_settings['std-size'])) ? $element_settings['std-size'] : '';
 	
-	$uid = $prefix.'image';
+	$uid = $prefix.'bg_image';
 	$wp_customize->add_setting($uid, array( 'default' => $std_image, 'sanitize_callback' => 'esc_url', ));
 	$wp_customize->add_control( new WP_Customize_Image_Control($wp_customize, $uid, array(
 		'label'      => __('Background Image', 'steed'),
@@ -98,8 +154,8 @@ function steed_customizer_background($wp_customize, $section_prefix_id, $prefix,
 		'description' => '',
 	)));
 	
-	if(steed_mal()){
-	$uid = $prefix.'color';
+	if(function_exists('steed_mal')){
+	$uid = $prefix.'bg_color';
 	$wp_customize->add_setting($uid, array( 'default' => $std_color, 'sanitize_callback' => 'sanitize_hex_color', ));
 	$wp_customize->add_control( new WP_Customize_Color_Control($wp_customize, $uid, array(
 		'label'      => __('Background Color', 'steed'),
@@ -108,7 +164,7 @@ function steed_customizer_background($wp_customize, $section_prefix_id, $prefix,
 		'description' => '',
 	)));
 	
-	$uid = $prefix.'repeat';
+	$uid = $prefix.'bg_repeat';
 	$wp_customize->add_setting($uid, array( 'default' => $std_repeat, 'sanitize_callback' => 'sanitize_text_field', ));
 	$wp_customize->add_control( $uid, array(
 		'label'      => __('Background Repeat', 'steed'),
@@ -124,7 +180,7 @@ function steed_customizer_background($wp_customize, $section_prefix_id, $prefix,
 		),
 	));
 	
-	$uid = $prefix.'attachment';
+	$uid = $prefix.'bg_attachment';
 	$wp_customize->add_setting($uid, array( 'default' => $std_attachment, 'sanitize_callback' => 'sanitize_text_field', ));
 	$wp_customize->add_control( $uid, array(
 		'label'      => __('Background Attachment', 'steed'),
@@ -138,7 +194,7 @@ function steed_customizer_background($wp_customize, $section_prefix_id, $prefix,
 			'inherit' => 'inherit',
 		),
 	));
-	$uid = $prefix.'position';
+	$uid = $prefix.'bg_position';
 	$wp_customize->add_setting($uid, array( 'default' => $std_position, 'sanitize_callback' => 'sanitize_text_field', ));
 	$wp_customize->add_control( $uid, array(
 		'label'      => __('Background Position', 'steed'),
@@ -159,7 +215,7 @@ function steed_customizer_background($wp_customize, $section_prefix_id, $prefix,
 			'right center' => 'right center',
 		),
 	));
-	$uid = $prefix.'size';
+	$uid = $prefix.'bg_size';
 	$wp_customize->add_setting($uid, array( 'default' => $std_size, 'sanitize_callback' => 'sanitize_text_field', ));
 	$wp_customize->add_control( $uid, array(
 		'label'      => __('Background Size', 'steed'),
@@ -177,16 +233,14 @@ function steed_customizer_background($wp_customize, $section_prefix_id, $prefix,
 	
 	return $wp_customize;
 }
-
-
-function steed_customizer_padding($wp_customize, $section_prefix_id, $prefix, $std){
-	
-	$std_top = (isset($std['top'])) ? $std['top'] : '';
-	$std_bottom = (isset($std['bottom'])) ? $std['bottom'] : '';
+function steed_customizer_padding($prefix, $section_prefix_id, $element_settings, $wp_customize){
+		
+	$std_top = (!empty($element_settings['std_top'])) ? $element_settings['std_top'] : '';
+	$std_bottom = (!empty($element_settings['std_bottom'])) ? $element_settings['std_bottom'] : '';
 
 	
-	if(steed_mal()){
-		$uid = $prefix.'top';
+	if(function_exists('steed_mal')){
+		$uid = $prefix.'padding_top';
 		$wp_customize->add_setting($uid, array( 'default' => $std_top, 'sanitize_callback' => 'sanitize_text_field', ));
 		$wp_customize->add_control( $uid, array(
 			'label'      => __('Padding Top', 'steed'),
@@ -195,7 +249,7 @@ function steed_customizer_padding($wp_customize, $section_prefix_id, $prefix, $s
 			'type'       => 'text',
 			'description' => '',
 		));
-		$uid = $prefix.'bottom';
+		$uid = $prefix.'padding_bottom';
 		$wp_customize->add_setting($uid, array( 'default' => $std_bottom, 'sanitize_callback' => 'sanitize_text_field', ));
 		$wp_customize->add_control( $uid, array(
 			'label'      => __('Padding Bottom', 'steed'),
@@ -208,10 +262,12 @@ function steed_customizer_padding($wp_customize, $section_prefix_id, $prefix, $s
 	
 	return $wp_customize;
 }
-function steed_customizer_colorMood($wp_customize, $section_prefix_id, $prefix, $std){
+function steed_customizer_colorMood($prefix, $section_prefix_id, $element_settings, $wp_customize){
+	
+	$std = (!empty($element_settings['std'])) ? $element_settings['std'] : 'dark';
 
 	
-	if(steed_mal()){
+	if(function_exists('steed_mal')){
 		$uid = $prefix.'colorMood';
 		$wp_customize->add_setting($uid, array( 'default' => $std, 'sanitize_callback' => 'sanitize_text_field', ));
 		$wp_customize->add_control( $uid, array(
@@ -231,43 +287,24 @@ function steed_customizer_colorMood($wp_customize, $section_prefix_id, $prefix, 
 	return $wp_customize;
 }
 
-
-function steed_customizer_print_part_style($wp_customize, $section_prefix_id, $prefix, $data){
-
-	if(isset($data['style_title'])){
-		if($data['style_title'] != ''){
-			$uid =	'item_infoheading_'.$prefix;
-			$wp_customize->add_setting($uid, array( 'default' => '', 'sanitize_callback' => '', ));
-			$wp_customize->add_control( new steed_Customize_Control_heading($wp_customize, $uid, 
-				array(
-				'label' => $data['style_title'],
-				'description' => '',
-				'section' => $section_prefix_id,
-				)) 
-			);
-		}
-	}
-				
-	if(isset($data['style_bg'])){
-		if($data['style_bg'] != 'n/a'){
-			steed_customizer_background($wp_customize, $section_prefix_id, $prefix.'bg_', $data['style_bg']);
-		}
-	}
-	if(isset($data['style_padding'])){
-		if($data['style_padding'] != 'n/a'){
-			steed_customizer_padding($wp_customize, $section_prefix_id, $prefix.'padding_', $data['style_padding']);
-		}
-	}
-	if(isset($data['style_colorMood'])){
-		if($data['style_colorMood'] != 'n/a'){
-			steed_customizer_colorMood($wp_customize, $section_prefix_id, $prefix.'colorMood_', $data['style_colorMood']);
-		}
-	}	
-}
-
-
-
 function steed_element_customize_socialIcons($prefix, $section_prefix_id, $element_settings, $wp_customize){
+	
+	if(function_exists('steed_mal')){
+		$uid = $prefix.'social_active';
+		$wp_customize->add_setting($uid, array( 'default' => 'yes', 'sanitize_callback' => 'sanitize_text_field', ));
+		$wp_customize->add_control( $uid, array(
+			'label'      => __('Enable Social Icons', 'steed'),
+			'section'    => $section_prefix_id,
+			'settings'   => $uid,
+			'type'       => 'select',
+			'description' => '',
+			'choices' => array(
+				'yes' => 'yes',
+				'no' => 'no',
+				
+			),
+		));
+	}
 	
 	$uid = $prefix.'social_icon_1';
 	$wp_customize->add_setting($uid, array( 'default' => 'fa-facebook', 'sanitize_callback' => 'sanitize_text_field', ));
@@ -383,22 +420,209 @@ function steed_element_customize_socialIcons($prefix, $section_prefix_id, $eleme
 		'description' => 'Enter the Full URL incloding <code>http://</code>',
 	));
 	
+	if(function_exists('steed_mal')){
+	$uid = $prefix.'social_icon_color';
+	$wp_customize->add_setting($uid, array( 'default' => '', 'sanitize_callback' => 'sanitize_hex_color', ));
+	$wp_customize->add_control(new WP_Customize_Color_Control($wp_customize, $uid, array(
+		'label'      => __('Icon Color', 'steed'),
+		'section'    => $section_prefix_id,
+		'settings'   => $uid,
+		'description' => '',
+	)));
+	$uid = $prefix.'social_bg_color';
+	$wp_customize->add_setting($uid, array( 'default' => '', 'sanitize_callback' => 'sanitize_hex_color', ));
+	$wp_customize->add_control(new WP_Customize_Color_Control($wp_customize, $uid, array(
+		'label'      => __('Icon Background Color', 'steed'),
+		'section'    => $section_prefix_id,
+		'settings'   => $uid,
+		'description' => '',
+	)));
+	$uid = $prefix.'social_border_color';
+	$wp_customize->add_setting($uid, array( 'default' => '', 'sanitize_callback' => 'sanitize_hex_color', ));
+	$wp_customize->add_control(new WP_Customize_Color_Control($wp_customize, $uid, array(
+		'label'      => __('Icon Border Color', 'steed'),
+		'section'    => $section_prefix_id,
+		'settings'   => $uid,
+		'description' => '',
+	)));
+	$uid = $prefix.'social_icon_color_h';
+	$wp_customize->add_setting($uid, array( 'default' => '', 'sanitize_callback' => 'sanitize_hex_color', ));
+	$wp_customize->add_control(new WP_Customize_Color_Control($wp_customize, $uid, array(
+		'label'      => __('Icon Hover Color', 'steed'),
+		'section'    => $section_prefix_id,
+		'settings'   => $uid,
+		'description' => '',
+	)));
+	$uid = $prefix.'social_bg_color_h';
+	$wp_customize->add_setting($uid, array( 'default' => '', 'sanitize_callback' => 'sanitize_hex_color', ));
+	$wp_customize->add_control(new WP_Customize_Color_Control($wp_customize, $uid, array(
+		'label'      => __('Icon Background Hover Color', 'steed'),
+		'section'    => $section_prefix_id,
+		'settings'   => $uid,
+		'description' => '',
+	)));
+	$uid = $prefix.'social_border_color_h';
+	$wp_customize->add_setting($uid, array( 'default' => '', 'sanitize_callback' => 'sanitize_hex_color', ));
+	$wp_customize->add_control(new WP_Customize_Color_Control($wp_customize, $uid, array(
+		'label'      => __('Icon Border Hover Color', 'steed'),
+		'section'    => $section_prefix_id,
+		'settings'   => $uid,
+		'description' => '',
+	)));
+	}
+	
 	return $wp_customize;
 }
 
-
-
+function steed_element_customize_menuColors($prefix, $section_prefix_id, $element_settings, $wp_customize){
+	if(function_exists('steed_mal')){
+	$uid = $prefix.'menucolor_t_head';
+	$wp_customize->add_setting($uid, array( 'default' => '', 'sanitize_callback' => 'sanitize_text_field', ));
+	$wp_customize->add_control(new steed_Customize_Control_heading($wp_customize, $uid, array(
+		'label'      => __('Top Level Memu Colors', 'steed'),
+		'section'    => $section_prefix_id,
+		'settings'   => $uid,
+		'description' => '',
+	)));
+	$uid = $prefix.'menucolor_t_text';
+	$wp_customize->add_setting($uid, array( 'default' => '', 'sanitize_callback' => 'sanitize_hex_color', ));
+	$wp_customize->add_control(new WP_Customize_Color_Control($wp_customize, $uid, array(
+		'label'      => __('Top Level Text Color', 'steed'),
+		'section'    => $section_prefix_id,
+		'settings'   => $uid,
+		'description' => '',
+	)));
+	$uid = $prefix.'menucolor_t_bg';
+	$wp_customize->add_setting($uid, array( 'default' => '', 'sanitize_callback' => 'sanitize_hex_color', ));
+	$wp_customize->add_control(new WP_Customize_Color_Control($wp_customize, $uid, array(
+		'label'      => __('Top Level Background Color', 'steed'),
+		'section'    => $section_prefix_id,
+		'settings'   => $uid,
+		'description' => '',
+	)));
+	$uid = $prefix.'menucolor_t_border';
+	$wp_customize->add_setting($uid, array( 'default' => '', 'sanitize_callback' => 'sanitize_hex_color', ));
+	$wp_customize->add_control(new WP_Customize_Color_Control($wp_customize, $uid, array(
+		'label'      => __('Top Level Border Color', 'steed'),
+		'section'    => $section_prefix_id,
+		'settings'   => $uid,
+		'description' => '',
+	)));
+	
+	$uid = $prefix.'menucolor_th_head';
+	$wp_customize->add_setting($uid, array( 'default' => '', 'sanitize_callback' => 'sanitize_text_field', ));
+	$wp_customize->add_control(new steed_Customize_Control_heading($wp_customize, $uid, array(
+		'label'      => __('Top Level Memu Hover Colors', 'steed'),
+		'section'    => $section_prefix_id,
+		'settings'   => $uid,
+		'description' => '',
+	)));
+	$uid = $prefix.'menucolor_th_text';
+	$wp_customize->add_setting($uid, array( 'default' => '', 'sanitize_callback' => 'sanitize_hex_color', ));
+	$wp_customize->add_control(new WP_Customize_Color_Control($wp_customize, $uid, array(
+		'label'      => __('Top Level Text Hover Color', 'steed'),
+		'section'    => $section_prefix_id,
+		'settings'   => $uid,
+		'description' => '',
+	)));
+	$uid = $prefix.'menucolor_th_bg';
+	$wp_customize->add_setting($uid, array( 'default' => '', 'sanitize_callback' => 'sanitize_hex_color', ));
+	$wp_customize->add_control(new WP_Customize_Color_Control($wp_customize, $uid, array(
+		'label'      => __('Top Level Background Hover Color', 'steed'),
+		'section'    => $section_prefix_id,
+		'settings'   => $uid,
+		'description' => '',
+	)));
+	$uid = $prefix.'menucolor_th_border';
+	$wp_customize->add_setting($uid, array( 'default' => '', 'sanitize_callback' => 'sanitize_hex_color', ));
+	$wp_customize->add_control(new WP_Customize_Color_Control($wp_customize, $uid, array(
+		'label'      => __('Top Level Border Hover Color', 'steed'),
+		'section'    => $section_prefix_id,
+		'settings'   => $uid,
+		'description' => '',
+	)));
+	
+	$uid = $prefix.'menucolor_s_head';
+	$wp_customize->add_setting($uid, array( 'default' => '', 'sanitize_callback' => 'sanitize_text_field', ));
+	$wp_customize->add_control(new steed_Customize_Control_heading($wp_customize, $uid, array(
+		'label'      => __('Sub Level Memu Colors', 'steed'),
+		'section'    => $section_prefix_id,
+		'settings'   => $uid,
+		'description' => '',
+	)));
+	$uid = $prefix.'menucolor_s_text';
+	$wp_customize->add_setting($uid, array( 'default' => '', 'sanitize_callback' => 'sanitize_hex_color', ));
+	$wp_customize->add_control(new WP_Customize_Color_Control($wp_customize, $uid, array(
+		'label'      => __('Sub Level Text Color', 'steed'),
+		'section'    => $section_prefix_id,
+		'settings'   => $uid,
+		'description' => '',
+	)));
+	$uid = $prefix.'menucolor_s_bg';
+	$wp_customize->add_setting($uid, array( 'default' => '', 'sanitize_callback' => 'sanitize_hex_color', ));
+	$wp_customize->add_control(new WP_Customize_Color_Control($wp_customize, $uid, array(
+		'label'      => __('Sub Level Background Color', 'steed'),
+		'section'    => $section_prefix_id,
+		'settings'   => $uid,
+		'description' => '',
+	)));
+	$uid = $prefix.'menucolor_s_border';
+	$wp_customize->add_setting($uid, array( 'default' => '', 'sanitize_callback' => 'sanitize_hex_color', ));
+	$wp_customize->add_control(new WP_Customize_Color_Control($wp_customize, $uid, array(
+		'label'      => __('Sub Level Border Color', 'steed'),
+		'section'    => $section_prefix_id,
+		'settings'   => $uid,
+		'description' => '',
+	)));
+	
+	
+	$uid = $prefix.'menucolor_sh_head';
+	$wp_customize->add_setting($uid, array( 'default' => '', 'sanitize_callback' => 'sanitize_text_field', ));
+	$wp_customize->add_control(new steed_Customize_Control_heading($wp_customize, $uid, array(
+		'label'      => __('Sub Level Memu Hover Colors', 'steed'),
+		'section'    => $section_prefix_id,
+		'settings'   => $uid,
+		'description' => '',
+	)));
+	$uid = $prefix.'menucolor_sh_text';
+	$wp_customize->add_setting($uid, array( 'default' => '', 'sanitize_callback' => 'sanitize_hex_color', ));
+	$wp_customize->add_control(new WP_Customize_Color_Control($wp_customize, $uid, array(
+		'label'      => __('Sub Level Text Hover Color', 'steed'),
+		'section'    => $section_prefix_id,
+		'settings'   => $uid,
+		'description' => '',
+	)));
+	$uid = $prefix.'menucolor_sh_bg';
+	$wp_customize->add_setting($uid, array( 'default' => '', 'sanitize_callback' => 'sanitize_hex_color', ));
+	$wp_customize->add_control(new WP_Customize_Color_Control($wp_customize, $uid, array(
+		'label'      => __('Sub Level Background Hover Color', 'steed'),
+		'section'    => $section_prefix_id,
+		'settings'   => $uid,
+		'description' => '',
+	)));
+	$uid = $prefix.'menucolor_sh_border';
+	$wp_customize->add_setting($uid, array( 'default' => '', 'sanitize_callback' => 'sanitize_hex_color', ));
+	$wp_customize->add_control(new WP_Customize_Color_Control($wp_customize, $uid, array(
+		'label'      => __('Sub Level Border Hover Color', 'steed'),
+		'section'    => $section_prefix_id,
+		'settings'   => $uid,
+		'description' => '',
+	)));
+	}
+	
+	return $wp_customize;
+}
 function steed_element_customize_iconText($prefix, $section_prefix_id, $element_settings, $wp_customize){
-	$uid = $prefix.'icon';
+	$uid = $prefix.'iconText_icon';
 	$wp_customize->add_setting($uid, array( 'default' => '', 'sanitize_callback' => 'sanitize_text_field', ));
 	$wp_customize->add_control( $uid, array(
 		'label'      => __('Icon', 'steed'),
 		'section'    => $section_prefix_id,
 		'settings'   => $uid,
 		'type'       => 'text',
-		'description' => 'Font Awesome Icon class or the image URL of the social media.',
+		'description' => 'Font Awesome Icon class or the image URL of the image icon.',
 	));
-	$uid = $prefix.'line1';
+	$uid = $prefix.'iconText_line1';
 	$wp_customize->add_setting($uid, array( 'default' => '', 'sanitize_callback' => 'sanitize_text_field', ));
 	$wp_customize->add_control( $uid, array(
 		'label'      => __('Line 1', 'steed'),
@@ -407,7 +631,7 @@ function steed_element_customize_iconText($prefix, $section_prefix_id, $element_
 		'type'       => 'text',
 		'description' => '',
 	));
-	$uid = $prefix.'line2';
+	$uid = $prefix.'iconText_line2';
 	$wp_customize->add_setting($uid, array( 'default' => '', 'sanitize_callback' => 'sanitize_text_field', ));
 	$wp_customize->add_control( $uid, array(
 		'label'      => __('Line 2', 'steed'),
@@ -419,10 +643,6 @@ function steed_element_customize_iconText($prefix, $section_prefix_id, $element_
 	
 	return $wp_customize;
 }
-
-
-
-
 function steed_element_customize_copyText($prefix, $section_prefix_id, $element_settings, $wp_customize){
 	$uid = $prefix.'copytext';
 	$wp_customize->add_setting($uid, array( 'default' => '', 'sanitize_callback' => 'wp_kses_post', ));
@@ -436,15 +656,13 @@ function steed_element_customize_copyText($prefix, $section_prefix_id, $element_
 	
 	return $wp_customize;
 }
-
-
 function steed_element_customize_creditText($prefix, $section_prefix_id, $element_settings, $wp_customize){
 	
-	if(steed_mal()){
-		$uid = $prefix.'show';
+	if(function_exists('steed_mal')){
+		$uid = 'show_site_credit';
 		$wp_customize->add_setting($uid, array( 'default' => 'yes', 'sanitize_callback' => 'sanitize_text_field', ));
 		$wp_customize->add_control( $uid, array(
-			'label'      => __('Copyright Text', 'steed'),
+			'label'      => __('Show Footer Credit Text', 'steed'),
 			'section'    => $section_prefix_id,
 			'settings'   => $uid,
 			'type'       => 'select',
@@ -458,11 +676,25 @@ function steed_element_customize_creditText($prefix, $section_prefix_id, $elemen
 	
 	return $wp_customize;
 }
-
 function steed_element_customize_footerWidgets($prefix, $section_prefix_id, $element_settings, $wp_customize){
 	
-	if(steed_mal()){
-		$uid = $prefix.'layout';
+	if(function_exists('steed_mal')){
+		$uid = $prefix.'widgets_active';
+		$wp_customize->add_setting($uid, array( 'default' => 'yes', 'sanitize_callback' => 'sanitize_text_field', ));
+		$wp_customize->add_control( $uid, array(
+			'label'      => __('Active Widgets', 'steed'),
+			'section'    => $section_prefix_id,
+			'settings'   => $uid,
+			'type'       => 'select',
+			'description' => '',
+			'choices' => array(
+				'yes' => 'yes',
+				'no' => 'no',
+				
+			),
+		));
+		
+		$uid = $prefix.'widgets_layout';
 		$wp_customize->add_setting($uid, array( 'default' => '3/3/3/3', 'sanitize_callback' => 'sanitize_text_field', ));
 		$wp_customize->add_control( $uid, array(
 			'label'      => __('Layout', 'steed'),
@@ -484,7 +716,7 @@ function steed_element_customize_footerWidgets($prefix, $section_prefix_id, $ele
 			),
 		));
 		
-		$uid = $prefix.'layout_tab';
+		$uid = $prefix.'widgets_layout_tab';
 		$wp_customize->add_setting($uid, array( 'default' => '6', 'sanitize_callback' => 'sanitize_text_field', ));
 		$wp_customize->add_control( $uid, array(
 			'label'      => __('Layout (Responsive Tab)', 'steed'),
@@ -500,7 +732,7 @@ function steed_element_customize_footerWidgets($prefix, $section_prefix_id, $ele
 			),
 		));
 		
-		$uid = $prefix.'layout_mobile';
+		$uid = $prefix.'widgets_layout_mobile';
 		$wp_customize->add_setting($uid, array( 'default' => '12', 'sanitize_callback' => 'sanitize_text_field', ));
 		$wp_customize->add_control( $uid, array(
 			'label'      => __('Layout (Responsive Mobile)', 'steed'),
@@ -513,6 +745,148 @@ function steed_element_customize_footerWidgets($prefix, $section_prefix_id, $ele
 				'6' => '2 Column',
 			),
 		));
+	}
+	
+	return $wp_customize;
+}
+
+
+
+function steed_element_customize_html($prefix, $section_prefix_id, $element_settings, $wp_customize){
+	
+	if(function_exists('steed_mal')){
+	$uid = $prefix.'html_active';
+	$wp_customize->add_setting($uid, array( 'default' => 'yes', 'sanitize_callback' => 'sanitize_text_field', ));
+	$wp_customize->add_control( $uid, array(
+		'label'      => __('Active HTML Content', 'steed'),
+		'section'    => $section_prefix_id,
+		'settings'   => $uid,
+		'type'       => 'select',
+		'description' => '',
+		'choices' => array(
+			'yes' => 'yes',
+			'no' => 'no',
+		),
+	));
+	}
+		
+	$uid = $prefix.'html_content';
+	$wp_customize->add_setting($uid, array( 'default' => '', 'sanitize_callback' => 'wp_kses_post', ));
+	$wp_customize->add_control( $uid, array(
+		'label'      => __('HTML Code', 'steed'),
+		'section'    => $section_prefix_id,
+		'settings'   => $uid,
+		'type'       => 'textarea',
+		'description' => '',
+	));
+	
+	return $wp_customize;
+}
+
+
+function steed_element_customize_text($prefix, $section_prefix_id, $element_settings, $wp_customize){
+	
+	if(function_exists('steed_mal')){
+	$uid = $prefix.'text_active';
+	$wp_customize->add_setting($uid, array( 'default' => 'yes', 'sanitize_callback' => 'sanitize_text_field', ));
+	$wp_customize->add_control( $uid, array(
+		'label'      => __('Active', 'steed'),
+		'section'    => $section_prefix_id,
+		'settings'   => $uid,
+		'type'       => 'select',
+		'description' => '',
+		'choices' => array(
+			'yes' => 'yes',
+			'no' => 'no',
+		),
+	));
+	}
+		
+	$uid = $prefix.'text_content';
+	$wp_customize->add_setting($uid, array( 'default' => '', 'sanitize_callback' => 'wp_kses_post', ));
+	$wp_customize->add_control( $uid, array(
+		'label'      => __('Content', 'steed'),
+		'section'    => $section_prefix_id,
+		'settings'   => $uid,
+		'type'       => 'textarea',
+		'description' => '',
+	));
+	
+	$uid = $prefix.'text_icon';
+	$wp_customize->add_setting($uid, array( 'default' => '', 'sanitize_callback' => 'wp_kses_post', ));
+	$wp_customize->add_control( $uid, array(
+		'label'      => __('Icon', 'steed'),
+		'section'    => $section_prefix_id,
+		'settings'   => $uid,
+		'type'       => 'text',
+		'description' => 'Font Awesome Icon class or the image URL of the image icon.',
+	));
+	
+	return $wp_customize;
+}
+
+
+function steed_element_customize_button($prefix, $section_prefix_id, $element_settings, $wp_customize){
+	
+	if(function_exists('steed_mal')){
+	$uid = $prefix.'button_active';
+	$wp_customize->add_setting($uid, array( 'default' => 'yes', 'sanitize_callback' => 'sanitize_text_field', ));
+	$wp_customize->add_control( $uid, array(
+		'label'      => __('Active This Button', 'steed'),
+		'section'    => $section_prefix_id,
+		'settings'   => $uid,
+		'type'       => 'select',
+		'description' => '',
+		'choices' => array(
+			'yes' => 'yes',
+			'no' => 'no',
+		),
+	));
+	}
+		
+	$uid = $prefix.'button_text';
+	$wp_customize->add_setting($uid, array( 'default' => '', 'sanitize_callback' => 'sanitize_text_field', ));
+	$wp_customize->add_control( $uid, array(
+		'label'      => __('Button Text', 'steed'),
+		'section'    => $section_prefix_id,
+		'settings'   => $uid,
+		'type'       => 'text',
+		'description' => '',
+	));
+	$uid = $prefix.'button_link';
+	$wp_customize->add_setting($uid, array( 'default' => '', 'sanitize_callback' => 'esc_attr', ));
+	$wp_customize->add_control( $uid, array(
+		'label'      => __('Button Link', 'steed'),
+		'section'    => $section_prefix_id,
+		'settings'   => $uid,
+		'type'       => 'text',
+		'description' => '',
+	));
+	
+	if(function_exists('steed_mal')){
+	$uid = $prefix.'button_icon';
+	$wp_customize->add_setting($uid, array( 'default' => '', 'sanitize_callback' => 'sanitize_text_field', ));
+	$wp_customize->add_control( $uid, array(
+		'label'      => __('Button Icon', 'steed'),
+		'section'    => $section_prefix_id,
+		'settings'   => $uid,
+		'type'       => 'text',
+		'description' => 'Font Awesome Icon class',
+	));
+	
+	$uid = $prefix.'button_target';
+	$wp_customize->add_setting($uid, array( 'default' => 'yes', 'sanitize_callback' => 'sanitize_text_field', ));
+	$wp_customize->add_control( $uid, array(
+		'label'      => __('Link Target', 'steed'),
+		'section'    => $section_prefix_id,
+		'settings'   => $uid,
+		'type'       => 'select',
+		'description' => '',
+		'choices' => array(
+			'_self' => '_self',
+			'_blank' => '_blank',
+		),
+	));
 	}
 	
 	return $wp_customize;

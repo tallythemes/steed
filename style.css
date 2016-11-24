@@ -4,19 +4,22 @@ Theme URI: http://tallyThemes.com/steed
 Author: TallyThemes
 Author URI: http://tallyThemes.com
 Description: Steed is a very basic and standard wordpress theme. It is very easy to customize and very fast loaded.
-Version: 1.2
+Version: 2.0
 License: GNU General Public License v2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Text Domain: steed
-Tags: one-column, two-columns, right-sidebar, custom-menu, editor-style, featured-images, post-formats, rtl-language-support, sticky-post, threaded-comments, translation-ready, blog
+Tags: one-column, two-columns, right-sidebar, custom-menu, featured-images, rtl-language-support, sticky-post, threaded-comments, translation-ready, blog, custom-logo
 
 This theme, like WordPress, is licensed under the GPL.
 Use it to make something cool, have fun, and share what you've learned with others.
 
 Normalizing styles have been helped along thanks to the fine work of
 Nicolas Gallagher and Jonathan Neal http://necolas.github.com/normalize.css/
-*/
 
+Steed WordPress Theme, Copyright (C) 2016, TallyThemes
+Steed is distributed under the terms of the GNU GPL
+   
+*/
 /*--------------------------------------------------------------
 >>> TABLE OF CONTENTS:
 ----------------------------------------------------------------
@@ -101,8 +104,8 @@ Nicolas Gallagher and Jonathan Neal http://necolas.github.com/normalize.css/
     margin-bottom: 30px;
     border-bottom: 3px double #D6D6D6;
     padding: 15px 25px 20px;
-    background: #fff;
     box-shadow: 0px 0px 2px rgba(0,0,0,0.1);
+	background-color: rgb(255, 255, 255);
 }
 .site-content-in .page-content-area .entry-header .entry-title{
 	margin-top:0px;
@@ -123,8 +126,8 @@ Nicolas Gallagher and Jonathan Neal http://necolas.github.com/normalize.css/
     margin-bottom: 30px;
     border-bottom: 3px double #D6D6D6;
     padding-bottom: 20px;
-    background: #fff;
     box-shadow: 0px 0px 2px rgba(0,0,0,0.1);
+	background-color: rgb(255, 255, 255);
 }
 .site-content-in .post .entry-header {
 	padding: 22px 25px 20px;
@@ -195,7 +198,6 @@ body.category .post.post_format-post-format-image .entry-content img{
     margin-bottom: 30px;
     border-bottom: 3px double #D6D6D6;
 	padding: 22px 25px 20px;
-    background: #fff;
     box-shadow: 0px 0px 2px rgba(0,0,0,0.1);
 }
 .site-content-in .error-404.not-found .page-content{
@@ -220,7 +222,7 @@ body.category .post.post_format-post-format-image .entry-content img{
     margin-bottom: 30px;
     border-bottom: 3px double #D6D6D6;
     padding: 22px 25px 20px;
-    background: #fff;
+	background-color: rgb(255, 255, 255);
     box-shadow: 0px 0px 2px rgba(0,0,0,0.1);
 }
 
@@ -236,8 +238,8 @@ body.category .post.post_format-post-format-image .entry-content img{
 	background:#fff;
 }
 .braning-and-widgets{
-	padding-top: 20px;
-    padding-bottom: 15px;	
+	padding-top: 13px;
+    padding-bottom: 12px;	
 }
 .header-widgets .widget{
 	margin-bottom:0;	
@@ -246,15 +248,12 @@ body.category .post.post_format-post-format-image .entry-content img{
 	margin-bottom:-5px;	
 }
 
-.site-header .site-branding{
-	width:30%;
-	float:left;	
+
+a.responsive-menu-hand{
+	right:	auto;
+	left:0;
 }
-.header-widgets{
-	width:70%;
-	float:right;
-	text-align:right;	
-}
+
 
 .mavigation-holder{
     border-top: 4px double #eeeeee;
@@ -265,15 +264,7 @@ body.category .post.post_format-post-format-image .entry-content img{
 	clear:both;
 	content:" ";
 }
-.main-navigation{
-	width:70%;
-	float:left;	
-}
-.social-widgets{
-	float:right;	
-	width:30%;
-	text-align:right;
-}
+.mavigation-holder-in{ position:relative; }
 
 /*
 	Logo & title Styling
@@ -289,6 +280,10 @@ body.category .post.post_format-post-format-image .entry-content img{
 .site-header .site-title{
 	line-height:1.1;
 	font-size:24px;	
+	line-height: 1.1;
+    font-size: 24px;
+    font-weight: bold;
+    margin-top: 7px;
 }
 .site-header .site-title a{
 	text-decoration:none;
@@ -307,42 +302,12 @@ body.category .post.post_format-post-format-image .entry-content img{
 
 /*	Social Icons
 ----------------------*/
-.social-widgets .widget{
-	margin-bottom:0;	
-}
-.social-widgets a {
-    position: relative;
-    display: inline-block;
-    width: 36px;
-    height: 32px;
-    text-align: center;
-    color: #222;
-    font-size: 16px;
-    line-height: 32px;
-    margin: 8px 0px 0px;
-    border-radius: 3px;
-    -webkit-border-radius: 3px;
-    -ms-border-radius: 3px;
-    -o-border-radius: 3px;
-    -moz-border-radius: 3px;
-    transition: all 500ms ease-out;
-    -webkit-transition: all 500ms ease-out;
-    -ms-transition: all 500ms ease-out;
-    -o-transition: all 500ms ease-out;
-    -moz-transition: all 500ms ease-out;
-}
-.social-widgets a:hover {
- 	opacity:0.8;
+.social-icons {
+    margin-top: 10px;
+    margin-bottom: 10px;
 }
 
-@media screen and (max-width: 940px){
-	a.responsive-menu-hand{
-		display: block;
-	}
-	.main-navigation{
-		display: none;
-	}
-}
+
 
 
 /*--------------------------------------------------------------
@@ -367,6 +332,7 @@ body.category .post.post_format-post-format-image .entry-content img{
 .site-subheader h1{
 	margin: 0;	
 }
+
 
 
 /*--------------------------------------------------------------
@@ -418,33 +384,6 @@ body.category .post.post_format-post-format-image .entry-content img{
     color: #fff;
 }
 
-.socialicons_div a {
-    font-size: 0;
-    color: inherit!important;
-    margin-left: 3px;
-    margin-right: 3px;
-    margin-top: 3px;
-    margin-bottom: 3px;
-    display: inline-block;
-}
-.socialicons_div br{ display:none; }
-.socialicons_div a:before {
-    display: inline-block;
-    font-family: FontAwesome;
-    font-size: 20px;
-    content: "";
-    font-style: normal;
-    font-weight: normal;
-    line-height: 1;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-}
-.socialicons_div a.facebook:before{	content:"\f09a"; }
-.socialicons_div a.twitter:before{ content:"\f099"; }
-.socialicons_div a.instagram:before{ content:"\f16d"; }
-.socialicons_div a.google:before{ content:"\f0d5"; }
-.socialicons_div a.pinterest:before{ content:"\f0d2"; }
-
 
 
 /*--------------------------------------------------------------
@@ -457,11 +396,11 @@ body.category .post.post_format-post-format-image .entry-content img{
 
 #secondary .widget {
     padding: 25px;
-    background: #fff;
     border-bottom: 3px double #D6D6D6;
     box-shadow: 0px 0px 2px rgba(0,0,0,0.1);
     -webkit-box-shadow: 0px 0px 2px rgba(0,0,0,0.1);
     margin-bottom: 30px;
+	background-color: rgb(255, 255, 255);
 }
 #secondary .widget-title{
 	margin-top:0;
