@@ -272,7 +272,7 @@ function steed_custom_css(){
 	
 	/* Light Text */
 	$css .= 'html .color-light h1, html .color-light h2, html .color-light h3, html .color-light h4, html .color-light h5, html .color-light h6{color:'.$light_color.';}';
-	$css .= 'html .color-light{ color:'.$dim_light_color.'; }';
+	$css .= 'html .color-light{ color:'.$light_color.'; }';
 	$css .= 'html .color-light{ border-color:'.$dim_dark_color.'; }';
 	
 	/* Content Area */
