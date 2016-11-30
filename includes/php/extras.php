@@ -200,6 +200,9 @@ function steed_custom_css(){
 	$css .= '.element_button.border_style{ color:'.$primary_color.';  }';
 	$css .= '.element_button.border_style:hover{ background-color:'.$primary_color.'; }';
 	
+	$css .= 'button, input[type="button"], input[type="reset"], input[type="submit"]{ background-color:'.$primary_color.'; border-color:'.$primary_color.'; color:'.$light_color.'; }';
+	$css .= 'button:hover, input[type="button"]:hover, input[type="reset"]:hover, input[type="submit"]:hover{ background-color:'.$primary_l_color.'; border-color:'.$primary_l_color.'; color:'.$light_color.'; }';
+	
 	
 	/* Primary Class */
 	$css .= 'html .pc_bg{ background-color:'.$primary_color.'; }';
