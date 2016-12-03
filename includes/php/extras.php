@@ -30,6 +30,32 @@ add_filter( 'body_class', 'steed_body_classes' );
 
 
 
+if ( ! function_exists( 'steed_fonts' ) ) :
+	function steed_fonts(){
+		
+		$fonts = array();
+		$new_fonts = array();
+		
+		/* #0 Heading Font */
+		$fonts[] = 'Arvo:400,400i,700,700i';
+	
+		/* #1 Menu Font */
+		$fonts[] = 'PT+Sans:400,400i,700,700i';
+	
+		/* #2 Body Font */
+		$fonts[] = 'PT+Sans:400,400i,700,700i';
+		
+		$std_fonts = apply_filters('steed_fonts', $fonts);
+		
+		$new_fonts[] = (get_theme_mod('google_font_1') != '') ? esc_attr(get_theme_mod('google_font_1')) : $std_fonts[0];
+		$new_fonts[] = (get_theme_mod('google_font_2') != '') ? esc_attr(get_theme_mod('google_font_2')) : $std_fonts[1];
+		$new_fonts[] = (get_theme_mod('google_font_3') != '') ? esc_attr(get_theme_mod('google_font_3')) : $std_fonts[2];
+		
+		return $new_fonts;
+	}
+endif;
+
+
 if ( ! function_exists( 'steed_fonts_url' ) ) :
 /**
  * Register Google fonts for Steed.
@@ -45,19 +71,8 @@ if ( ! function_exists( 'steed_fonts_url' ) ) :
  
 function steed_fonts_url() {
 	$fonts_url = '';
-	$fonts     = array();
 	$subsets   = 'latin,latin-ext';
-
-	/* #0 Heading Font */
-	$fonts[] = 'Arvo:400,400i,700,700i';
-
-	/* #1 Menu Font */
-	$fonts[] = 'PT+Sans:400,400i,700,700i';
-
-	/* #2 Body Font */
-	$fonts[] = 'PT+Sans:400,400i,700,700i';
-	
-	$fonts = apply_filters('steed_fonts', $fonts);
+	$fonts = steed_fonts();
 
 	if ( $fonts ) {
 		$fonts_url = add_query_arg( array(
@@ -82,17 +97,7 @@ if(! function_exists( 'steed_fonts_style' ) ):
  */
 	function steed_fonts_style($i){
 		
-		$fonts = array();
-		/* #0 Heading Font */
-		$fonts[] = 'Arvo:400,400i,700,700i';
-	
-		/* #1 Menu Font */
-		$fonts[] = 'PT+Sans:400,400i,700,700i';
-	
-		/* #2 Body Font */
-		$fonts[] = 'PT+Sans:400,400i,700,700i';
-		
-		$fonts = apply_filters('steed_fonts', $fonts);
+		$fonts = steed_fonts();
 		$font_string = NULL;
 		$font_name = NULL;
 		
@@ -181,6 +186,14 @@ function steed_custom_css(){
 	$css .= 'body{ font-family:'.steed_fonts_style(2).'; }';
 	$css .= '.main-navigation, .main-navigation a{ font-family:'. steed_fonts_style(1).'; }';
 	$css .= 'h1, h2, h3, h4, h5, h6{ font-family:'. steed_fonts_style(0).'; }';
+	
+	if(get_theme_mod('h1_size') != '') { $css .= 'h1{ font-size:'. esc_attr(get_theme_mod('h1_size')).' !important; }'; }
+	if(get_theme_mod('h2_size') != '') { $css .= 'h2{ font-size:'. esc_attr(get_theme_mod('h2_size')).' !important; }'; }
+	if(get_theme_mod('h3_size') != '') { $css .= 'h3{ font-size:'. esc_attr(get_theme_mod('h3_size')).' !important; }'; }
+	if(get_theme_mod('h4_size') != '') { $css .= 'h4{ font-size:'. esc_attr(get_theme_mod('h4_size')).' !important; }'; }
+	if(get_theme_mod('h5_size') != '') { $css .= 'h5{ font-size:'. esc_attr(get_theme_mod('h5_size')).' !important; }'; }
+	if(get_theme_mod('h6_size') != '') { $css .= 'h6{ font-size:'. esc_attr(get_theme_mod('h6_size')).' !important; }'; }
+	if(get_theme_mod('body_font_size') != '') { $css .= 'body{ font-size:'. esc_attr(get_theme_mod('body_font_size')).' !important; }'; }
 	
 	/* Primary & Accent */
 	$css .= 'a{ color:'.$primary_color.'; }';

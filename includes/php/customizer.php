@@ -28,7 +28,6 @@ function steed_customize_register( $wp_customize ) {
 		steed_customizer_background('content_area_', 'site_content_style', NULL, $wp_customize);
 		
 		
-		
 		$wp_customize->add_section( 'site_colors' , array(
 			'title'		=> __( 'All Colors', 'steed' ),
 			'priority'	=> 160,
@@ -43,6 +42,114 @@ function steed_customize_register( $wp_customize ) {
 		steed_Customize_Control_color('dim_light_', 'site_colors', 'Dim Light Color', NULL, $wp_customize);
 		steed_Customize_Control_color('dim_dark_', 'site_colors', 'Dim Dark Color', NULL, $wp_customize);
 		steed_Customize_Control_color('dark_', 'site_colors', 'Dark Color', NULL, $wp_customize);
+		
+		
+		$wp_customize->add_section( 'site_fonts' , array(
+			'title'		=> __( 'Font &amp; Typography', 'steed' ),
+			'priority'	=> 160,
+			//'panel'		=> '',
+		));
+		
+		$uid = 'google_font_1';
+		$wp_customize->add_setting($uid, array( 'default' => '', 'sanitize_callback' => 'sanitize_text_field', ));
+		$wp_customize->add_control( $uid, array(
+			'label'      => __('Heading Font', 'steed'),
+			'section'    => 'site_fonts',
+			'settings'   => $uid,
+			'type'       => 'text',
+			'description' => 'How to Video <a href="https://youtu.be/ly6Jh6p2bCU" target="_blank">https://youtu.be/ly6Jh6p2bCU</a>. Get google font from <a href="https://fonts.google.com/" target="_blank">https://fonts.google.com/</a>. Example: <code>PT+Sans:400,400i,700,700i</code>',
+		));
+		
+		$uid = 'google_font_2';
+		$wp_customize->add_setting($uid, array( 'default' => '', 'sanitize_callback' => 'sanitize_text_field', ));
+		$wp_customize->add_control( $uid, array(
+			'label'      => __('Menu Font', 'steed'),
+			'section'    => 'site_fonts',
+			'settings'   => $uid,
+			'type'       => 'text',
+			'description' => 'How to Video <a href="https://youtu.be/ly6Jh6p2bCU" target="_blank">https://youtu.be/ly6Jh6p2bCU</a>. Get google font from <a href="https://fonts.google.com/" target="_blank">https://fonts.google.com/</a>. Example: <code>PT+Sans:400,400i,700,700i</code>',
+		));
+		
+		$uid = 'google_font_3';
+		$wp_customize->add_setting($uid, array( 'default' => '', 'sanitize_callback' => 'sanitize_text_field', ));
+		$wp_customize->add_control( $uid, array(
+			'label'      => __('Body Font', 'steed'),
+			'section'    => 'site_fonts',
+			'settings'   => $uid,
+			'type'       => 'text',
+			'description' => 'How to Video <a href="https://youtu.be/ly6Jh6p2bCU" target="_blank">https://youtu.be/ly6Jh6p2bCU</a>. Get google font from <a href="https://fonts.google.com/" target="_blank">https://fonts.google.com/</a>. Example: <code>PT+Sans:400,400i,700,700i</code>',
+		));
+		
+		
+		$uid = 'h1_size';
+		$wp_customize->add_setting($uid, array( 'default' => '', 'sanitize_callback' => 'sanitize_text_field', ));
+		$wp_customize->add_control( $uid, array(
+			'label'      => __('H1 Font Size', 'steed'),
+			'section'    => 'site_fonts',
+			'settings'   => $uid,
+			'type'       => 'text',
+			'description' => 'Example: <code>40px</code>',
+		));
+		
+		$uid = 'h2_size';
+		$wp_customize->add_setting($uid, array( 'default' => '', 'sanitize_callback' => 'sanitize_text_field', ));
+		$wp_customize->add_control( $uid, array(
+			'label'      => __('H2 Font Size', 'steed'),
+			'section'    => 'site_fonts',
+			'settings'   => $uid,
+			'type'       => 'text',
+			'description' => 'Example: <code>40px</code>',
+		));
+		
+		$uid = 'h3_size';
+		$wp_customize->add_setting($uid, array( 'default' => '', 'sanitize_callback' => 'sanitize_text_field', ));
+		$wp_customize->add_control( $uid, array(
+			'label'      => __('H3 Font Size', 'steed'),
+			'section'    => 'site_fonts',
+			'settings'   => $uid,
+			'type'       => 'text',
+			'description' => 'Example: <code>32px</code>',
+		));
+		
+		$uid = 'h4_size';
+		$wp_customize->add_setting($uid, array( 'default' => '', 'sanitize_callback' => 'sanitize_text_field', ));
+		$wp_customize->add_control( $uid, array(
+			'label'      => __('H4 Font Size', 'steed'),
+			'section'    => 'site_fonts',
+			'settings'   => $uid,
+			'type'       => 'text',
+			'description' => 'Example: <code>24px</code>',
+		));
+		
+		$uid = 'h5_size';
+		$wp_customize->add_setting($uid, array( 'default' => '', 'sanitize_callback' => 'sanitize_text_field', ));
+		$wp_customize->add_control( $uid, array(
+			'label'      => __('H5 Font Size', 'steed'),
+			'section'    => 'site_fonts',
+			'settings'   => $uid,
+			'type'       => 'text',
+			'description' => 'Example: <code>18px</code>',
+		));
+		
+		$uid = 'h6_size';
+		$wp_customize->add_setting($uid, array( 'default' => '', 'sanitize_callback' => 'sanitize_text_field', ));
+		$wp_customize->add_control( $uid, array(
+			'label'      => __('H6 Font Size', 'steed'),
+			'section'    => 'site_fonts',
+			'settings'   => $uid,
+			'type'       => 'text',
+			'description' => 'Example: <code>16px</code>',
+		));
+		
+		$uid = 'body_font_size';
+		$wp_customize->add_setting($uid, array( 'default' => '', 'sanitize_callback' => 'sanitize_text_field', ));
+		$wp_customize->add_control( $uid, array(
+			'label'      => __('Body Font Size', 'steed'),
+			'section'    => 'site_fonts',
+			'settings'   => $uid,
+			'type'       => 'text',
+			'description' => 'Example: <code>14px</code>',
+		));
 		
 	}
 }
@@ -124,8 +231,10 @@ function steed_Customize_Control_color($prefix, $section_prefix_id, $title="", $
 		'description' => $des,
 	)));
 	
+	
 	return $wp_customize;	
 }
+
 
 
 
