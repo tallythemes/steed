@@ -1,6 +1,4 @@
 <?php
-
-//function steed_mal(){}
 /**
  * Steed functions and definitions.
  *

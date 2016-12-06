@@ -56,7 +56,6 @@ function steed_part_header_CSS( $css ) {
 	$the_css .= steed_CSS_padding('header_', '.braning-and-widgets');
 	$the_css .= steed_CSS_background('header_', '.braning-and-widgets');
 	$the_css .= steed_CSS_background('menuarea_', '.mavigation-holder');
-	$the_css .= steed_element_CSS_menuColors('header_', '#primary-menu');
 	$the_css .= steed_element_CSS_socialIcons('header_', '.social-widgets');
 	
 	return  $css.$the_css;
@@ -100,7 +99,6 @@ function steed_part_header_customize( $wp_customize ) {
 			'priority'	=> 30,
 			'panel'		=> 'site_header',
 		));
-		steed_element_customize_menuColors('header_', 'steed_header_menu_colors', NULL, $wp_customize);
 		/**/steed_Customize_Control_heading('steed_header_menu_bg_head', 'steed_header_menu_colors', 'Menu Area Background', NULL, $wp_customize);
 		steed_customizer_background('menuarea_', 'steed_header_menu_colors', NULL, $wp_customize);
 		
@@ -196,7 +194,7 @@ function steed_part_footer_content(){
 ?>
 <footer id="colophon" class="site-footer" role="contentinfo">
 	<div class="site-footer-in">
-		<?php steed_element_footerWidgets('footer_', array('class' => 'footer-widgets '.steed_element_colorMood('footer_widgets_'), 'in_class' => 'footer-widgets-in container-width')); ?>
+		<?php steed_element_footerWidgets('footer_widgets_', array('class' => 'footer-widgets '.steed_element_colorMood('footer_widgets_'), 'in_class' => 'footer-widgets-in container-width')); ?>
     	<div class="footer-bar <?php echo steed_element_colorMood('footer_bar_'); ?>">
             <div class="site-info container-width">
             	<?php steed_element_copyText('footer_bar_'); ?>
@@ -272,3 +270,7 @@ add_action( 'customize_register', 'steed_part_footer_customize' );
 /*
 	Functions
 ----------------------------------------*/
+function steed_part_footer_widgets_init() {
+	steed_element_footerWidgets_register('footer_widgets_', array());
+}
+add_action( 'widgets_init', 'steed_part_footer_widgets_init' );

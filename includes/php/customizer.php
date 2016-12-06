@@ -151,6 +151,14 @@ function steed_customize_register( $wp_customize ) {
 			'description' => 'Example: <code>14px</code>',
 		));
 		
+		
+		$wp_customize->add_section( 'site_menu_colors' , array(
+			'title'		=> __( 'Site Menu Colors', 'steed' ),
+			'priority'	=> 160,
+			//'panel'		=> '',
+		));
+		steed_element_customize_menuColors('site_menu_colors', NULL, $wp_customize);
+		
 	}
 }
 add_action( 'customize_register', 'steed_customize_register' );
@@ -583,8 +591,9 @@ function steed_element_customize_socialIcons($prefix, $section_prefix_id, $eleme
 	return $wp_customize;
 }
 
-function steed_element_customize_menuColors($prefix, $section_prefix_id, $element_settings, $wp_customize){
+function steed_element_customize_menuColors($section_prefix_id, $element_settings, $wp_customize){
 	if(function_exists('steed_mal')){
+	$prefix = '';
 	$uid = $prefix.'menucolor_t_head';
 	$wp_customize->add_setting($uid, array( 'default' => '', 'sanitize_callback' => 'sanitize_text_field', ));
 	$wp_customize->add_control(new steed_Customize_Control_heading($wp_customize, $uid, array(

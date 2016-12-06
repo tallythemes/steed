@@ -294,6 +294,9 @@ function steed_custom_css(){
 	/* Content Area */
 	$css .= steed_CSS_padding('content_area_', '.site-content');
 	$css .= steed_CSS_background('content_area_', '.site-content');
+	
+	
+	$css .= steed_element_CSS_menuColors('#primary-menu');
 
 	return $css;
 }

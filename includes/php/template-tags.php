@@ -671,6 +671,53 @@ if ( ! function_exists( 'steed_element_footerWidgets' ) ) :
 endif;
 
 
+if ( ! function_exists( 'steed_element_footerWidgets_register' ) ) :
+	function steed_element_footerWidgets_register($prefix, $settings) {
+		$atr = array_merge(array(
+			"class" => "",
+			"in_class" => "",
+		), $settings);
+		
+		register_sidebar( array(
+			'name'          => esc_html__( 'Footer 1', 'steed' ),
+			'id'            => $prefix.'widget_1',
+			'description'   => esc_html__( 'Add widgets here.', 'steed' ),
+			'before_widget' => '<section id="%1$s" class="widget %2$s">',
+			'after_widget'  => '</section>',
+			'before_title'  => '<h2 class="widget-title">',
+			'after_title'   => '</h2>',
+		));
+		register_sidebar( array(
+			'name'          => esc_html__( 'Footer 2', 'steed' ),
+			'id'            => $prefix.'widget_2',
+			'description'   => esc_html__( 'Add widgets here.', 'steed' ),
+			'before_widget' => '<section id="%1$s" class="widget %2$s">',
+			'after_widget'  => '</section>',
+			'before_title'  => '<h2 class="widget-title">',
+			'after_title'   => '</h2>',
+		));
+		register_sidebar( array(
+			'name'          => esc_html__( 'Footer 3', 'steed' ),
+			'id'            => $prefix.'widget_3',
+			'description'   => esc_html__( 'Add widgets here.', 'steed' ),
+			'before_widget' => '<section id="%1$s" class="widget %2$s">',
+			'after_widget'  => '</section>',
+			'before_title'  => '<h2 class="widget-title">',
+			'after_title'   => '</h2>',
+		));
+		register_sidebar( array(
+			'name'          => esc_html__( 'Footer 4', 'steed' ),
+			'id'            => $prefix.'widget_4',
+			'description'   => esc_html__( 'Add widgets here.', 'steed' ),
+			'before_widget' => '<section id="%1$s" class="widget %2$s">',
+			'after_widget'  => '</section>',
+			'before_title'  => '<h2 class="widget-title">',
+			'after_title'   => '</h2>',
+		));
+	}
+endif;
+
+
 if ( ! function_exists( 'steed_element_copyText' ) ) :
 	function steed_element_copyText($prefix) {
 		echo  wp_kses_post(get_theme_mod($prefix.'copytext', ''));

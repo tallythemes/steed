@@ -50,7 +50,7 @@ endif;
 
 
 if(!function_exists('steed_element_CSS_menuColors')):
-function steed_element_CSS_menuColors($the_prefix, $selector, $settings = array()){
+function steed_element_CSS_menuColors($selector, $settings = array()){
 	$atr = array_merge(array(
 		"menucolor_t_text" => "",
 		"menucolor_t_bg" => "",
@@ -66,7 +66,7 @@ function steed_element_CSS_menuColors($the_prefix, $selector, $settings = array(
 		"menucolor_sh_border" => "",
 	), $settings);
 		
-	$prefix = esc_attr($the_prefix);
+	$prefix = '';
 
 	$menucolor_t_text		= sanitize_hex_color(get_theme_mod($prefix.'menucolor_t_text', $atr['menucolor_t_text']));
 	$menucolor_t_bg			= sanitize_hex_color(get_theme_mod($prefix.'menucolor_t_bg', $atr['menucolor_t_bg']));
