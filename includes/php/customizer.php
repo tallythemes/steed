@@ -57,7 +57,7 @@ function steed_customize_register( $wp_customize ) {
 			'section'    => 'site_fonts',
 			'settings'   => $uid,
 			'type'       => 'text',
-			'description' => 'How to Video <a href="https://youtu.be/ly6Jh6p2bCU" target="_blank">https://youtu.be/ly6Jh6p2bCU</a>. Get google font from <a href="https://fonts.google.com/" target="_blank">https://fonts.google.com/</a>. Example: <code>PT+Sans:400,400i,700,700i</code>',
+			'description' => 'How to Video <a href="'.esc_url('https://youtu.be/UR44pooS5NA').'" target="_blank">'.esc_url('https://youtu.be/UR44pooS5NA').'</a>. Get google font from <a href="'.esc_url('https://fonts.google.com/').'" target="_blank">'.esc_url('https://fonts.google.com/').'</a>. Example: <code>PT+Sans:400,400i,700,700i</code>',
 		));
 		
 		$uid = 'google_font_2';
@@ -67,7 +67,7 @@ function steed_customize_register( $wp_customize ) {
 			'section'    => 'site_fonts',
 			'settings'   => $uid,
 			'type'       => 'text',
-			'description' => 'How to Video <a href="https://youtu.be/ly6Jh6p2bCU" target="_blank">https://youtu.be/ly6Jh6p2bCU</a>. Get google font from <a href="https://fonts.google.com/" target="_blank">https://fonts.google.com/</a>. Example: <code>PT+Sans:400,400i,700,700i</code>',
+			'description' => 'How to Video <a href="'.esc_url('https://youtu.be/UR44pooS5NA').'" target="_blank">'.esc_url('https://youtu.be/UR44pooS5NA').'</a>. Get google font from <a href="'.esc_url('https://fonts.google.com/').'" target="_blank">'.esc_url('https://fonts.google.com/').'</a>. Example: <code>PT+Sans:400,400i,700,700i</code>',
 		));
 		
 		$uid = 'google_font_3';
@@ -77,7 +77,7 @@ function steed_customize_register( $wp_customize ) {
 			'section'    => 'site_fonts',
 			'settings'   => $uid,
 			'type'       => 'text',
-			'description' => 'How to Video <a href="https://youtu.be/ly6Jh6p2bCU" target="_blank">https://youtu.be/ly6Jh6p2bCU</a>. Get google font from <a href="https://fonts.google.com/" target="_blank">https://fonts.google.com/</a>. Example: <code>PT+Sans:400,400i,700,700i</code>',
+			'description' => 'How to Video <a href="'.esc_url('https://youtu.be/UR44pooS5NA').'" target="_blank">'.esc_url('https://youtu.be/UR44pooS5NA').'</a>. Get google font from <a href="'.esc_url('https://fonts.google.com/').'" target="_blank">'.esc_url('https://fonts.google.com/').'</a>. Example: <code>PT+Sans:400,400i,700,700i</code>',
 		));
 		
 		
@@ -406,9 +406,18 @@ function steed_customizer_colorMood($prefix, $section_prefix_id, $element_settin
 
 function steed_element_customize_socialIcons($prefix, $section_prefix_id, $element_settings, $wp_customize){
 	
+	$defualt = array(
+		"std_active" => "yes",
+	);
+	if(is_array($element_settings)){
+		$atr = array_merge($defualt, $element_settings);
+	}else{
+		$atr = $defualt;
+	}
+	
 	if(function_exists('steed_mal')){
 		$uid = $prefix.'social_active';
-		$wp_customize->add_setting($uid, array( 'default' => 'yes', 'sanitize_callback' => 'sanitize_text_field', ));
+		$wp_customize->add_setting($uid, array( 'default' => $atr['std_active'], 'sanitize_callback' => 'sanitize_text_field', ));
 		$wp_customize->add_control( $uid, array(
 			'label'      => __('Enable Social Icons', 'steed'),
 			'section'    => $section_prefix_id,
@@ -731,8 +740,37 @@ function steed_element_customize_menuColors($section_prefix_id, $element_setting
 	return $wp_customize;
 }
 function steed_element_customize_iconText($prefix, $section_prefix_id, $element_settings, $wp_customize){
+	
+	$defualt = array(
+		"std_active" => "yes",
+		"std_icon" => "",
+		"std_line1" => "",
+		"std_line2" => "",
+	);
+	if(is_array($element_settings)){
+		$atr = array_merge($defualt, $element_settings);
+	}else{
+		$atr = $defualt;
+	}
+	
+	if(function_exists('steed_mal')){
+		$uid = $prefix.'iconText_active';
+		$wp_customize->add_setting($uid, array( 'default' => $atr['std_active'], 'sanitize_callback' => 'sanitize_text_field', ));
+		$wp_customize->add_control( $uid, array(
+			'label'      => __('Active', 'steed'),
+			'section'    => $section_prefix_id,
+			'settings'   => $uid,
+			'type'       => 'select',
+			'description' => '',
+			'choices' => array(
+				'yes' => 'yes',
+				'no' => 'no',
+			),
+		));
+	}
+	
 	$uid = $prefix.'iconText_icon';
-	$wp_customize->add_setting($uid, array( 'default' => '', 'sanitize_callback' => 'sanitize_text_field', ));
+	$wp_customize->add_setting($uid, array( 'default' => $atr['std_icon'], 'sanitize_callback' => 'sanitize_text_field', ));
 	$wp_customize->add_control( $uid, array(
 		'label'      => __('Icon', 'steed'),
 		'section'    => $section_prefix_id,
@@ -741,7 +779,7 @@ function steed_element_customize_iconText($prefix, $section_prefix_id, $element_
 		'description' => 'Font Awesome Icon class or the image URL of the image icon.',
 	));
 	$uid = $prefix.'iconText_line1';
-	$wp_customize->add_setting($uid, array( 'default' => '', 'sanitize_callback' => 'sanitize_text_field', ));
+	$wp_customize->add_setting($uid, array( 'default' => $atr['std_line1'], 'sanitize_callback' => 'sanitize_text_field', ));
 	$wp_customize->add_control( $uid, array(
 		'label'      => __('Line 1', 'steed'),
 		'section'    => $section_prefix_id,
@@ -750,7 +788,7 @@ function steed_element_customize_iconText($prefix, $section_prefix_id, $element_
 		'description' => '',
 	));
 	$uid = $prefix.'iconText_line2';
-	$wp_customize->add_setting($uid, array( 'default' => '', 'sanitize_callback' => 'sanitize_text_field', ));
+	$wp_customize->add_setting($uid, array( 'default' => $atr['std_line2'], 'sanitize_callback' => 'sanitize_text_field', ));
 	$wp_customize->add_control( $uid, array(
 		'label'      => __('Line 2', 'steed'),
 		'section'    => $section_prefix_id,
@@ -946,9 +984,22 @@ function steed_element_customize_text($prefix, $section_prefix_id, $element_sett
 
 function steed_element_customize_button($prefix, $section_prefix_id, $element_settings, $wp_customize){
 	
+	$defualt = array(
+		"std_active" => "yes",
+		"std_link" => "#",
+		"std_text" => "Sample Button",
+		"std_icon" => "fa-home",
+		"std_target" => "_self",
+	);
+	if(is_array($element_settings)){
+		$atr = array_merge($defualt, $element_settings);
+	}else{
+		$atr = $defualt;
+	}
+	
 	if(function_exists('steed_mal')){
 	$uid = $prefix.'button_active';
-	$wp_customize->add_setting($uid, array( 'default' => 'yes', 'sanitize_callback' => 'sanitize_text_field', ));
+	$wp_customize->add_setting($uid, array( 'default' => $atr['std_active'], 'sanitize_callback' => 'sanitize_text_field', ));
 	$wp_customize->add_control( $uid, array(
 		'label'      => __('Active This Button', 'steed'),
 		'section'    => $section_prefix_id,
@@ -963,7 +1014,7 @@ function steed_element_customize_button($prefix, $section_prefix_id, $element_se
 	}
 		
 	$uid = $prefix.'button_text';
-	$wp_customize->add_setting($uid, array( 'default' => '', 'sanitize_callback' => 'sanitize_text_field', ));
+	$wp_customize->add_setting($uid, array( 'default' => $atr['std_text'], 'sanitize_callback' => 'sanitize_text_field', ));
 	$wp_customize->add_control( $uid, array(
 		'label'      => __('Button Text', 'steed'),
 		'section'    => $section_prefix_id,
@@ -972,7 +1023,7 @@ function steed_element_customize_button($prefix, $section_prefix_id, $element_se
 		'description' => '',
 	));
 	$uid = $prefix.'button_link';
-	$wp_customize->add_setting($uid, array( 'default' => '', 'sanitize_callback' => 'esc_attr', ));
+	$wp_customize->add_setting($uid, array( 'default' => $atr['std_link'], 'sanitize_callback' => 'esc_attr', ));
 	$wp_customize->add_control( $uid, array(
 		'label'      => __('Button Link', 'steed'),
 		'section'    => $section_prefix_id,
@@ -983,7 +1034,7 @@ function steed_element_customize_button($prefix, $section_prefix_id, $element_se
 	
 	if(function_exists('steed_mal')){
 	$uid = $prefix.'button_icon';
-	$wp_customize->add_setting($uid, array( 'default' => '', 'sanitize_callback' => 'sanitize_text_field', ));
+	$wp_customize->add_setting($uid, array( 'default' => $atr['std_icon'], 'sanitize_callback' => 'sanitize_text_field', ));
 	$wp_customize->add_control( $uid, array(
 		'label'      => __('Button Icon', 'steed'),
 		'section'    => $section_prefix_id,
@@ -993,7 +1044,7 @@ function steed_element_customize_button($prefix, $section_prefix_id, $element_se
 	));
 	
 	$uid = $prefix.'button_target';
-	$wp_customize->add_setting($uid, array( 'default' => 'yes', 'sanitize_callback' => 'sanitize_text_field', ));
+	$wp_customize->add_setting($uid, array( 'default' => $atr['std_target'], 'sanitize_callback' => 'sanitize_text_field', ));
 	$wp_customize->add_control( $uid, array(
 		'label'      => __('Link Target', 'steed'),
 		'section'    => $section_prefix_id,

@@ -57,8 +57,3 @@ All images: CC0 by Pixabay, https://pixabay.com/en/service/terms/
 
 = 1.0 - 22 August 2016  =
 * Initial release
-
-
-
-
-

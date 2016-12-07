@@ -431,13 +431,29 @@ endif;
 
 if ( ! function_exists( 'steed_element_iconText' ) ) :
 	function steed_element_iconText($prefix, $settings =array()) {
-		$active = get_theme_mod($prefix.'iconText_active', 'yes');
-		$icon = get_theme_mod($prefix.'iconText_icon', '');
-		$line1 = get_theme_mod($prefix.'iconText_line1', '');
-		$line2 = get_theme_mod($prefix.'iconText_line2', '');
 		
-		$before =(!empty($settings['before'])) ? $settings['before'] : NULL;
-		$after =(!empty($settings['after'])) ? $settings['after'] : NULL;
+		$defualt = array(
+			"std_active" => "yes",
+			"std_icon" => "",
+			"std_line1" => "",
+			"std_line2" => "",
+			"std_line2" => "",
+			"before" => "",
+			"after" => "",
+		);
+		if(is_array($settings)){
+			$atr = array_merge($defualt, $settings);
+		}else{
+			$atr = $defualt;
+		}
+		
+		$active = get_theme_mod($prefix.'iconText_active', $atr['std_active']);
+		$icon = get_theme_mod($prefix.'iconText_icon', $atr['std_icon']);
+		$line1 = get_theme_mod($prefix.'iconText_line1', $atr['std_line1']);
+		$line2 = get_theme_mod($prefix.'iconText_line2', $atr['std_line2']);
+		
+		$before =(!empty($atr['before'])) ? $atr['before'] : NULL;
+		$after =(!empty($atr['after'])) ? $atr['after'] : NULL;
 		
 		if(esc_attr($active) == 'yes'){
 			$the_icon = $icon;
