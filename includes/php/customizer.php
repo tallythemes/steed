@@ -997,6 +997,8 @@ function steed_element_customize_button($prefix, $section_prefix_id, $element_se
 		$atr = $defualt;
 	}
 	
+
+	
 	if(function_exists('steed_mal')){
 	$uid = $prefix.'button_active';
 	$wp_customize->add_setting($uid, array( 'default' => $atr['std_active'], 'sanitize_callback' => 'sanitize_text_field', ));
@@ -1056,6 +1058,193 @@ function steed_element_customize_button($prefix, $section_prefix_id, $element_se
 			'_blank' => '_blank',
 		),
 	));
+	}
+	
+	return $wp_customize;
+}
+
+
+
+
+function steed_element_customize_searchIcon($prefix, $section_prefix_id, $element_settings, $wp_customize){
+	
+	$defualt = array(
+		"std_active" => "yes",
+	);
+	if(is_array($element_settings)){
+		$atr = array_merge($defualt, $element_settings);
+	}else{
+		$atr = $defualt;
+	}
+	
+	if(function_exists('steed_mal')){
+		
+		$uid = $prefix.'searchIcon_header';
+		steed_Customize_Control_heading($uid, $section_prefix_id, 'Enable or Disable Search', NULL, $wp_customize);
+		
+		$uid = $prefix.'searchIcon_active';
+		$wp_customize->add_setting($uid, array( 'default' => $atr['std_active'], 'sanitize_callback' => 'sanitize_text_field', ));
+		$wp_customize->add_control( $uid, array(
+			'label'      => __('Show the Search Icon', 'steed'),
+			'section'    => $section_prefix_id,
+			'settings'   => $uid,
+			'type'       => 'select',
+			'description' => '',
+			'choices' => array(
+				'yes' => 'yes',
+				'no' => 'no',
+			),
+		));
+	}
+	
+	return $wp_customize;
+}
+
+
+function steed_element_customize_loginRegister($prefix, $section_prefix_id, $element_settings, $wp_customize){
+	
+	$defualt = array(
+		"std_active" => "yes",
+		"std_login_text" => "",
+		"std_login_link" => "",
+		"std_register_text" => "",
+		"std_register_link" => "",
+		"std_logout_text" => "",
+		"std_logout_link" => "",
+		"std_account_text" => "",
+		"std_account_link" => "",
+	);
+	if(is_array($element_settings)){
+		$atr = array_merge($defualt, $element_settings);
+	}else{
+		$atr = $defualt;
+	}
+	
+	if(function_exists('steed_mal')){
+		
+		$uid = $prefix.'loginRegister_active';
+		$wp_customize->add_setting($uid, array( 'default' => $atr['std_active'], 'sanitize_callback' => 'sanitize_text_field', ));
+		$wp_customize->add_control( $uid, array(
+			'label'      => __('Active Login & Register Links', 'steed'),
+			'section'    => $section_prefix_id,
+			'settings'   => $uid,
+			'type'       => 'select',
+			'description' => '',
+			'choices' => array(
+				'yes' => 'yes',
+				'no' => 'no',
+			),
+		));
+	}
+	
+	$uid = $prefix.'loginRegister_login_text';
+	$wp_customize->add_setting($uid, array( 'default' => $atr['std_login_text'], 'sanitize_callback' => 'sanitize_text_field', ));
+	$wp_customize->add_control( $uid, array(
+		'label'      => __('Login Text', 'steed'),
+		'section'    => $section_prefix_id,
+		'settings'   => $uid,
+		'type'       => 'text',
+		'description' => '',
+	));
+	$uid = $prefix.'loginRegister_login_link';
+	$wp_customize->add_setting($uid, array( 'default' => $atr['std_login_link'], 'sanitize_callback' => 'esc_url', ));
+	$wp_customize->add_control( $uid, array(
+		'label'      => __('Login Link', 'steed'),
+		'section'    => $section_prefix_id,
+		'settings'   => $uid,
+		'type'       => 'text',
+		'description' => '',
+	));
+	$uid = $prefix.'loginRegister_register_text';
+	$wp_customize->add_setting($uid, array( 'default' => $atr['std_register_text'], 'sanitize_callback' => 'sanitize_text_field', ));
+	$wp_customize->add_control( $uid, array(
+		'label'      => __('Register Text', 'steed'),
+		'section'    => $section_prefix_id,
+		'settings'   => $uid,
+		'type'       => 'text',
+		'description' => '',
+	));
+	$uid = $prefix.'loginRegister_register_link';
+	$wp_customize->add_setting($uid, array( 'default' => $atr['std_register_link'], 'sanitize_callback' => 'esc_url', ));
+	$wp_customize->add_control( $uid, array(
+		'label'      => __('Register Link', 'steed'),
+		'section'    => $section_prefix_id,
+		'settings'   => $uid,
+		'type'       => 'text',
+		'description' => '',
+	));
+	
+	
+	$uid = $prefix.'loginRegister_logout_text';
+	$wp_customize->add_setting($uid, array( 'default' => $atr['std_logout_text'], 'sanitize_callback' => 'sanitize_text_field', ));
+	$wp_customize->add_control( $uid, array(
+		'label'      => __('Logout Text', 'steed'),
+		'section'    => $section_prefix_id,
+		'settings'   => $uid,
+		'type'       => 'text',
+		'description' => '',
+	));
+	$uid = $prefix.'loginRegister_logout_link';
+	$wp_customize->add_setting($uid, array( 'default' => $atr['std_logout_link'], 'sanitize_callback' => 'esc_url', ));
+	$wp_customize->add_control( $uid, array(
+		'label'      => __('Logout Link', 'steed'),
+		'section'    => $section_prefix_id,
+		'settings'   => $uid,
+		'type'       => 'text',
+		'description' => '',
+	));
+	$uid = $prefix.'loginRegister_account_text';
+	$wp_customize->add_setting($uid, array( 'default' => $atr['std_account_text'], 'sanitize_callback' => 'sanitize_text_field', ));
+	$wp_customize->add_control( $uid, array(
+		'label'      => __('Account Text', 'steed'),
+		'section'    => $section_prefix_id,
+		'settings'   => $uid,
+		'type'       => 'text',
+		'description' => '',
+	));
+	$uid = $prefix.'loginRegister_account_link';
+	$wp_customize->add_setting($uid, array( 'default' => $atr['std_account_link'], 'sanitize_callback' => 'esc_url', ));
+	$wp_customize->add_control( $uid, array(
+		'label'      => __('Account Link', 'steed'),
+		'section'    => $section_prefix_id,
+		'settings'   => $uid,
+		'type'       => 'text',
+		'description' => '',
+	));
+	
+	return $wp_customize;
+}
+
+
+function steed_element_customize_shoppingBag($prefix, $section_prefix_id, $element_settings, $wp_customize){
+	
+	$defualt = array(
+		"std_active" => "yes",
+	);
+	if(is_array($element_settings)){
+		$atr = array_merge($defualt, $element_settings);
+	}else{
+		$atr = $defualt;
+	}
+	
+	if(function_exists('steed_mal')){
+		
+		$uid = $prefix.'shoppingBag_header';
+		steed_Customize_Control_heading($uid, $section_prefix_id, 'Enable or Disable Woo Shopping Bag', NULL, $wp_customize);
+		
+		$uid = $prefix.'shoppingBag_active';
+		$wp_customize->add_setting($uid, array( 'default' => $atr['std_active'], 'sanitize_callback' => 'sanitize_text_field', ));
+		$wp_customize->add_control( $uid, array(
+			'label'      => __('Active Woo Shopping Bag', 'steed'),
+			'section'    => $section_prefix_id,
+			'settings'   => $uid,
+			'type'       => 'select',
+			'description' => '',
+			'choices' => array(
+				'yes' => 'yes',
+				'no' => 'no',
+			),
+		));
 	}
 	
 	return $wp_customize;

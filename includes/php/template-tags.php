@@ -598,7 +598,7 @@ endif;
 
 
 if ( ! function_exists( 'steed_element_button' ) ) :
-	function steed_element_button($prefix, $settings) {
+	function steed_element_button($prefix, $settings = array()) {
 		$atr = array_merge(array(
 			"class" => "",
 			"before" => "",
@@ -618,7 +618,7 @@ if ( ! function_exists( 'steed_element_button' ) ) :
 		
 		$the_icon = ($icon != '') ? '<i class="fa '.$icon.'"></i>' : NULL;
 		
-		if($active = 'yes'){
+		if($active == 'yes'){
 			echo $atr['before'];
 				echo '<a href="'.$link.'" class="element_button '.$atr['class'].'" target="'.$target.'">'.$the_icon.'<span>'.$text.'</span></a>';
 			echo $atr['after'];
