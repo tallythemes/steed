@@ -3,13 +3,12 @@
 Steed WordPress Theme, Copyright (C) 2016, TallyThemes
 Steed is distributed under the terms of the GNU GPL
 
-
 Contributors: TallyThemes
 Tags: one-column, two-columns, right-sidebar, custom-menu, editor-style, featured-images, post-formats, rtl-language-support, sticky-post, threaded-comments, translation-ready, blog
 
 Requires at least: 4.0
 Tested up to: 4.7
-Stable tag: 2.1
+Stable tag: 2.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -43,13 +42,17 @@ Copyright (c) 2011, Thomas Griffin ( GPL-2.0+ )
 All images: CC0 by Pixabay, https://pixabay.com/en/service/terms/
 
 == Changelog ==
+= 2.2 - 20 December 2016  =
+* Fixed the customizer link issue
+* Fixed some template tags
+* Improve elements functions
+* FIxed a small PHP error
+
 = 2.1 - 16 November 2016  =
-- Fixed Some Small CSS issue
-
-- Fixed Some Color issue
-
-- Eixed Custom template issue
-- Fixed google font issue.
+* Fixed Some Small CSS issue
+* Fixed Some Color issue
+* Eixed Custom template issue
+* Fixed google font issue.
 
 = 2.0 - 16 November 2016  =
 * Updated the FontAwesome to 4.7.0
