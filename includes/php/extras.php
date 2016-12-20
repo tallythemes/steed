@@ -56,6 +56,20 @@ if ( ! function_exists( 'steed_fonts' ) ) :
 endif;
 
 
+function steed_mal(){
+	if(defined('STEED_THEME_ID_HEADER') && defined('STEED_THEME_NAME')){
+		$header = STEED_THEME_ID_HEADER;
+		$theme_name = STEED_THEME_NAME;
+		if(md5(STEED_THEME_NAME) == STEED_THEME_ID_HEADER){
+			return true;
+		}else{
+			return false;	
+		}
+	}else{
+		return false;
+	}
+}
+
 if ( ! function_exists( 'steed_fonts_url' ) ) :
 /**
  * Register Google fonts for Steed.

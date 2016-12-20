@@ -91,7 +91,7 @@ function steed_part_header_customize( $wp_customize ) {
 	steed_element_customize_html('header_', 'steed_header_content', NULL, $wp_customize);
 	
 	
-	if(function_exists('steed_mal')){
+	if(steed_mal()){
 		
 		/*---Menu Style---*/
 		$wp_customize->add_section( 'steed_header_menu_colors' , array(
@@ -160,7 +160,7 @@ function steed_part_subheader_CSS( $css ) {
 	Customizer
 ----------------------------------------*/
 function steed_part_subheader_customize( $wp_customize ) {
-	if(function_exists('steed_mal')){
+	if(steed_mal()){
 		$wp_customize->add_section( 'site_subheader' , array(
 			'title'		=> __( 'Page / Post Title area', 'steed' ),
 			'priority'	=> 160,
@@ -237,7 +237,7 @@ function steed_part_footer_customize( $wp_customize ) {
 		'priority'   => 30,
 		'panel'		=> 'site_Footer',
 	));
-	if(function_exists('steed_mal')){
+	if(steed_mal()){
 	/**/steed_Customize_Control_heading('footer_widgets_1_', 'steed_footer_widgets', 'Widgets Layout', NULL, $wp_customize);
 	steed_element_customize_footerWidgets('footer_widgets_', 'steed_footer_widgets', NULL, $wp_customize);
 	/**/steed_Customize_Control_heading('footer_widgets_2_', 'steed_footer_widgets', 'Paddings & Color Mood', NULL, $wp_customize);
@@ -256,7 +256,7 @@ function steed_part_footer_customize( $wp_customize ) {
 	/**/steed_Customize_Control_heading('footer_bar_1_', 'steed_footer_bar', 'Content', NULL, $wp_customize);
 	steed_element_customize_creditText('footer_bar_', 'steed_footer_bar', NULL, $wp_customize);
 	steed_element_customize_copyText('footer_bar_', 'steed_footer_bar', NULL, $wp_customize);
-	if(function_exists('steed_mal')){
+	if(steed_mal()){
 	/**/steed_Customize_Control_heading('footer_bar_2_', 'steed_footer_bar', 'Paddings & Color Mood', NULL, $wp_customize);
 	steed_customizer_padding('footer_bar_', 'steed_footer_bar', NULL, $wp_customize);
 	steed_customizer_colorMood('footer_bar_', 'steed_footer_bar', NULL, $wp_customize);
