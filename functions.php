@@ -74,6 +74,11 @@ function steed_setup() {
 	
 	// Indicate widget sidebars can use selective refresh in the Customizer.
 	add_theme_support( 'customize-selective-refresh-widgets' );
+	
+	/*
+	* Declare WooCommerce support
+	*/
+	add_theme_support( 'woocommerce' );
 }
 endif;
 add_action( 'after_setup_theme', 'steed_setup' );
@@ -225,3 +230,9 @@ require get_template_directory() . '/includes/php/templates-parts.php';
  * Load Custom CSS functions
  */
 require get_template_directory() . '/includes/php/css-tags.php';
+
+
+/**
+ * Load Custom CSS functions
+ */
+require get_template_directory() . '/includes/php/woocommerce.php';

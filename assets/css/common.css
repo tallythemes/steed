@@ -2184,3 +2184,137 @@ body .wpb_content_element{
 
 .element_button.border_style{ background-color:rgba(0,0,0,0); }
 .element_button.border_style:hover{ color:#fff; }
+
+
+/*--------------------------------------------------------------
+# Element shoppingBag
+--------------------------------------------------------------*/
+.element_shoppingBag{
+
+}
+.cart-contents-steed{
+	text-decoration:none;
+	position:relative;
+}
+.cart-contents-steed:before {
+    font-family: WooCommerce;
+    content: "\e01d";
+    font-size: 21px;
+    font-style: normal;
+    font-weight: 400;
+    padding-right: 10px;
+    vertical-align: bottom;
+    display: inline-block;
+}
+.cart-contents-steed:hover {
+    text-decoration: none;
+}
+.element_shoppingBag_count{
+	position: absolute;
+    background-color: #1e73be;
+    height: 20px;
+    width: 20px;
+    text-align: center;
+    line-height: 20px;
+    color: #fff;
+    border-radius: 100%;
+    font-size: 12px;
+    left: 16px;
+    top: -12px;
+}
+.cart-contents-steed .woocommerce-Price-amount {
+    display: inline-block;
+    margin-bottom: 3px;
+}
+
+
+/*--------------------------------------------------------------
+# Element element_loginRegister
+--------------------------------------------------------------*/
+.element_loginRegister{
+	
+}
+.element_loginRegister a{
+    display: inline-block;
+    text-decoration: none;
+    color: inherit;
+}
+.element_loginRegister a:before{
+    display: inline-block;
+    font-family: FontAwesome;
+    font-size: 120%;
+    margin-right: 7px;
+    content: "\f105";
+    font-style: normal;
+    font-weight: normal;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;	
+}
+.element_loginRegister a:hover{
+	
+}
+.element_loginRegister span{
+    display: inline-block;
+    height: 15px;
+    width: 1px;
+    border-left: 1px solid;
+    margin-left: 7px;
+    margin-right: 7px;
+    margin-bottom: -1px;
+}
+.element_loginRegister_account:before{
+    content: "\f2bc" !important;	
+}
+.element_loginRegister_logout:before{
+    content: "\f08b" !important;	
+}
+.element_loginRegister_login:before{
+    content: "\f090" !important;	
+}
+.element_loginRegister_register:before{
+    content: "\f1d9" !important;	
+}
+
+
+/*--------------------------------------------------------------
+# Element searchIcon
+--------------------------------------------------------------*/
+.element_searchIcon{
+    height: 30px;
+    width: 30px;
+    text-align: center;
+    line-height: 30px;
+    color: inherit;	
+}
+.element_searchIcon_holder{
+    display:none;
+}
+.element_searchIcon_holder_in{
+    width: 90%;
+    max-width: 700px;
+    margin: 0 auto;	
+	text-align:center;
+}
+.element_searchIcon_holder_in input[type="search"]{
+    width: 100%;
+    box-sizing: border-box;
+    border-radius: 50px;
+    padding: 9px 28px;
+	text-align:left;
+	margin-bottom:15px;
+}
+.element_searchIcon_holder_in input[type="submit"]{
+    width: 200px;
+    box-sizing: border-box;
+    border-radius: 50px;	
+}
+.element_searchIcon_holder_in .mfp-close{
+    color: #fff;
+    font-size: 40px;
+    border-radius: 100%;
+    border: solid 2px;
+    position: fixed;
+    top: 20px;
+    right: 20px;	
+}

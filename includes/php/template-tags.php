@@ -545,12 +545,22 @@ if ( ! function_exists( 'steed_element_searchIcon' ) ) :
 		
 		if($active == 'yes'){
 			echo $before;
-				
+				echo '<a href="#element_searchIcon_holder_in" class="element_searchIcon inline-lightbox"><i class="fa fa-search"></i></a>';
 			echo $after;
 		}
 		
 	}
 endif;
+add_action('wp_footer', 'steed_element_searchIcon_footer_code');
+function steed_element_searchIcon_footer_code(){
+	?>
+    <div class="element_searchIcon_holder">
+    	<div class="element_searchIcon_holder_in" id="element_searchIcon_holder_in">
+        	<?php get_search_form(); ?>
+        </div>
+    </div>
+    <?php
+}
 
 
 if ( ! function_exists( 'steed_element_loginRegister' ) ) :
@@ -591,10 +601,57 @@ endif;
 
 
 if ( ! function_exists( 'steed_element_shoppingBag' ) ) :
-	function steed_element_shoppingBag() {
+	function steed_element_shoppingBag($prefix, $settings =array()) {
+		$defualt = array(
+			"std_active" => "yes",
+			"std_tooltip" => "View your shopping cart",
+			"std_title" => "Shopping Cart",
+		);
+		if(is_array($settings)){
+			$atr = array_merge($defualt, $settings);
+		}else{
+			$atr = $defualt;
+		}
+	
+		$active = esc_attr(get_theme_mod($prefix.'shoppingBag_active', $atr['std_active']));
+		$title = get_theme_mod($prefix.'shoppingBag_title', $atr['std_title']);
+		$tooltip = get_theme_mod($prefix.'shoppingBag_tooltip', $atr['std_tooltip']);
 		
+		if ( class_exists( 'woocommerce' ) && ($active == 'yes') ) {
+			 global $woocommerce;
+			?>
+            <div class="element_shoppingBag">
+                <span class="screen-reader-text"><?php echo esc_attr($title); ?></span>
+				<a class="cart-contents-steed" href="<?php echo wc_get_cart_url(); ?>">
+                	<span class="element_shoppingBag_count">
+					<?php echo sprintf ( _n( '%d <span class="screen-reader-text">item</span>', '%d <span class="screen-reader-text">items</span>', WC()->cart->get_cart_contents_count() ), WC()->cart->get_cart_contents_count() ); ?>
+                    </span>
+					<?php echo WC()->cart->get_cart_total(); ?>
+               </a>
+            </div>
+            <?php
+		}
 	}
 endif;
+/**
+ * Ensure cart contents update when products are added to the cart via AJAX
+ */
+add_filter('add_to_cart_fragments', 'steed_element_shoppingBag_fragment');
+function steed_element_shoppingBag_fragment( $fragments ) {
+    global $woocommerce;
+    ob_start(); ?>
+    
+    <a class="cart-contents-steed" href="<?php echo wc_get_cart_url(); ?>">
+                	<span class="element_shoppingBag_count">
+					<?php echo sprintf ( _n( '%d <span class="screen-reader-text">item</span>', '%d <span class="screen-reader-text">items</span>', WC()->cart->get_cart_contents_count() ), WC()->cart->get_cart_contents_count() ); ?>
+                    </span>
+					<?php echo WC()->cart->get_cart_total(); ?>
+               </a>
+
+    <?php
+    $fragments['a.cart-contents-steed'] = ob_get_clean();
+    return $fragments;
+}
 
 
 if ( ! function_exists( 'steed_element_button' ) ) :
@@ -790,8 +847,15 @@ endif;
 
 if ( ! function_exists( 'steed_element_pageHeading' ) ) :
 	function steed_element_pageHeading() {
-		
-		if(is_search()){
+		if(class_exists( 'woocommerce' )){
+			if(is_woocommerce()){
+				echo '<h1 class="entry-title">';
+					woocommerce_page_title();	
+				echo '</h1>';
+			}else{
+				the_title( '<h1 class="entry-title">', '</h1>' );
+			}
+		}elseif(is_search()){
 			?>
 			<h1 class="page-title"><?php printf( esc_html__( 'Search Results for: %s', 'steed' ), '<span>' . get_search_query() . '</span>' ); ?></h1>
 			<?php
@@ -803,7 +867,7 @@ if ( ! function_exists( 'steed_element_pageHeading' ) ) :
 		}elseif(is_archive()){
 			the_archive_title('<h1 class="entry-title">', '</h1>');
 		}else{
-			the_title( '<h1 class="entry-title">', '</h1>' );	
+			the_title( '<h1 class="entry-title">', '</h1>' );
 		}
 	}
 endif;

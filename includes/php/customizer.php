@@ -1105,14 +1105,14 @@ function steed_element_customize_loginRegister($prefix, $section_prefix_id, $ele
 	
 	$defualt = array(
 		"std_active" => "yes",
-		"std_login_text" => "",
-		"std_login_link" => "",
-		"std_register_text" => "",
-		"std_register_link" => "",
-		"std_logout_text" => "",
-		"std_logout_link" => "",
-		"std_account_text" => "",
-		"std_account_link" => "",
+		"std_login_text" => "Login",
+		"std_login_link" => "#",
+		"std_register_text" => "Register",
+		"std_register_link" => "#",
+		"std_logout_text" => "Logout",
+		"std_logout_link" => "#",
+		"std_account_text" => "Account",
+		"std_account_link" => "#",
 	);
 	if(is_array($element_settings)){
 		$atr = array_merge($defualt, $element_settings);
@@ -1220,6 +1220,8 @@ function steed_element_customize_shoppingBag($prefix, $section_prefix_id, $eleme
 	
 	$defualt = array(
 		"std_active" => "yes",
+		"std_tooltip" => "View your shopping cart",
+		"std_title" => "Shopping Cart",
 	);
 	if(is_array($element_settings)){
 		$atr = array_merge($defualt, $element_settings);
@@ -1244,6 +1246,26 @@ function steed_element_customize_shoppingBag($prefix, $section_prefix_id, $eleme
 				'yes' => 'yes',
 				'no' => 'no',
 			),
+		));
+		
+		$uid = $prefix.'shoppingBag_title';
+		$wp_customize->add_setting($uid, array( 'default' => $atr['std_title'], 'sanitize_callback' => 'sanitize_text_field', ));
+		$wp_customize->add_control( $uid, array(
+			'label'      => __('Title', 'steed'),
+			'section'    => $section_prefix_id,
+			'settings'   => $uid,
+			'type'       => 'text',
+			'description' => '',
+		));
+		
+		$uid = $prefix.'shoppingBag_tooltip';
+		$wp_customize->add_setting($uid, array( 'default' => $atr['std_tooltip'], 'sanitize_callback' => 'sanitize_text_field', ));
+		$wp_customize->add_control( $uid, array(
+			'label'      => __('Tooltip', 'steed'),
+			'section'    => $section_prefix_id,
+			'settings'   => $uid,
+			'type'       => 'text',
+			'description' => '',
 		));
 	}
 	
