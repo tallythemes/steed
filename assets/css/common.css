@@ -1865,6 +1865,7 @@ object {
     left: -999em;
     z-index: 99999;
     background: #fff;
+	text-align: left;
 }
 .main-navigation ul ul ul {
 	left: -999em;
@@ -1874,7 +1875,8 @@ object {
 	width: 200px;
 }
 .main-navigation ul ul li {
-
+	border-radius: 0;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.11);
 }
 .main-navigation li:hover > a,
 .main-navigation li.focus > a {

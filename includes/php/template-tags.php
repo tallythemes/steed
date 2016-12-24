@@ -359,8 +359,14 @@ if ( ! function_exists( 'steed_element_text' ) ) :
 		$text = get_theme_mod($prefix.'text_content', '');
 		$icon = get_theme_mod($prefix.'text_icon', '');
 		
-		$before =(!empty($settings['before'])) ? $settings['before'] : NULL;
-		$after =(!empty($settings['after'])) ? $settings['after'] : NULL;
+		$atr = array_merge(array(
+			"class" => "",
+			"before" => "",
+			"after" => "",
+		), $settings);
+		
+		$before = $atr['before'];
+		$after = $atr['after'];
 		
 		if(esc_attr($active) == 'yes'){
 			
@@ -376,10 +382,10 @@ if ( ! function_exists( 'steed_element_text' ) ) :
 			}
 
 			/* Security Check for Text */
-			if(preg_match("/^[0-9]{3}-[0-9]{4}-[0-9]{4}$/", $text)){
+			if(steed_validate_Phone_number($text)){
 				$the_text = $the_icon.'<span class="s2"><a href="tel:'.esc_attr($text).'">'.esc_attr($text).'</a></span>';
 			}
-			elseif(filter_var($text, FILTER_VALIDATE_EMAIL)){
+		    elseif(filter_var(trim($text), FILTER_VALIDATE_EMAIL)){
 				$the_text = $the_icon.'<span class="s2"><a href="mailto:'.esc_attr($text).'">'.esc_attr($text).'</a></span>';
 			}
 			else{
@@ -388,7 +394,7 @@ if ( ! function_exists( 'steed_element_text' ) ) :
 			
 			if(esc_attr($text) != ''){
 				echo $before;
-					echo '<div class="elementText">';
+					echo '<div class="elementText '.$atr['class'].'">';
 						echo '<div class="elementText_in">';
 							echo $the_text;
 						echo '</div>';
@@ -399,7 +405,6 @@ if ( ! function_exists( 'steed_element_text' ) ) :
 		
 	}
 endif;
-
 
 if ( ! function_exists( 'steed_element_html' ) ) :
 	function steed_element_html($prefix, $settings= array()) {

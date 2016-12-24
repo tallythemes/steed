@@ -315,3 +315,16 @@ function steed_custom_css(){
 	return $css;
 }
 endif;
+
+
+
+
+function steed_validate_Phone_number($string) {
+    $numbersOnly = preg_replace("[^0-9]", "", $string);
+    $numberOfDigits = strlen($numbersOnly);
+    if (($numberOfDigits >= 7) && ($numberOfDigits <= 14)) {
+       return true;
+    } else {
+        return false;
+    }
+}
