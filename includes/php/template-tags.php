@@ -355,16 +355,21 @@ endif;
 
 if ( ! function_exists( 'steed_element_text' ) ) :
 	function steed_element_text($prefix, $settings = array()) {
-		$active = get_theme_mod($prefix.'text_active', 'yes');
-		$text = get_theme_mod($prefix.'text_content', '');
-		$icon = get_theme_mod($prefix.'text_icon', '');
 		
 		$atr = array_merge(array(
 			"class" => "",
 			"before" => "",
 			"after" => "",
+			"std_active" => "yes",
+			"std_content" => "Sample Content is here",
+			"std_icon" => "",
 		), $settings);
 		
+		$active = get_theme_mod($prefix.'text_active', $atr['std_active']);
+		$text = get_theme_mod($prefix.'text_content', $atr['std_content']);
+		$icon = get_theme_mod($prefix.'text_icon', $atr['std_icon']);
+		
+
 		$before = $atr['before'];
 		$after = $atr['after'];
 		

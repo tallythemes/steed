@@ -381,7 +381,9 @@ function steed_customizer_padding($prefix, $section_prefix_id, $element_settings
 }
 function steed_customizer_colorMood($prefix, $section_prefix_id, $element_settings, $wp_customize){
 	
-	$std = (!empty($element_settings['std'])) ? $element_settings['std'] : 'dark';
+	$filter_std = apply_filters('steed_element_colorMood_'.$prefix, 'dark');
+	
+	$std = (!empty($element_settings['std'])) ? $element_settings['std'] : $filter_std;
 
 	
 	if(steed_mal()){
@@ -942,9 +944,23 @@ function steed_element_customize_html($prefix, $section_prefix_id, $element_sett
 
 function steed_element_customize_text($prefix, $section_prefix_id, $element_settings, $wp_customize){
 	
+	if(is_array($element_settings)){
+		$atr = array_merge(array(
+			"std_active" => "yes",
+			"std_content" => "Sample Content is here",
+			"std_icon" => "",
+		), $element_settings);
+	}else{
+		$atr = array(
+			"std_active" => "yes",
+			"std_content" => "Sample Content is here",
+			"std_icon" => "",
+		);
+	}
+	
 	if(steed_mal()){
 	$uid = $prefix.'text_active';
-	$wp_customize->add_setting($uid, array( 'default' => 'yes', 'sanitize_callback' => 'sanitize_text_field', ));
+	$wp_customize->add_setting($uid, array( 'default' => $atr['std_active'], 'sanitize_callback' => 'sanitize_text_field', ));
 	$wp_customize->add_control( $uid, array(
 		'label'      => __('Active', 'steed'),
 		'section'    => $section_prefix_id,
@@ -959,7 +975,7 @@ function steed_element_customize_text($prefix, $section_prefix_id, $element_sett
 	}
 		
 	$uid = $prefix.'text_content';
-	$wp_customize->add_setting($uid, array( 'default' => '', 'sanitize_callback' => 'wp_kses_post', ));
+	$wp_customize->add_setting($uid, array( 'default' => $atr['std_content'], 'sanitize_callback' => 'wp_kses_post', ));
 	$wp_customize->add_control( $uid, array(
 		'label'      => __('Content', 'steed'),
 		'section'    => $section_prefix_id,
@@ -969,7 +985,7 @@ function steed_element_customize_text($prefix, $section_prefix_id, $element_sett
 	));
 	
 	$uid = $prefix.'text_icon';
-	$wp_customize->add_setting($uid, array( 'default' => '', 'sanitize_callback' => 'wp_kses_post', ));
+	$wp_customize->add_setting($uid, array( 'default' => $atr['std_icon'], 'sanitize_callback' => 'wp_kses_post', ));
 	$wp_customize->add_control( $uid, array(
 		'label'      => __('Icon', 'steed'),
 		'section'    => $section_prefix_id,
