@@ -634,7 +634,7 @@ if ( ! function_exists( 'steed_element_shoppingBag' ) ) :
                 <span class="screen-reader-text"><?php echo esc_attr($title); ?></span>
 				<a class="cart-contents-steed" href="<?php echo wc_get_cart_url(); ?>">
                 	<span class="element_shoppingBag_count">
-					<?php echo sprintf ( _n( '%d <span class="screen-reader-text">item</span>', '%d <span class="screen-reader-text">items</span>', WC()->cart->get_cart_contents_count() ), WC()->cart->get_cart_contents_count() ); ?>
+					<?php echo sprintf ( _n( '%d <span class="screen-reader-text">item</span>', '%d <span class="screen-reader-text">items</span>', WC()->cart->get_cart_contents_count(), 'steed' ), WC()->cart->get_cart_contents_count() ); ?>
                     </span>
 					<?php echo WC()->cart->get_cart_total(); ?>
                </a>
@@ -653,7 +653,7 @@ function steed_element_shoppingBag_fragment( $fragments ) {
     
     <a class="cart-contents-steed" href="<?php echo wc_get_cart_url(); ?>">
                 	<span class="element_shoppingBag_count">
-					<?php echo sprintf ( _n( '%d <span class="screen-reader-text">item</span>', '%d <span class="screen-reader-text">items</span>', WC()->cart->get_cart_contents_count() ), WC()->cart->get_cart_contents_count() ); ?>
+					<?php echo sprintf ( _n( '%d <span class="screen-reader-text">item</span>', '%d <span class="screen-reader-text">items</span>', WC()->cart->get_cart_contents_count(), 'steed' ), WC()->cart->get_cart_contents_count() ); ?>
                     </span>
 					<?php echo WC()->cart->get_cart_total(); ?>
                </a>
