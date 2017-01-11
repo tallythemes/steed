@@ -328,3 +328,16 @@ function steed_validate_Phone_number($string) {
         return false;
     }
 }
+
+
+if ( ! function_exists( 'steed_return_light_color_name' ) ) :
+function steed_return_light_color_name(){
+	return 'light';	
+}
+endif;
+
+if ( ! function_exists( 'steed_return_dark_color_name' ) ) :
+function steed_return_dark_color_name(){
+	return 'dark';	
+}
+endif;

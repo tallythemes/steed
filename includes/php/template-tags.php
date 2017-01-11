@@ -549,7 +549,18 @@ endif;
 
 if ( ! function_exists( 'steed_element_searchIcon' ) ) :
 	function steed_element_searchIcon($prefix, $settings =array()) {
-		$active = esc_attr(get_theme_mod($prefix.'searchIcon_active', 'yes'));
+		$defualt = array(
+			"std_active" => "yes",
+			"before" => "",
+			"after" => "",
+		);
+		if(is_array($settings)){
+			$atr = array_merge($defualt, $settings);
+		}else{
+			$atr = $defualt;
+		}
+		
+		$active = esc_attr(get_theme_mod($prefix.'searchIcon_active', $atr['std_active']));
 		$before =(!empty($settings['before'])) ? $settings['before'] : NULL;
 		$after =(!empty($settings['after'])) ? $settings['after'] : NULL;
 		
@@ -575,20 +586,40 @@ function steed_element_searchIcon_footer_code(){
 
 if ( ! function_exists( 'steed_element_loginRegister' ) ) :
 	function steed_element_loginRegister($prefix, $settings =array()) {
-		$active = esc_attr(get_theme_mod($prefix.'loginRegister_active', 'yes'));
 		
-		$login_text = esc_attr(get_theme_mod($prefix.'loginRegister_login_text', 'Login'));
-		$login_link = esc_url(get_theme_mod($prefix.'loginRegister_login_link', '#'));
-		$register_text = esc_attr(get_theme_mod($prefix.'loginRegister_register_text', 'Register'));
-		$register_link = esc_url(get_theme_mod($prefix.'loginRegister_register_link', '#'));
+		$defualt = array(
+			"std_active" => "yes",
+			"std_login_text" => "Login",
+			"std_login_link" => "#",
+			"std_register_text" => "Register",
+			"std_register_link" => "#",
+			"std_logout_text" => "Logout",
+			"std_logout_link" => "#",
+			"std_account_text" => "Account",
+			"std_account_link" => "#",
+			"before" => "",
+			"after" => "",
+		);
+		if(is_array($settings)){
+			$atr = array_merge($defualt, $settings);
+		}else{
+			$atr = $defualt;
+		}
 		
-		$logout_text = esc_attr(get_theme_mod($prefix.'loginRegister_logout_text', 'Logout'));
-		$logout_link = esc_url(get_theme_mod($prefix.'loginRegister_logout_link', '#'));
-		$account_text = esc_attr(get_theme_mod($prefix.'loginRegister_account_text', 'Account'));
-		$account_link = esc_url(get_theme_mod($prefix.'loginRegister_account_link', '#'));
+		$active = esc_attr(get_theme_mod($prefix.'loginRegister_active', $atr['std_active']));
 		
-		$before =(!empty($settings['before'])) ? $settings['before'] : NULL;
-		$after =(!empty($settings['after'])) ? $settings['after'] : NULL;
+		$login_text = esc_attr(get_theme_mod($prefix.'loginRegister_login_text', $atr['std_login_text']));
+		$login_link = esc_url(get_theme_mod($prefix.'loginRegister_login_link', $atr['std_login_link']));
+		$register_text = esc_attr(get_theme_mod($prefix.'loginRegister_register_text', $atr['std_register_text']));
+		$register_link = esc_url(get_theme_mod($prefix.'loginRegister_register_link', $atr['std_register_link']));
+		
+		$logout_text = esc_attr(get_theme_mod($prefix.'loginRegister_logout_text', $atr['std_logout_text']));
+		$logout_link = esc_url(get_theme_mod($prefix.'loginRegister_logout_link', $atr['std_logout_link']));
+		$account_text = esc_attr(get_theme_mod($prefix.'loginRegister_account_text', $atr['std_account_text']));
+		$account_link = esc_url(get_theme_mod($prefix.'loginRegister_account_link', $atr['std_account_link']));
+		
+		$before =$atr['before'];
+		$after =$atr['after'];
 		
 		if($active == 'yes'){
 			echo $before;
@@ -697,15 +728,23 @@ endif;
 
 if ( ! function_exists( 'steed_element_footerWidgets' ) ) :
 	function steed_element_footerWidgets($prefix, $settings) {
+		$filter_settings = apply_filters('steed_element_footerWidgets_'.$prefix, array());
+		
 		$atr = array_merge(array(
-			"class" => "",
-			"in_class" => "",
+			"class"				=> "",
+			"in_class"			=> "",
+			"std_active"		=> "yes",
+			"std_layout"		=> "3/3/3/3",
+			"std_layout_tab"	=> "6/6",
+			"std_layout_mobile"	=> "12",
 		), $settings);
 		
-		$active = esc_attr(get_theme_mod($prefix.'widgets_active', 'yes'));
-		$layout = esc_attr(get_theme_mod($prefix.'widgets_layout', '3/3/3/3'));
-		$layout_tab = esc_attr(get_theme_mod($prefix.'widgets_layout_tab', '6'));
-		$layout_mobile = esc_attr(get_theme_mod($prefix.'widgets_layout_mobile', '12'));
+		$atr = array_merge($atr, $filter_settings);
+		
+		$active = esc_attr(get_theme_mod($prefix.'widgets_active', $atr['std_active']));
+		$layout = esc_attr(get_theme_mod($prefix.'widgets_layout', $atr['std_layout']));
+		$layout_tab = esc_attr(get_theme_mod($prefix.'widgets_layout_tab', $atr['std_layout_tab']));
+		$layout_mobile = esc_attr(get_theme_mod($prefix.'widgets_layout_mobile', $atr['std_layout_mobile']));
 		
 		$widget_1 = false;
 		$widget_2 = false;
@@ -828,6 +867,7 @@ if ( ! function_exists( 'steed_element_logo' ) ) :
 		$output = '';
 		$description = get_bloginfo( 'description', 'display' );
 		$custom_logo_id = esc_attr(get_theme_mod( 'custom_logo' ));
+		$std_logo = apply_filters('steed_element_logo_url', NULL);
 		
 		// Try to retrieve the Custom Logo
 		if (function_exists('get_custom_logo')){
@@ -846,6 +886,10 @@ if ( ! function_exists( 'steed_element_logo' ) ) :
 			}
 			if ( $description || is_customize_preview() ){
 				$output .= '<p  class="site-description">'.$description.'</p>';
+			}
+			
+			if($std_logo != NULL){
+				$output = '<a href="' . esc_url(home_url('/')) . '"><img src="'.esc_url($std_logo).'" alt="'.get_bloginfo( 'name' ).'"></a>';
 			}
 		}
 		
