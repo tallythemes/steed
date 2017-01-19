@@ -132,7 +132,7 @@ add_action( 'customize_register', 'steed_part_header_customize' );
 ----------------------------------------*/
 add_action('steed_after_header', 'steed_part_subheader_content', 10);
 function steed_part_subheader_content(){
-	if(is_single() || is_archive() || (is_page() && !is_page_template( 'template-full-width.php' )) || is_search()):
+	if(is_single() || is_archive() || (is_page() && !is_page_template( 'template-full-width.php' )) || is_search() || (is_page() && !is_page_template( 'template-page-bulder.php' ))):
 	?>
     <div class="site-subheader <?php echo steed_element_colorMood('subheader_'); ?>">
         <div class="site-subheader-in container-width">

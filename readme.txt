@@ -7,7 +7,7 @@ Tags: one-column, two-columns, right-sidebar, custom-menu, editor-style, feature
 
 Requires at least: 4.0
 Tested up to: 4.7
-Stable tag: 2.3
+Stable tag: 2.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -42,13 +42,15 @@ All images: CC0 by Pixabay, https://pixabay.com/en/service/terms/
 
 == Changelog ==
 
+= 2.4 - 18 January 2017  =
+* New Page template "Builder"
+* Fix customizer issue
+* Fix CSS issue
+
 = 2.3 - 30 December 2016  =
 * Add WooCommerce Support
-
 * Fix customizer issue
-
 * Improve CSS
-
 * Improve design
 * Improve template tags
 * Fixed STD value of customizer
