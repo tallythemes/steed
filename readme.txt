@@ -6,7 +6,7 @@ Contributors: TallyThemes
 Tags: one-column, two-columns, right-sidebar, custom-menu, editor-style, featured-images, post-formats, rtl-language-support, sticky-post, threaded-comments, translation-ready, blog
 
 Requires at least: 4.0
-Tested up to: 4.7
+Tested up to: 4.7.1
 Stable tag: 2.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
