@@ -143,6 +143,13 @@ function steed_scripts() {
 }
 add_action( 'wp_enqueue_scripts', 'steed_scripts' );
 
+function steed_admin_scripts() {
+	wp_register_style( 'steed-admin', get_template_directory_uri() . '/assets/css/steed-admin.css', array(), '1.0' );
+	wp_enqueue_style( 'steed-admin');
+	
+}
+add_action( 'admin_enqueue_scripts', 'steed_admin_scripts' );
+
 
 /**
  * Enqueue Custom/Dynamic CSS
