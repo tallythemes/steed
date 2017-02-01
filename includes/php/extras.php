@@ -407,9 +407,13 @@ function steed_intro_page_html(){
                     </div>
 				</div>
             </div>
-            <p>
+            <br>
+            <?php if(TGM_Plugin_Activation::get_instance()->is_tgmpa_complete() === false): ?>
+            <a class="button button-primary button-hero" href="<?php echo admin_url('themes.php?page=tgmpa-install-plugins'); ?>">Install Plugins</a>
+            <?php endif; ?>
+            <a class="button button-primary button-hero" href="<?php echo admin_url('customize.php'); ?>">Theme Settings</a>
             <a class="button button-primary button-hero" href="<?php echo STEED_DEMO_URL; ?>">Theme Live Demo</a>
-            </p>
+            <p>&nbsp;</p>
             <div class="container">
                 <div class="steed_row">
                 	<div class="steed_col">
