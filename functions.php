@@ -7,6 +7,13 @@
  * @package Steed
  */
 
+if(!defined('STEED_THEME_NAME')) { define('STEED_THEME_NAME', 'steed'); }
+if(!defined('STEED_BASE_SLUG')) { define('STEED_BASE_SLUG', 'steed'); }
+if(!defined('STEED_THEME_SLUG')) { define('STEED_THEME_SLUG', 'steed'); }
+if(!defined('TALLYTHEME_DEMO_URL')) { define('TALLYTHEME_DEMO_URL', ''); }
+if(!defined('STEED_DEMO_URL')) { define('STEED_DEMO_URL', ''); }
+if(!defined('STEED_DOC_URL')) { define('STEED_DOC_URL', ''); }
+
 if ( ! function_exists( 'steed_setup' ) ) :
 /**
  * Sets up theme defaults and registers support for various WordPress features.

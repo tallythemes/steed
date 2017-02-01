@@ -388,6 +388,13 @@ add_action("after_switch_theme", "steed_customizer_data_import_init");
 /*
 	Intro Page
 -------------------------------------------------*/
+add_action("after_setup_theme", "steed_intro_page_redirect");
+function steed_intro_page_redirect(){
+	global $pagenow;
+	if ( is_admin() && 'themes.php' == $pagenow && isset( $_GET['activated'] ) ) {
+		wp_redirect(admin_url("themes.php?page=steed-intro")); // Your admin page URL
+	}
+}
 add_action('admin_menu', 'steed_intro_page_menu');
 function steed_intro_page_menu() {
 	$theme = wp_get_theme();
