@@ -341,3 +341,114 @@ function steed_return_dark_color_name(){
 	return 'dark';	
 }
 endif;
+
+
+/*
+	Import customizer data after theme installed
+-------------------------------------------------*/
+function steed_customizer_data_import_init(){
+	
+	$theme = get_option( 'stylesheet' );
+	
+	$free_was_installed = get_option('steed_'.STEED_BASE_SLUG.'_free_installed');
+	$pro_data_imported = get_option('steed_'.STEED_BASE_SLUG.'_pro_data_imported');
+	$free_data_imported = get_option('steed_'.STEED_BASE_SLUG.'_free_data_imported');
+	$free_theme_slug = STEED_BASE_SLUG.'-free';
+	
+	if(($free_was_installed != 'yes') && (STEED_THEME_SLUG == STEED_BASE_SLUG.'-free')){
+		update_option('steed_'.STEED_BASE_SLUG.'_free_installed', 'yes');
+	}
+	
+	if(file_exists(get_stylesheet_directory().'/inc/demo/customization.php')){
+		
+		$data_file = include(get_stylesheet_directory().'/inc/demo/customization.php');
+		$old_data = get_option("theme_mods_$free_theme_slug");
+		$new_data = unserialize($data_file);
+			
+		if(($free_was_installed == 'yes') && (STEED_THEME_SLUG == STEED_BASE_SLUG.'-pro') && ($pro_data_imported != 'yes')){
+			$combo_data = array_merge( $new_data['mods'], $old_data);
+			if(update_option( "theme_mods_$theme", $combo_data )){
+				update_option('steed_'.STEED_BASE_SLUG.'_pro_data_imported', 'yes');
+			}
+		}elseif((STEED_THEME_SLUG == STEED_BASE_SLUG.'-free') && ($free_data_imported != 'yes')){
+			if(update_option( "theme_mods_$theme", $new_data['mods'] )){
+				update_option('steed_'.STEED_BASE_SLUG.'_free_data_imported', 'yes');
+			}
+		}
+	}
+	
+	//echo '$free_was_installed: '.$free_data_imported.'<br>';
+	//echo '$pro_data_imported: '.$pro_data_imported.'<br>';
+	//echo '$free_data_imported: '.$free_data_imported.'<br>';
+}
+add_action("after_switch_theme", "steed_customizer_data_import_init");
+
+
+
+/*
+	Intro Page
+-------------------------------------------------*/
+add_action('admin_menu', 'steed_intro_page_menu');
+function steed_intro_page_menu() {
+	$theme = wp_get_theme();
+	add_theme_page($theme->get( 'Name' ).' Theme', $theme->get( 'Name' ), 'edit_theme_options', 'steed-intro', 'steed_intro_page_html');
+}
+function steed_intro_page_html(){
+	$theme = wp_get_theme();
+	?>
+    <div class="wrap about-wrap">
+    	<div class="wrap-container">
+        	<div class="bend-heading-section ultimate-header">
+				<h1>Welcome to <?php echo $theme->get( 'Name' ); ?></h1>
+				<h3><?php echo $theme->get( 'Description' ); ?></h3>
+				<div class="bend-head-logo">
+                    <div class="bend-product-ver">
+                      Version <?php echo $theme->get( 'Version' ); ?>
+                    </div>
+				</div>
+            </div>
+            <p>
+            <a class="button button-primary button-hero" href="<?php echo STEED_DEMO_URL; ?>">Theme Live Demo</a>
+            </p>
+            <div class="container">
+                <div class="steed_row">
+                	<div class="steed_col">
+                    	<div class="steed_col_content">
+                        	<span class="dashicons dashicons-welcome-learn-more"></span>
+                        	<h4>Read Theme Documentation</h4>
+                            <p><?php echo $theme->get( 'Name' ); ?> come with an exclusive documentations. We have explained each steps of the theme installation process in the documentation. Please follow the theme documentation to know how the theme work.</p>
+                            <a class="button button-primary" href="<?php echo STEED_DOC_URL; ?>">See Documentation</a>
+                        </div>
+                    </div>
+                    <div class="steed_col last">
+                    	<div class="steed_col_content">
+                        	<span class="dashicons dashicons-download"></span>
+                        	<h4>Download More FREE Themes</h4>
+                            <p>We offer free wordpress theme. We have more than 15+ FREE wordpress theme available for download. Click the button below and browse free themes.</p>
+                            <a class="button button-primary" href="<?php echo esc_url('http://tallythemes.com/product-category/free-wordpress-themes/'); ?>">More Free Themes</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="steed_row last">
+                	<div class="steed_col">
+                    	<div class="steed_col_content">
+                        	<span class="dashicons dashicons-sos"></span>
+                        	<h4>Get Support</h4>
+                            <p>We offer FREE support for Premium product Users. You can read our support policy <a href="<?php echo esc_url('http://tallythemes.com/support-policy/'); ?>">here</a>. Click on the button below and create a support ticket. Our support stuff will contact with you in 24 hours.</p>
+                            <a class="button button-primary" href="<?php echo esc_url('http://tallythemes.com/support/'); ?>">Get Support</a>
+                        </div>
+                    </div>
+                    <div class="steed_col last">
+                    	<div class="steed_col_content">
+                            <span class="dashicons dashicons-cart"></span>
+                        	<h4>Shop More</h4>
+                            <p>TallyThems offer high quality Premium WordPress theme and Plugins. All latest WordPress themes are coming with Page Builder. So browse our Premium theme today.</p>
+                            <a class="button button-primary" href="<?php echo esc_url('http://tallythemes.com/product-category/wordpress-themes/'); ?>">Shop More Themes</a>
+                        </div>
+                    </div>
+                </div>
+            </div><!--.container-->
+        </div>
+    </div>
+    <?php
+}

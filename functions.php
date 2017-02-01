@@ -207,9 +207,3 @@ require get_template_directory() . '/includes/php/css-tags.php';
  * Load WooCommerce Funcions
  */
 require get_template_directory() . '/includes/php/woocommerce.php';
-
-
-/**
- * Load Custom CSS functions
- */
-require get_template_directory() . '/includes/php/customizer-data-import.php';

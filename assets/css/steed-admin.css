@@ -1,3 +1,35 @@
 .wpb_content_element.wpb_vc_column_text >.wpb_element_wrapper {
     background-color: #f9e1e1;
 }
+
+.steed_row{
+    overflow: hidden;
+    margin: -20px;
+}
+.steed_col{
+	width:50%;
+	box-sizing: border-box;	
+	float:left;
+	padding:20px;
+	
+    border-bottom: 1px solid #ddd;
+}
+.steed_row.last .steed_col{
+	border-bottom: 0 solid #ddd;
+}
+.steed_col.last{
+	box-shadow: -1px 0 rgba(255, 255, 255, 0.85);
+    border-left: 1px solid #ddd;
+}
+.steed_col_content{
+	position:relative;
+	padding-left:40px;
+}
+.steed_col_content .dashicons{
+	position:absolute;
+	left:0;
+	top:0;
+	width: 30px;
+    height: 30px;
+    font-size: 30px;
+}
