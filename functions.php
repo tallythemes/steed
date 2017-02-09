@@ -134,6 +134,15 @@ function steed_scripts() {
 	
 	wp_enqueue_style( 'font-awesome', get_template_directory_uri() . '/assets/font-awesome/css/font-awesome.min.css', array(), '4.7.0' );
 	
+	if(!class_exists('Vc_Manager')){
+		wp_enqueue_style( 'js_composer', get_template_directory_uri() . '/assets/vendors/js_composer.min.css', array(), '1.0');
+		wp_enqueue_script( 'js_composer', get_template_directory_uri() . '/assets/vendors/js_composer_front.min.js', array(), '1.0', true );
+	}
+	if(!class_exists('Ultimate_VC_Addons')){
+		wp_enqueue_style( 'ultimate', get_template_directory_uri() . '/assets/vendors/ultimate.min.css', array(), '1.0');
+		wp_enqueue_script( 'ultimate', get_template_directory_uri() . '/assets/vendors/ultimate.min.js', array(), '1.0', true );
+	}
+	
 	// Add custom fonts, used in the main stylesheet.
 	wp_enqueue_style( 'steed-fonts', steed_fonts_url(), array(), null );
 	
