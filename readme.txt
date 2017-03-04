@@ -6,8 +6,8 @@ Contributors: TallyThemes
 Tags: one-column, two-columns, right-sidebar, custom-menu, editor-style, featured-images, post-formats, rtl-language-support, sticky-post, threaded-comments, translation-ready, blog
 
 Requires at least: 4.0
-Tested up to: 4.7.1
-Stable tag: 2.4
+Tested up to: 4.7.2
+Stable tag: 2.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -41,6 +41,15 @@ Copyright (c) 2011, Thomas Griffin ( GPL-2.0+ )
 All images: CC0 by Pixabay, https://pixabay.com/en/service/terms/
 
 == Changelog ==
+
+= 2.6 - 4 March 2017  =
+* Add admin Css file
+* Added customizer demo content import option
+* Added a Intro page
+* Added new CSS file if VC and VC Ultimate plugin is not installed
+
+= 2.5 - 26 January 2017  =
+* Update Page builder template
 
 = 2.4 - 18 January 2017  =
 * New Page template "Builder"
