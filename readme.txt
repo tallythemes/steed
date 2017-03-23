@@ -7,7 +7,7 @@ Tags: one-column, two-columns, right-sidebar, custom-menu, editor-style, feature
 
 Requires at least: 4.0
 Tested up to: 4.7.2
-Stable tag: 2.6
+Stable tag: 2.7
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 

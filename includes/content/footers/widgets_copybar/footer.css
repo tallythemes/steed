@@ -1,0 +1,43 @@
+/*--------------------------------------------------------------
+## Site Footer
+--------------------------------------------------------------*/
+.site-footer{
+
+}
+.site-footer h3 {
+    margin-bottom: 25px;
+}
+.site-footer .widget {
+    margin-bottom: 25px;
+	font-size: 14px;
+}
+.site-footer .widget h2{
+	font-size:18px;
+	margin-top:0px;
+}
+.site-footer .widget p{
+	margin-top:0px;
+	margin-bottom:10px;
+
+}
+.site-footer a{
+	color:#ababab;
+	text-decoration:none;	
+}
+.site-footer a:hover{
+	text-decoration:underline;	
+}
+
+.footer-widgets {
+    padding: 70px 0 40px 0;
+    background: #2d2d2d;
+    position: relative;
+    color: #ffffff;
+}
+
+.footer-bar{
+    padding:40px 0 10px 0;
+    background-color: #292828;
+    text-align: center;
+    color: #fff;
+}

@@ -120,6 +120,7 @@ function steed_element_CSS_menuColors($selector, $settings = array()){
 endif;
 
 
+
 if(!function_exists('steed_element_CSS_socialIcons')):
 function steed_element_CSS_socialIcons($the_prefix, $selector, $settings = array()){
 	$atr = array_merge(array(

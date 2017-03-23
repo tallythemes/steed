@@ -1,0 +1,206 @@
+/*--------------------------------------------------------------
+## Site Header
+--------------------------------------------------------------*/
+/*	Topbar
+---------------------*/
+.topbar{
+    font-size: 80%;
+    padding-top: 7px;
+    padding-bottom: 7px;
+	background-color: #3b4044;
+}
+.topbar a{
+    text-decoration: none;
+    color: inherit;	
+}
+.topbar .elementText{
+    margin-left: 10px;
+    margin-right: 10px;
+	margin-top:1px;
+}
+.topbar .elementText i.fa{
+	color:#e68d02;
+}
+
+/*	topbar hand
+---------------------*/
+.topbar_open_hand{
+    text-align: center;
+    opacity: 0.9;
+	display:none;
+}
+.topbar_open_hand.used{
+	display:block;
+}
+.topbar_open_hand:before{
+	display: inline-block;
+    font: normal normal normal 14px/1 FontAwesome;
+    font-size: inherit;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+	
+	content: "\f107";
+}
+.topbar_open_hand.active:before{	
+	content: "\f106";
+}
+
+/*	Header
+---------------------*/
+.site-header{
+    background: #fff;
+	padding-top:10px;
+	padding-bottom:10px;
+	box-shadow: 0px 1px 0px #eaeaea;
+}
+
+a.responsive-menu-hand{
+	right:	auto;
+	left:10px;
+}
+
+/*
+	Logo & title Styling
+---------------------*/
+.site-header .site-header-in{
+	position:relative;	
+}
+.site-header .site-title,
+.site-header .site-description{
+	margin-top:0;
+	margin-bottom:0;	
+}
+.site-header .site-title{
+	line-height:1.1;
+	font-size:24px;	
+    font-weight: bold;
+    margin-top: 7px;
+}
+.site-header .site-title a{
+	text-decoration:none;
+	color:#000;	
+}
+.site-header .site-description{
+	font-size:14px;	
+}
+.site-header .ph1_logo img{
+	max-width:100%;	
+}
+
+/*	Social Icons
+----------------------*/
+.social-icons a {
+    height: 23px;
+    width: 23px;
+}
+.social-icons a:hover{
+	color: #1e73be;
+}
+.social-icons i.fa {
+    font-size: 16px;
+    line-height: 23px;
+}
+
+
+/*	Menu
+----------------------*/
+.main-navigation{ 
+	float:right; 
+	margin-top:3px; 
+	margin-right: 5px; 
+}
+.main-navigation a {
+    text-transform: uppercase;
+    font-size: 13px;
+}
+.main-navigation li:hover,
+.main-navigation .current_page_item,
+.main-navigation .current-menu-item,
+.main-navigation .current_page_ancestor{
+	color: #e68d02;
+}
+.main-navigation ul ul{ top:100%; }
+
+
+/*	Element Button
+---------------------*/
+.element_button{
+    float: right;
+    border-radius: 40px;
+    padding: 5px 17px;
+    margin-top: 10px;
+    margin-left: 5px;
+    margin-right: 5px;
+    font-size: 84%;
+    background-color: rgba(255, 255, 255, 0) !important;
+}
+
+/*	Element loginRegister
+---------------------*/
+.element_loginRegister{
+    float: right;
+    margin-top: 17px;
+    margin-left: 5px;
+    margin-right: 5px;
+    font-size: 90%;
+    font-weight: bold;
+}
+
+/*	Element searchIcon
+---------------------*/
+.element_searchIcon{
+	float:right;
+	margin-top:12px;
+	margin-left:5px;
+	margin-right:5px;
+}
+
+/*	Element shoppingBag
+---------------------*/
+.element_shoppingBag{
+	float:right;
+	margin-top:12px;
+	margin-left: 5px;
+    margin-right: 5px;
+}
+.cart-contents-steed .woocommerce-Price-amount {
+    display: none;
+}
+
+
+
+
+@media (max-width: 1200px) {
+	.topbar{
+		display:none;	
+	}
+	.topbar_open_hand{
+		display:block;	
+	}
+	.topbar .elementText{
+		border-top: 1px solid rgba(0, 0, 0, 0.18);
+		padding-top: 5px;
+		padding-bottom: 5px;
+		max-width: 500px;
+		display: block;
+		margin: 0 auto;
+	}
+}
+@media (max-width: 991px) {
+	.site-branding{
+		border-bottom:1px solid #f0f0f0;
+		padding-bottom:10px;
+		margin-bottom:10px;	
+	}
+	.main-navigation{
+		float:left;	
+	}
+}
+@media (max-width: 768px) {
+	.header-widgets > .row > div{
+		border-top:1px solid #f0f0f0;
+		padding-top:10px;
+		margin-top:10px;	
+	}
+}

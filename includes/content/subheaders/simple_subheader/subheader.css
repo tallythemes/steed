@@ -1,0 +1,15 @@
+/*--------------------------------------------------------------
+# Sub-header
+--------------------------------------------------------------*/
+.site-subheader{
+	padding-top:40px;
+	padding-bottom:40px;
+	text-align:center;	
+	background-color:#ED2627;
+}
+.site-subheader h1{
+	margin-bottom:0;	
+}
+.site-subheader a{
+	color:inherit;	
+}
