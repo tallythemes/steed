@@ -44,7 +44,11 @@ class steed_subheader__simple_subheader{
 	HTML
 	----------------------------------------*/
 	function html(){
-		if(is_single() || is_archive() || (is_page() && !is_page_template( 'template-full-width.php' )) || is_search() || (is_page() && !is_page_template( 'template-page-bulder.php' ))):
+		if(
+		(is_page() && is_page_template( 'template-full-width.php' )) || 
+		(is_page() && is_page_template( 'template-page-bulder.php' ))
+		):
+		else:
 		?>
 		<div class="site-subheader <?php echo steed_element_colorMood('subheader_'); ?>">
 			<div class="site-subheader-in container-width">
@@ -61,8 +65,8 @@ class steed_subheader__simple_subheader{
 	----------------------------------------*/
 	function css( $css ) {
 		$the_css = '';
-		$the_css .= steed_CSS_padding('subheader_', '.site-subheader .site-subheader-in');
-		$the_css .= steed_CSS_background('subheader_', '.site-subheader');
+		$the_css .= steed_CSS_padding('subheader_', 'html .site-subheader');
+		$the_css .= steed_CSS_background('subheader_', 'html .site-subheader');
 		
 		return $css.$the_css;		
 	}
@@ -89,6 +93,17 @@ class steed_subheader__simple_subheader{
 	
 	function scripts(){
 		wp_enqueue_style( 'steed-subheader', get_template_directory_uri() . '/includes/content/subheaders/simple_subheader/subheader.css', array(), '1.0');
+	}
+	
+	function wp_footer(){
+		?>
+        <script type="text/javascript">
+			jQuery(document).ready(function($) {
+				"use strict";
+				
+			});
+		</script>
+        <?php	
 	}
 }
 endif;

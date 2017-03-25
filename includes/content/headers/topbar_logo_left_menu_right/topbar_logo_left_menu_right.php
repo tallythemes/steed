@@ -26,7 +26,8 @@ class steed_header__topbar_logo_left_menu_right{
 		add_action( 'customize_register', array($this, 'customize') );
 		
 		add_action( 'wp_enqueue_scripts', array($this, 'scripts') );
-		
+		add_filter('body_class', array($this, 'body_class'));
+
 		
 		
 		if($this->topbar_color_mood == 'light'){
@@ -53,95 +54,106 @@ class steed_header__topbar_logo_left_menu_right{
 	----------------------------------------*/
 	function html(){
 		?>
-		<?php if((get_theme_mod('topbar_active', 'yes') == 'yes') && ($this->enable_topbar == true)): ?>
-        <div class="topbar <?php echo steed_element_colorMood('topbar_'); ?>">
-            <div class="topbar-in">
-                <div class="container-width">
-                    <div class="row">
-                        <div class="col-lg-5 text_lg_left text_xs_center">
-                            <?php steed_element_socialIcons('header_', array('class' => 'float_lg_left')); ?>
-                            <?php 
-                                $hsettings = array('class' => 'header_address float_lg_left', 'std_content' => 'Walmart, 7th Street, Joplin, MO 64801');
-                                steed_element_text('header_address_', $hsettings); 
-                            ?>
-                        </div>
-                        <div class="col-lg-7 text_lg_left text_xs_center">
-                            <?php 
-                                $hsettings = array('class' => 'header_phone float_lg_right', 'std_content' => '+1 2223 4567', 'std_icon' => 'fa-phone');
-                                steed_element_text('header_phone_', $hsettings); 
-                            ?>
-                            <?php 
-                                $hsettings = array('class'=>'header_email float_lg_right', 'std_content'=>'contact@domain.com', 'std_icon' => 'fa-envelope');
-                                steed_element_text('header_email_', $hsettings); 
-                            ?>
-                            <?php
-                                $hsettings = array(
-                                    'class' => 'header_time float_lg_right', 
-                                    'std_content' => 'Monday - Sunday 10:00 - 22:00', 
-                                    'std_icon' => 'fa-clock-o'
-                                );
-                                steed_element_text('header_time_', $hsettings); 
-                            ?>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <a href="#" class="topbar_open_hand <?php echo steed_element_colorMood('topbar_'); ?>">
-            <span class="screen-reader-text"><?php _e('Open Topbar', 'steed'); ?></span>
-        </a>
-        <?php endif; ?>
-        <header id="masthead" class="site-header <?php echo steed_element_colorMood('header_'); ?>" role="banner">
-            <div class="site-header-in">
-                <div class="container-width">
-                    <div class="row">
-                        <div class="site-branding col-md-3 text_md_left text_sm_center text_xs_center">
-                            <?php steed_element_logo(); ?>
-                        </div><!-- .site-branding -->
-                        <div class="header-widgets col-md-9 text_md_right text_xs_center">
-                            <?php steed_element_button('header_', array('std_text' => 'Free First Advice', 'std_icon' => 'fa-paper-plane-o')); ?>
-                            <?php steed_element_shoppingBag('header_'); ?>
-                            <?php steed_element_searchIcon('header_'); ?>
-                            
-                            <?php steed_element_loginRegister('header_', array('std_active' => 'no')); ?>
-                            <nav id="site-navigation" class="main-navigation" role="navigation">
-                                <?php wp_nav_menu( array( 'theme_location' => 'primary', 'menu_id' => 'primary-menu' ) ); ?>
-                            </nav>                        
-                            <a href="#primary-menu" class="responsive-menu-hand"><i class="fa fa-align-justify"></i></a>
+        <div class="header-warp">
+			<?php if((get_theme_mod('topbar_active', 'yes') == 'yes') && ($this->enable_topbar == true)): ?>
+            <div class="topbar <?php echo steed_element_colorMood('topbar_'); ?>">
+                <div class="topbar-in">
+                    <div class="container-width">
+                        <div class="row">
+                            <div class="col-lg-5 text_lg_left text_xs_center">
+                                <?php steed_element_socialIcons('header_', array('class' => 'float_lg_left')); ?>
+                                <?php 
+                                    $hsettings = array('class' => 'header_address float_lg_left', 'std_content' => 'Walmart, 7th Street, Joplin, MO 64801');
+                                    steed_element_text('header_address_', $hsettings); 
+                                ?>
+                            </div>
+                            <div class="col-lg-7 text_lg_left text_xs_center">
+                                <?php 
+                                    $hsettings = array('class' => 'header_phone float_lg_right', 'std_content' => '+1 2223 4567', 'std_icon' => 'fa-phone');
+                                    steed_element_text('header_phone_', $hsettings); 
+                                ?>
+                                <?php 
+                                    $hsettings = array('class'=>'header_email float_lg_right', 'std_content'=>'contact@domain.com', 'std_icon' => 'fa-envelope');
+                                    steed_element_text('header_email_', $hsettings); 
+                                ?>
+                                <?php
+                                    $hsettings = array(
+                                        'class' => 'header_time float_lg_right', 
+                                        'std_content' => 'Monday - Sunday 10:00 - 22:00', 
+                                        'std_icon' => 'fa-clock-o'
+                                    );
+                                    steed_element_text('header_time_', $hsettings); 
+                                ?>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </header><!-- #masthead -->
-        <?php if((get_theme_mod('topbar_active', 'yes') == 'yes') && ($this->enable_topbar == true)): ?>
-        <script type="text/javascript">
-            jQuery(document).ready(function($) {
-                "use strict";
-                
-                var topbar = $('.topbar');
-                var topbar_hand = $('.topbar_open_hand');
-                
-                topbar_hand.click(function() {
+            <a href="#" class="topbar_open_hand <?php echo steed_element_colorMood('topbar_'); ?>">
+                <span class="screen-reader-text"><?php _e('Open Topbar', 'steed'); ?></span>
+            </a>
+            <?php endif; ?>
+            <header id="masthead" class="site-header <?php echo steed_element_colorMood('header_'); ?>" role="banner">
+                <div class="site-header-in">
+                    <div class="container-width">
+                        <div class="row">
+                            <div class="site-branding col-md-3 text_md_left text_sm_center text_xs_center">
+                                <?php steed_element_logo(); ?>
+                            </div><!-- .site-branding -->
+                            <div class="header-widgets col-md-9 text_md_right text_xs_center">
+                                <?php steed_element_button('header_', array('std_text' => 'Free First Advice', 'std_icon' => 'fa-paper-plane-o')); ?>
+                                <?php steed_element_shoppingBag('header_'); ?>
+                                <?php steed_element_searchIcon('header_'); ?>
+                                
+                                <?php steed_element_loginRegister('header_', array('std_active' => 'no')); ?>
+                                <nav id="site-navigation" class="main-navigation" role="navigation">
+                                    <?php wp_nav_menu( array( 'theme_location' => 'primary', 'menu_id' => 'primary-menu' ) ); ?>
+                                </nav>                        
+                                <a href="#primary-menu" class="responsive-menu-hand"><i class="fa fa-align-justify"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </header><!-- #masthead -->
+            
+            <script type="text/javascript">
+				<?php if((get_theme_mod('topbar_active', 'yes') == 'yes') && ($this->enable_topbar == true)): ?>
+                jQuery(document).ready(function($) {
+                    "use strict";
                     
-                    if(topbar.hasClass('active')){
-                        topbar.slideUp();
-                        topbar.removeClass('active');
-                        topbar_hand.removeClass('active');
-                    }else{
-                        topbar.slideDown();
-                        topbar.addClass('active');
-                        topbar_hand.addClass('active');
-                    }
+                    var topbar = $('.topbar');
+                    var topbar_hand = $('.topbar_open_hand');
                     
-                    if(!topbar_hand.hasClass('used')){
-                        topbar_hand.addClass('used');
-                    }
-                    return false;
+                    topbar_hand.click(function() {
+                        
+                        if(topbar.hasClass('active')){
+                            topbar.slideUp();
+                            topbar.removeClass('active');
+                            topbar_hand.removeClass('active');
+                        }else{
+                            topbar.slideDown();
+                            topbar.addClass('active');
+                            topbar_hand.addClass('active');
+                        }
+                        
+                        if(!topbar_hand.hasClass('used')){
+                            topbar_hand.addClass('used');
+                        }
+                        return false;
+                    }); 
                 });
-                
-            });
-        </script>
-        <?php endif; ?>
+				<?php endif; ?>
+				jQuery(window).scroll(function() {    
+					var scroll = jQuery(window).scrollTop();
+					if (scroll >= 50) {
+						jQuery(".site-header").addClass("fixed");
+					} else {
+						jQuery(".site-header").removeClass("fixed");
+					}
+				});
+            </script>
+           
+        </div>
         <?php
 	}
 	
@@ -171,10 +183,17 @@ class steed_header__topbar_logo_left_menu_right{
 		$the_css .= steed_CSS_background('header_', 'html .site-header');
 		$the_css .= steed_element_CSS_socialIcons('header_', 'html .topbar ');
 		
-		$the_css .= '.element_button { color: '.$primary_color.'; } .element_button:hover{ color:#fff; background-color: '.$primary_color.' !important; border-color: '.$primary_color.' !important; }';
-		
 		$the_css .= '.tpb_blogGrid_button:hover{ background-color: '.$primary_color.';}';
 		
+		$the_css .= steed_element_CSS_button('header_', '.site-header .element_button');
+		
+		if((get_theme_mod('header_bg_opacity') != '1') || get_theme_mod('header_bg_opacity') != ''){
+			$header_rgba = steed_hex2rgb(get_theme_mod('header_bg_color'));
+			if(is_array($header_rgba)){
+				$the_css .= 'html .site-header{ background-color:rgba('.$header_rgba[0].','.$header_rgba[1].','.$header_rgba[2].','.get_theme_mod('header_bg_opacity').');}';
+				$the_css .= 'html .site-header.fixed{ background-color:rgba('.$header_rgba[0].','.$header_rgba[1].','.$header_rgba[2].',0.9);}';
+			}
+		}
 		
 		
 		return  $css.$the_css;		
@@ -261,6 +280,44 @@ class steed_header__topbar_logo_left_menu_right{
 			/**/steed_Customize_Control_heading('steed_header_style_bg_head', 'steed_header_style', 'Background', NULL, $wp_customize);
 			steed_customizer_background('header_', 'steed_header_style', NULL, $wp_customize);
 			
+			$uid = 'header_bg_opacity';
+			$wp_customize->add_setting($uid, array( 'default' => '1', 'sanitize_callback' => 'sanitize_text_field', ));
+			$wp_customize->add_control( $uid, array(
+				'label'      => __('Background Opacity', 'steed'),
+				'section'    => 'steed_header_style',
+				'settings'   => $uid,
+				'type'       => 'select',
+				'description' => '',
+				'choices' => array(
+					'' => 'none',
+					'1' => '1',
+					'0.9' => '0.9',
+					'0.8' => '0.8',
+					'0.7' => '0.7',
+					'0.6' => '0.6',
+					'0.5' => '0.5',
+					'0.4' => '0.4',
+					'0.3' => '0.3',
+					'0.2' => '0.2',
+					'0.1' => '0.1',
+					'0' => '0',
+				),
+			));
+			
+			$uid = 'header_scroll_fixed';
+			$wp_customize->add_setting($uid, array( 'default' => 'no', 'sanitize_callback' => 'sanitize_text_field', ));
+			$wp_customize->add_control( $uid, array(
+				'label'      => __('Make the header fixed on scroll', 'steed'),
+				'section'    => 'steed_header_style',
+				'settings'   => $uid,
+				'type'       => 'select',
+				'description' => '',
+				'choices' => array(
+					'no' => 'no',
+					'yes' => 'yes',
+				),
+			));
+			
 			/*---Topbar Style---*/
 			if($this->enable_topbar == true){
 				
@@ -295,6 +352,16 @@ class steed_header__topbar_logo_left_menu_right{
 	
 	function scripts(){
 		wp_enqueue_style( 'steed-header', get_template_directory_uri() . '/includes/content/headers/topbar_logo_left_menu_right/header.css', array('steed-style'), '1.0');
+	}
+	
+	function body_class($classes) {
+		if((get_theme_mod('header_bg_opacity') != '1') || get_theme_mod('header_bg_opacity') != ''){
+			$classes[] = 'header-has-opacity';
+		}
+		if((get_theme_mod('header_scroll_fixed') == 'yes')){
+			$classes[] = 'header-fixed-on-scroll';
+		}
+        return $classes;
 	}
 }
 endif;

@@ -1,6 +1,38 @@
 /*--------------------------------------------------------------
 ## Site Header
 --------------------------------------------------------------*/
+.header-has-opacity .header-warp,
+.header-fixed-on-scroll .header-warp{
+	position:absolute;
+	width:100%;
+	left:0;
+	top:0;
+	z-index:99;
+}
+.header-has-opacity .site-header{
+	box-shadow: 0px 1px 0px rgba(0,0,0,0);
+}
+.header-has-opacity .site-subheader,
+.header-fixed-on-scrol .site-subheader{
+	padding-top:95px;
+}
+.admin-bar.header-has-opacity .header-warp,
+.admin-bar.header-fixed-on-scroll .header-warp{
+	top:28px;	
+}
+.header-fixed-on-scroll .header-warp{
+	position:fixed;
+}
+.header-fixed-on-scroll .topbar{
+	display:none;
+}
+.site-header.fixed{
+	-webkit-transition: background-color 0.5s ease-out;
+	-moz-transition: background-color 0.5s ease-out;
+	-o-transition: background-color 0.5s ease-out;
+	transition: background-color 0.5s ease-out;	
+}
+
 /*	Topbar
 ---------------------*/
 .topbar{
@@ -133,7 +165,7 @@ a.responsive-menu-hand{
     margin-left: 5px;
     margin-right: 5px;
     font-size: 84%;
-    background-color: rgba(255, 255, 255, 0) !important;
+    background-color: rgba(255, 255, 255, 0);
 }
 
 /*	Element loginRegister

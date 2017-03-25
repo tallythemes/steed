@@ -4,16 +4,48 @@ function steed_CSS_padding($the_prefix, $selector, $settings = array()){
 	$atr = array_merge(array(
 		"std_top" => "",
 		"std_bottom" => "",
+		"breakpoint_tab" => "980px",
+		"breakpoint_mobile" => "768px",
 	), $settings);
+	
+	$the_code = '';
 		
 	$prefix = esc_attr($the_prefix);
+	
 	$padding_top = esc_attr(get_theme_mod($prefix.'padding_top', $atr['std_top']));
 	$padding_bottom = esc_attr(get_theme_mod($prefix.'padding_bottom', $atr['std_bottom']));
-
-	$css = ($padding_top != '') ? 'padding-top:'.$padding_top.';' : '';
-	$css .= ($padding_bottom != '') ? 'padding-bottom:'.$padding_bottom.';' : '';
 	
-	if(!empty($css)){ return $selector.'{'.$css.'}'; }else{ return ''; }
+	$padding_top_t = esc_attr(get_theme_mod($prefix.'padding_top_t'));
+	$padding_bottom_t = esc_attr(get_theme_mod($prefix.'padding_bottom_t'));
+	
+	$padding_top_m = esc_attr(get_theme_mod($prefix.'padding_top_m'));
+	$padding_bottom_m = esc_attr(get_theme_mod($prefix.'padding_bottom_m'));
+	
+	if(($padding_top != '') || ($padding_bottom != '')){
+		$the_code .= $selector.'{';
+			$the_code .= ($padding_top != '') ? 'padding-top:'.$padding_top.' !important;' : '';
+			$the_code .= ($padding_bottom != '') ? 'padding-bottom:'.$padding_bottom.' !important;' : '';
+		$the_code .= '}';
+	}
+	
+	if(($padding_top_t != '') || ($padding_bottom_t != '')){
+		$the_code .= '@media (max-width: '.$atr['breakpoint_tab'].') {';
+			$the_code .= $selector.'{';
+				$the_code .= ($padding_top_t != '') ? 'padding-top:'.$padding_top_t.' !important;' : '';
+				$the_code .= ($padding_bottom != '') ? 'padding-bottom:'.$padding_bottom.' !important;' : '';
+			$the_code .= '}';
+		$the_code .= '}';
+	}
+	if(($padding_top_m != '') || ($padding_bottom_m != '')){
+		$the_code .= '@media (max-width: '.$atr['breakpoint_tab'].') {';
+			$the_code .= $selector.'{';
+				$the_code .= ($padding_top_m != '') ? 'padding-top:'.$padding_top_m.' !important;' : '';
+				$the_code .= ($padding_bottom_m != '') ? 'padding-bottom:'.$padding_bottom_m.' !important;' : '';
+			$the_code .= '}';
+		$the_code .= '}';
+	}
+	
+	return $the_code;
 }
 endif;
 
@@ -154,5 +186,40 @@ function steed_element_CSS_socialIcons($the_prefix, $selector, $settings = array
 	if( !empty($css_2) ){ $output .= $selector.' .social-icons a:hover{ '.$css_2.' }'; }
 
 	return $output;
+}
+endif;
+
+
+
+if(!function_exists('steed_element_CSS_button')):
+function steed_element_CSS_button($the_prefix, $selector, $settings = array()){
+	$atr = array_merge(array(
+		"std_active" => "yes",
+		"std_link" => "#",
+		"std_text" => "Sample Button",
+		"std_icon" => "fa-home",
+		"std_target" => "_self",
+	), $settings);
+		
+	$prefix = esc_attr($the_prefix);
+	
+	$button_active = esc_attr( get_theme_mod($prefix.'button_active', $atr['std_active']) );
+	
+	$button_bg_color = sanitize_hex_color( get_theme_mod($prefix.'button_bg_color') );
+	$button_text_color = sanitize_hex_color( get_theme_mod($prefix.'button_text_color') );
+	$button_border_color = sanitize_hex_color( get_theme_mod($prefix.'button_border_color') );
+	$button_bg_hover_color = sanitize_hex_color( get_theme_mod($prefix.'button_bg_hover_color') );
+	$button_text_hover_color = sanitize_hex_color( get_theme_mod($prefix.'button_text_hover_color') );
+	$button_border_hover_color = sanitize_hex_color( get_theme_mod($prefix.'button_border_hover_color') );
+
+	$css = ($button_bg_color != '') ? 'background-color:'.$button_bg_color.';' : '';
+	$css .= ($button_text_color != '') ? 'color:'.$button_text_color.';' : '';
+	$css .= ($button_border_color != '') ? 'border-color:'.$button_border_color.';' : '';
+	
+	$css2 = ($button_bg_hover_color != '') ? 'background-color:'.$button_bg_hover_color.';' : '';
+	$css2 .= ($button_text_hover_color != '') ? 'color:'.$button_text_hover_color.';' : '';
+	$css2 .= ($button_border_hover_color != '') ? 'border-color:'.$button_border_hover_color.';' : '';
+	
+	if($button_active == 'yes' ){ return $selector.'{'.$css.'}'. $selector.':hover{'.$css2.'}'; }else{ return ''; }
 }
 endif;
