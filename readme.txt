@@ -42,6 +42,17 @@ All images: CC0 by Pixabay, https://pixabay.com/en/service/terms/
 
 == Changelog ==
 
+= 2.6 - 15 April 2017  =
+* Add Header
+* subheader and footer class for child theme
+* Fixed the mobile menu
+* Fixed header fixed on scroll
+* Fixed Custom CSS loading issue
+* Improve topbar design
+* Improve topbar on responsive view
+
+* Added pre-loader
+
 = 2.6 - 4 March 2017  =
 * Add admin Css file
 * Added customizer demo content import option
