@@ -173,9 +173,9 @@ add_action( 'admin_enqueue_scripts', 'steed_admin_scripts' );
 function steed_custom_scripts(){
 	$custom_css = apply_filters('steed_custom_css', steed_custom_css());
 	
-	wp_add_inline_style( 'steed-style', $custom_css );
+	echo '<style type="text/css">'.$custom_css.'</style>';
 }
-add_action( 'wp_enqueue_scripts', 'steed_custom_scripts', 11 );
+add_action( 'wp_head', 'steed_custom_scripts', 11 );
 
 
 /**

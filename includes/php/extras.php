@@ -374,12 +374,16 @@ function steed_customizer_data_import_init(){
 			if(update_option( "theme_mods_$theme", $new_data['mods'] )){
 				update_option('steed_'.STEED_BASE_SLUG.'_free_data_imported', 'yes');
 			}
+		}elseif((STEED_THEME_SLUG == STEED_BASE_SLUG.'-pro') && ($pro_data_imported != 'yes')){
+			if(update_option( "theme_mods_$theme", $new_data['mods'] )){
+				update_option('steed_'.STEED_BASE_SLUG.'_pro_data_imported', 'yes');
+			}
 		}
 	}
 	
-	//echo '$free_was_installed: '.$free_data_imported.'<br>';
-	//echo '$pro_data_imported: '.$pro_data_imported.'<br>';
-	//echo '$free_data_imported: '.$free_data_imported.'<br>';
+	echo '$free_was_installed: '.$free_data_imported.'<br>';
+	echo '$pro_data_imported: '.$pro_data_imported.'<br>';
+	echo '$free_data_imported: '.$free_data_imported.'<br>';
 }
 add_action("after_switch_theme", "steed_customizer_data_import_init");
 
@@ -491,4 +495,37 @@ function steed_rgb2hex($rgb) {
    $hex .= str_pad(dechex($rgb[2]), 2, "0", STR_PAD_LEFT);
 
    return $hex; // returns the hex value including the number sign (#)
+}
+
+
+add_action('wp_head', 'steed_site_preloader');
+function steed_site_preloader(){
+?>
+<div class="steed-preloader">
+    <div class="sk-circle">
+      <div class="sk-circle1 sk-child"></div>
+      <div class="sk-circle2 sk-child"></div>
+      <div class="sk-circle3 sk-child"></div>
+      <div class="sk-circle4 sk-child"></div>
+      <div class="sk-circle5 sk-child"></div>
+      <div class="sk-circle6 sk-child"></div>
+      <div class="sk-circle7 sk-child"></div>
+      <div class="sk-circle8 sk-child"></div>
+      <div class="sk-circle9 sk-child"></div>
+      <div class="sk-circle10 sk-child"></div>
+      <div class="sk-circle11 sk-child"></div>
+      <div class="sk-circle12 sk-child"></div>
+    </div>
+</div>
+<script type="text/javascript">
+	jQuery( document ).ready(function($) {
+		//$('.steed-preloader').css('display', 'none');
+	});
+	jQuery(window).load(function() {
+		setTimeout(function() { 
+			jQuery('.steed-preloader').css('display', 'none');
+		}, 500);
+	});
+</script>
+<?php	
 }

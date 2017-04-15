@@ -43,11 +43,13 @@ class steed_subheader__simple_subheader{
 	/*
 	HTML
 	----------------------------------------*/
-	function html(){
+	static function html(){
 		if(
 		(is_page() && is_page_template( 'template-full-width.php' )) || 
-		(is_page() && is_page_template( 'template-page-bulder.php' ))
+		(is_page() && is_page_template( 'template-page-bulder.php' )) ||
+		is_home()
 		):
+			/**/
 		else:
 		?>
 		<div class="site-subheader <?php echo steed_element_colorMood('subheader_'); ?>">

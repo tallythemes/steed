@@ -20,6 +20,7 @@ class steed_header__topbar_logo_left_menu_right{
 		remove_action('steed_header', 'steed_part_header_content', 10);
 		remove_filter('steed_custom_css', 'steed_part_header_CSS');
 		remove_action( 'customize_register', 'steed_part_header_customize' );
+		remove_action('steed_header', 'steed_part_header_responsive_nav', 20);
 		
 		add_action('steed_header', array($this, 'html'), 10);
 		add_filter('steed_custom_css', array($this, 'css'));
@@ -89,27 +90,29 @@ class steed_header__topbar_logo_left_menu_right{
                     </div>
                 </div>
             </div>
-            <a href="#" class="topbar_open_hand <?php echo steed_element_colorMood('topbar_'); ?>">
-                <span class="screen-reader-text"><?php _e('Open Topbar', 'steed'); ?></span>
-            </a>
+            
             <?php endif; ?>
+            <div class="fixed_header_holder"></div>
             <header id="masthead" class="site-header <?php echo steed_element_colorMood('header_'); ?>" role="banner">
                 <div class="site-header-in">
                     <div class="container-width">
                         <div class="row">
-                            <div class="site-branding col-md-3 text_md_left text_sm_center text_xs_center">
+                            <div class="site-branding col-md-3 ">
                                 <?php steed_element_logo(); ?>
+                                <a href="#primary-menu" class="responsive-menu-hand"><i class="fa fa-align-justify"></i></a>
+                                <a href="#" class="topbar_open_hand">
+                                    <span class="screen-reader-text"><?php _e('Open Topbar', 'steed'); ?></span>
+                                </a>
                             </div><!-- .site-branding -->
-                            <div class="header-widgets col-md-9 text_md_right text_xs_center">
+                            <div class="header-widgets col-md-9 text_md_right">
                                 <?php steed_element_button('header_', array('std_text' => 'Free First Advice', 'std_icon' => 'fa-paper-plane-o')); ?>
                                 <?php steed_element_shoppingBag('header_'); ?>
                                 <?php steed_element_searchIcon('header_'); ?>
-                                
-                                <?php steed_element_loginRegister('header_', array('std_active' => 'no')); ?>
+                             
                                 <nav id="site-navigation" class="main-navigation" role="navigation">
                                     <?php wp_nav_menu( array( 'theme_location' => 'primary', 'menu_id' => 'primary-menu' ) ); ?>
                                 </nav>                        
-                                <a href="#primary-menu" class="responsive-menu-hand"><i class="fa fa-align-justify"></i></a>
+                                
                             </div>
                         </div>
                     </div>
@@ -140,19 +143,43 @@ class steed_header__topbar_logo_left_menu_right{
                             topbar_hand.addClass('used');
                         }
                         return false;
-                    }); 
+                    });
                 });
 				<?php endif; ?>
-				jQuery(window).scroll(function() {    
-					var scroll = jQuery(window).scrollTop();
-					if (scroll >= 50) {
-						jQuery(".site-header").addClass("fixed");
-					} else {
-						jQuery(".site-header").removeClass("fixed");
-					}
-				});
+				
+				<?php if((get_theme_mod('header_scroll_fixed') == 'yes')): ?>
+					jQuery(document).ready(function($) {
+						$( '#masthead' ).clone().appendTo( '.fixed_header_holder' );
+					});
+						
+					jQuery(window).scroll(function() {
+						var scroll = jQuery(window).scrollTop();
+						
+						if (scroll >= <?php echo get_theme_mod('header_scroll_fixed_start_point', '200'); ?>) {
+							jQuery(".header-warp").addClass("pre-fixed");
+							
+							setTimeout(function() { 
+								jQuery('.header-warp').addClass('fixed');
+								
+							}, 100);
+							
+						} else {
+							jQuery('.header-warp').removeClass('pre-fixed');
+							jQuery(".header-warp").removeClass("fixed");
+						}
+					});
+				<?php endif; ?>
             </script>
            
+        </div>
+        <div class="responsive-menu" >
+        	<div class="responsive-menu-head">
+                <a href="#" class="responsive-menu-close"><i class="fa fa-close"></i></a>
+                
+                <?php steed_element_button('header_', array('std_text' => 'Free First Advice', 'std_icon' => 'fa-paper-plane-o')); ?>
+                <?php steed_element_shoppingBag('header_'); ?>
+                <?php steed_element_searchIcon('header_'); ?>
+            </div>
         </div>
         <?php
 	}
@@ -173,7 +200,11 @@ class steed_header__topbar_logo_left_menu_right{
 		if((get_theme_mod('topbar_active', 'yes') == 'yes') && ($this->enable_topbar == true)){
 			$the_css .= steed_CSS_padding('topbar_', 'html .topbar');
 			$the_css .= steed_CSS_background('topbar_', 'html .topbar');
-			$the_css .= steed_CSS_background('topbar_', 'html .topbar_open_hand');
+			
+			$topbar_bg_rgba = steed_hex2rgb(get_theme_mod('topbar_bg_color'));
+			if(is_array($topbar_bg_rgba)){
+				$the_css .= 'html .topbar_open_hand{ background-color:rgba('.$topbar_bg_rgba[0].','.$topbar_bg_rgba[1].','.$topbar_bg_rgba[2].',0.1);}';
+			}
 			
 			$the_css .= '.topbar.color-light .elementText i.fa { color:'.$light_color.'; }';
 			$the_css .= '.topbar.color-dark .elementText i.fa { color:'.$dark_color.'; }';
@@ -186,14 +217,17 @@ class steed_header__topbar_logo_left_menu_right{
 		$the_css .= '.tpb_blogGrid_button:hover{ background-color: '.$primary_color.';}';
 		
 		$the_css .= steed_element_CSS_button('header_', '.site-header .element_button');
+		$the_css .= steed_element_CSS_button('header_', '.responsive-menu-head .element_button');
 		
 		if((get_theme_mod('header_bg_opacity') != '1') || get_theme_mod('header_bg_opacity') != ''){
 			$header_rgba = steed_hex2rgb(get_theme_mod('header_bg_color'));
 			if(is_array($header_rgba)){
-				$the_css .= 'html .site-header{ background-color:rgba('.$header_rgba[0].','.$header_rgba[1].','.$header_rgba[2].','.get_theme_mod('header_bg_opacity').');}';
+				$the_css .= 'html .site-header{ background-color:rgba('.$header_rgba[0].','.$header_rgba[1].','.$header_rgba[2].','.get_theme_mod('header_bg_opacity', '1').');}';
 				$the_css .= 'html .site-header.fixed{ background-color:rgba('.$header_rgba[0].','.$header_rgba[1].','.$header_rgba[2].',0.9);}';
 			}
 		}
+		
+		$the_css .= 'html .header-fixed-on-scroll .fixed .fixed_header_holder{ background-color:'.get_theme_mod('header_scroll_fixed_bg', '#000').'; }';
 		
 		
 		return  $css.$the_css;		
@@ -224,11 +258,6 @@ class steed_header__topbar_logo_left_menu_right{
 		steed_Customize_Control_heading($uid, 'steed_header_elements', 'Button', NULL, $wp_customize);
 		$settings = array('std_active' => 'yes', 'std_text' => 'Free First Advice', 'std_icon' => 'fa-paper-plane-o');
 		steed_element_customize_button('header_', 'steed_header_elements', $settings, $wp_customize);
-		
-		$uid = 'steed_header_elements_loginRegister_header';
-		steed_Customize_Control_heading($uid, 'steed_header_elements', 'Login Register', NULL, $wp_customize);
-		$settings = array('std_active' => 'no');
-		steed_element_customize_loginRegister('header_', 'steed_header_elements', $settings, $wp_customize);
 		
 		steed_element_customize_shoppingBag('header_', 'steed_header_elements', NULL, $wp_customize);
 		
@@ -318,6 +347,26 @@ class steed_header__topbar_logo_left_menu_right{
 				),
 			));
 			
+			$uid = 'header_scroll_fixed_bg';
+			$wp_customize->add_setting($uid, array( 'default' => '', 'sanitize_callback' => 'sanitize_hex_color', ));
+			$wp_customize->add_control( new WP_Customize_Color_Control($wp_customize, $uid, array(
+				'label'      =>  __('Fixed header Background Color', 'steed'),
+				'section'    => 'steed_header_style',
+				'settings'   => $uid,
+				'description' => '',
+			)));
+			
+			
+			$uid = 'header_scroll_fixed_start_point';
+			$wp_customize->add_setting($uid, array( 'default' => '200', 'sanitize_callback' => 'sanitize_text_field', ));
+			$wp_customize->add_control( $uid, array(
+				'label'      => __('Fixed header start point', 'steed'),
+				'section'    => 'steed_header_style',
+				'settings'   => $uid,
+				'type'       => 'text',
+				'description' => '',
+			));
+			
 			/*---Topbar Style---*/
 			if($this->enable_topbar == true){
 				
@@ -355,8 +404,10 @@ class steed_header__topbar_logo_left_menu_right{
 	}
 	
 	function body_class($classes) {
-		if((get_theme_mod('header_bg_opacity') != '1') || get_theme_mod('header_bg_opacity') != ''){
-			$classes[] = 'header-has-opacity';
+		if((get_theme_mod('header_bg_opacity') == '1') || get_theme_mod('header_bg_opacity') == ''){
+			
+		}else{
+			$classes[] = 'header-has-opacity';	
 		}
 		if((get_theme_mod('header_scroll_fixed') == 'yes')){
 			$classes[] = 'header-fixed-on-scroll';
