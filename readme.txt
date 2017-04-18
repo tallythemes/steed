@@ -6,8 +6,8 @@ Contributors: TallyThemes
 Tags: one-column, two-columns, right-sidebar, custom-menu, editor-style, featured-images, post-formats, rtl-language-support, sticky-post, threaded-comments, translation-ready, blog
 
 Requires at least: 4.0
-Tested up to: 4.7.2
-Stable tag: 2.7
+Tested up to: 4.7.3
+Stable tag: 2.8
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -42,7 +42,11 @@ All images: CC0 by Pixabay, https://pixabay.com/en/service/terms/
 
 == Changelog ==
 
-= 2.6 - 15 April 2017  =
+= 2.8 - 18 April 2017  =
+* Fix: small css issue
+* Update header class
+
+= 2.7 - 15 April 2017  =
 * Add Header
 * subheader and footer class for child theme
 * Fixed the mobile menu
