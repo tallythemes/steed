@@ -47,9 +47,9 @@ if ( ! function_exists( 'steed_fonts' ) ) :
 		
 		$std_fonts = apply_filters('steed_fonts', $fonts);
 		
-		$new_fonts[] = (get_theme_mod('google_font_1') != '') ? esc_attr(get_theme_mod('google_font_1')) : $std_fonts[0];
-		$new_fonts[] = (get_theme_mod('google_font_2') != '') ? esc_attr(get_theme_mod('google_font_2')) : $std_fonts[1];
-		$new_fonts[] = (get_theme_mod('google_font_3') != '') ? esc_attr(get_theme_mod('google_font_3')) : $std_fonts[2];
+		$new_fonts[] = (steed_theme_mod('google_font_1') != '') ? esc_attr(steed_theme_mod('google_font_1')) : $std_fonts[0];
+		$new_fonts[] = (steed_theme_mod('google_font_2') != '') ? esc_attr(steed_theme_mod('google_font_2')) : $std_fonts[1];
+		$new_fonts[] = (steed_theme_mod('google_font_3') != '') ? esc_attr(steed_theme_mod('google_font_3')) : $std_fonts[2];
 		
 		return $new_fonts;
 	}
@@ -145,14 +145,14 @@ function steed_colors(){
 		'dark'		=> '#212121',
 	));
 	
-	$primary	= (get_theme_mod('primary_color') != '')	? sanitize_hex_color(get_theme_mod('primary_color'))	: $std_colors['primary'];
-	$primary_l	= (get_theme_mod('primary_l_color') != '')	? sanitize_hex_color(get_theme_mod('primary_l_color'))	: $std_colors['primary_l'];
-	$primary_d	= (get_theme_mod('primary_d_color') != '')	? sanitize_hex_color(get_theme_mod('primary_d_color'))	: $std_colors['primary_d'];
-	$accent		= (get_theme_mod('accent_color') != '')		? sanitize_hex_color(get_theme_mod('accent_color'))		: $std_colors['accent'];
-	$light		= (get_theme_mod('light_color') != '')		? sanitize_hex_color(get_theme_mod('light_color'))		: $std_colors['light'];
-	$dim_light	= (get_theme_mod('dim_light_color') != '')	? sanitize_hex_color(get_theme_mod('dim_light_color'))	: $std_colors['dim_light'];
-	$dim_dark	= (get_theme_mod('dim_dark_color') != '')	? sanitize_hex_color(get_theme_mod('dim_dark_color'))	: $std_colors['dim_dark'];
-	$dark		= (get_theme_mod('dark_color') != '')		? sanitize_hex_color(get_theme_mod('dark_color'))		: $std_colors['dark'];
+	$primary	= (steed_theme_mod('primary_color') != '')	? sanitize_hex_color(steed_theme_mod('primary_color'))	: $std_colors['primary'];
+	$primary_l	= (steed_theme_mod('primary_l_color') != '')	? sanitize_hex_color(steed_theme_mod('primary_l_color'))	: $std_colors['primary_l'];
+	$primary_d	= (steed_theme_mod('primary_d_color') != '')	? sanitize_hex_color(steed_theme_mod('primary_d_color'))	: $std_colors['primary_d'];
+	$accent		= (steed_theme_mod('accent_color') != '')		? sanitize_hex_color(steed_theme_mod('accent_color'))		: $std_colors['accent'];
+	$light		= (steed_theme_mod('light_color') != '')		? sanitize_hex_color(steed_theme_mod('light_color'))		: $std_colors['light'];
+	$dim_light	= (steed_theme_mod('dim_light_color') != '')	? sanitize_hex_color(steed_theme_mod('dim_light_color'))	: $std_colors['dim_light'];
+	$dim_dark	= (steed_theme_mod('dim_dark_color') != '')	? sanitize_hex_color(steed_theme_mod('dim_dark_color'))	: $std_colors['dim_dark'];
+	$dark		= (steed_theme_mod('dark_color') != '')		? sanitize_hex_color(steed_theme_mod('dark_color'))		: $std_colors['dark'];
 	
 	
 	$colors = array(
@@ -201,13 +201,13 @@ function steed_custom_css(){
 	$css .= '.main-navigation, .main-navigation a{ font-family:'. steed_fonts_style(1).'; }';
 	$css .= 'h1, h2, h3, h4, h5, h6{ font-family:'. steed_fonts_style(0).'; }';
 	
-	if(get_theme_mod('h1_size') != '') { $css .= 'h1{ font-size:'. esc_attr(get_theme_mod('h1_size')).' !important; }'; }
-	if(get_theme_mod('h2_size') != '') { $css .= 'h2{ font-size:'. esc_attr(get_theme_mod('h2_size')).' !important; }'; }
-	if(get_theme_mod('h3_size') != '') { $css .= 'h3{ font-size:'. esc_attr(get_theme_mod('h3_size')).' !important; }'; }
-	if(get_theme_mod('h4_size') != '') { $css .= 'h4{ font-size:'. esc_attr(get_theme_mod('h4_size')).' !important; }'; }
-	if(get_theme_mod('h5_size') != '') { $css .= 'h5{ font-size:'. esc_attr(get_theme_mod('h5_size')).' !important; }'; }
-	if(get_theme_mod('h6_size') != '') { $css .= 'h6{ font-size:'. esc_attr(get_theme_mod('h6_size')).' !important; }'; }
-	if(get_theme_mod('body_font_size') != '') { $css .= 'body{ font-size:'. esc_attr(get_theme_mod('body_font_size')).' !important; }'; }
+	if(steed_theme_mod('h1_size') != '') { $css .= 'h1{ font-size:'. esc_attr(steed_theme_mod('h1_size')).' !important; }'; }
+	if(steed_theme_mod('h2_size') != '') { $css .= 'h2{ font-size:'. esc_attr(steed_theme_mod('h2_size')).' !important; }'; }
+	if(steed_theme_mod('h3_size') != '') { $css .= 'h3{ font-size:'. esc_attr(steed_theme_mod('h3_size')).' !important; }'; }
+	if(steed_theme_mod('h4_size') != '') { $css .= 'h4{ font-size:'. esc_attr(steed_theme_mod('h4_size')).' !important; }'; }
+	if(steed_theme_mod('h5_size') != '') { $css .= 'h5{ font-size:'. esc_attr(steed_theme_mod('h5_size')).' !important; }'; }
+	if(steed_theme_mod('h6_size') != '') { $css .= 'h6{ font-size:'. esc_attr(steed_theme_mod('h6_size')).' !important; }'; }
+	if(steed_theme_mod('body_font_size') != '') { $css .= 'body{ font-size:'. esc_attr(steed_theme_mod('body_font_size')).' !important; }'; }
 	
 	/* Primary & Accent */
 	$css .= 'a{ color:'.$primary_color.'; }';
@@ -385,8 +385,7 @@ function steed_customizer_data_import_init(){
 	echo '$pro_data_imported: '.$pro_data_imported.'<br>';
 	echo '$free_data_imported: '.$free_data_imported.'<br>';
 }
-add_action("after_switch_theme", "steed_customizer_data_import_init");
-
+//add_action("after_switch_theme", "steed_customizer_data_import_init");
 
 
 /*

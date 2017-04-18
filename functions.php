@@ -14,6 +14,36 @@ if(!defined('TALLYTHEME_DEMO_URL')) { define('TALLYTHEME_DEMO_URL', ''); }
 if(!defined('STEED_DEMO_URL')) { define('STEED_DEMO_URL', ''); }
 if(!defined('STEED_DOC_URL')) { define('STEED_DOC_URL', ''); }
 
+global $steed_STD_theme_mod_data;
+
+if(file_exists(get_stylesheet_directory().'/inc/demo/customization.php')){
+	$steed_STD_theme_mod_file = include(get_stylesheet_directory().'/inc/demo/customization.php');
+	$steed_STD_theme_mod_data = unserialize($steed_STD_theme_mod_file);
+	
+}
+function steed_theme_mod($id, $std = NULL){
+	global $steed_STD_theme_mod_data;
+	$std_data_pre = (isset($steed_STD_theme_mod_data['mods'][$id])) ? $steed_STD_theme_mod_data['mods'][$id] : NULL;
+	$std_data = ($std_data_pre != '') ? $std_data_pre : $std;
+	
+	if(get_theme_mod($id)){
+		return get_theme_mod($id);
+	}else{
+		return $std_data;
+	}
+}
+
+function steed_customiz_std($id, $std = NULL){
+	global $steed_STD_theme_mod_data;
+	$std_data_pre = (isset($steed_STD_theme_mod_data['mods'][$id])) ? $steed_STD_theme_mod_data['mods'][$id] : NULL;
+	$std_data = ($std_data_pre != '') ? $std_data_pre : $std;
+	
+	return $std_data;
+}
+
+//print_r($steed_STD_theme_mod_data);
+
+
 if ( ! function_exists( 'steed_setup' ) ) :
 /**
  * Sets up theme defaults and registers support for various WordPress features.

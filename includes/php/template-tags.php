@@ -264,19 +264,19 @@ if ( ! function_exists( 'steed_element_socialIcons' ) ) :
 		), $settings);
 		
 		$prefix = esc_attr($the_prefix);
-		$active = get_theme_mod($prefix.'social_active', 'yes');
-		$icon_1 = get_theme_mod($prefix.'social_icon_1', 'fa-facebook');
-		$text_1 = esc_url(get_theme_mod($prefix.'social_text_1', '#'));
-		$icon_2 = get_theme_mod($prefix.'social_icon_2', 'fa-twitter');
-		$text_2 = esc_url(get_theme_mod($prefix.'social_text_2', '#'));
-		$icon_3 = get_theme_mod($prefix.'social_icon_3', 'fa-linkedin');
-		$text_3 = esc_url(get_theme_mod($prefix.'social_text_3', '#'));
-		$icon_4 = get_theme_mod($prefix.'social_icon_4', '');
-		$text_4 = esc_url(get_theme_mod($prefix.'social_text_4', ''));
-		$icon_5 = get_theme_mod($prefix.'social_icon_5', '');
-		$text_5 = esc_url(get_theme_mod($prefix.'social_text_5', ''));
-		$icon_6 = get_theme_mod($prefix.'social_icon_6', '');
-		$text_6 = esc_url(get_theme_mod($prefix.'social_text_6', ''));	
+		$active = steed_theme_mod($prefix.'social_active', 'yes');
+		$icon_1 = steed_theme_mod($prefix.'social_icon_1', 'fa-facebook');
+		$text_1 = esc_url(steed_theme_mod($prefix.'social_text_1', '#'));
+		$icon_2 = steed_theme_mod($prefix.'social_icon_2', 'fa-twitter');
+		$text_2 = esc_url(steed_theme_mod($prefix.'social_text_2', '#'));
+		$icon_3 = steed_theme_mod($prefix.'social_icon_3', 'fa-linkedin');
+		$text_3 = esc_url(steed_theme_mod($prefix.'social_text_3', '#'));
+		$icon_4 = steed_theme_mod($prefix.'social_icon_4', '');
+		$text_4 = esc_url(steed_theme_mod($prefix.'social_text_4', ''));
+		$icon_5 = steed_theme_mod($prefix.'social_icon_5', '');
+		$text_5 = esc_url(steed_theme_mod($prefix.'social_text_5', ''));
+		$icon_6 = steed_theme_mod($prefix.'social_icon_6', '');
+		$text_6 = esc_url(steed_theme_mod($prefix.'social_text_6', ''));	
 		
 		if($active == 'yes'):	
 		?>
@@ -365,9 +365,9 @@ if ( ! function_exists( 'steed_element_text' ) ) :
 			"std_icon" => "",
 		), $settings);
 		
-		$active = get_theme_mod($prefix.'text_active', $atr['std_active']);
-		$text = get_theme_mod($prefix.'text_content', $atr['std_content']);
-		$icon = get_theme_mod($prefix.'text_icon', $atr['std_icon']);
+		$active = steed_theme_mod($prefix.'text_active', $atr['std_active']);
+		$text = steed_theme_mod($prefix.'text_content', $atr['std_content']);
+		$icon = steed_theme_mod($prefix.'text_icon', $atr['std_icon']);
 		
 
 		$before = $atr['before'];
@@ -418,8 +418,8 @@ if ( ! function_exists( 'steed_element_html' ) ) :
 			"in_class" => "",
 		), $settings);
 		
-		$active = get_theme_mod($prefix.'html_active', 'yes');
-		$html = get_theme_mod($prefix.'html_content', '');
+		$active = steed_theme_mod($prefix.'html_active', 'yes');
+		$html = steed_theme_mod($prefix.'html_content', '');
 		
 		$before =(!empty($settings['before'])) ? $settings['before'] : NULL;
 		$after =(!empty($settings['after'])) ? $settings['after'] : NULL;
@@ -457,10 +457,10 @@ if ( ! function_exists( 'steed_element_iconText' ) ) :
 			$atr = $defualt;
 		}
 		
-		$active = get_theme_mod($prefix.'iconText_active', $atr['std_active']);
-		$icon = get_theme_mod($prefix.'iconText_icon', $atr['std_icon']);
-		$line1 = get_theme_mod($prefix.'iconText_line1', $atr['std_line1']);
-		$line2 = get_theme_mod($prefix.'iconText_line2', $atr['std_line2']);
+		$active = steed_theme_mod($prefix.'iconText_active', $atr['std_active']);
+		$icon = steed_theme_mod($prefix.'iconText_icon', $atr['std_icon']);
+		$line1 = steed_theme_mod($prefix.'iconText_line1', $atr['std_line1']);
+		$line2 = steed_theme_mod($prefix.'iconText_line2', $atr['std_line2']);
 		
 		$before =(!empty($atr['before'])) ? $atr['before'] : NULL;
 		$after =(!empty($atr['after'])) ? $atr['after'] : NULL;
@@ -534,7 +534,7 @@ endif;
 
 if ( ! function_exists( 'steed_element_searchBar' ) ) :
 	function steed_element_searchBar($prefix, $settings =array()) {
-		$active = esc_attr(get_theme_mod($prefix.'searchBar_active', 'yes'));
+		$active = esc_attr(steed_theme_mod($prefix.'searchBar_active', 'yes'));
 		$before =(!empty($settings['before'])) ? $settings['before'] : NULL;
 		$after =(!empty($settings['after'])) ? $settings['after'] : NULL;
 		
@@ -560,7 +560,7 @@ if ( ! function_exists( 'steed_element_searchIcon' ) ) :
 			$atr = $defualt;
 		}
 		
-		$active = esc_attr(get_theme_mod($prefix.'searchIcon_active', $atr['std_active']));
+		$active = esc_attr(steed_theme_mod($prefix.'searchIcon_active', $atr['std_active']));
 		$before =(!empty($settings['before'])) ? $settings['before'] : NULL;
 		$after =(!empty($settings['after'])) ? $settings['after'] : NULL;
 		
@@ -606,17 +606,17 @@ if ( ! function_exists( 'steed_element_loginRegister' ) ) :
 			$atr = $defualt;
 		}
 		
-		$active = esc_attr(get_theme_mod($prefix.'loginRegister_active', $atr['std_active']));
+		$active = esc_attr(steed_theme_mod($prefix.'loginRegister_active', $atr['std_active']));
 		
-		$login_text = esc_attr(get_theme_mod($prefix.'loginRegister_login_text', $atr['std_login_text']));
-		$login_link = esc_url(get_theme_mod($prefix.'loginRegister_login_link', $atr['std_login_link']));
-		$register_text = esc_attr(get_theme_mod($prefix.'loginRegister_register_text', $atr['std_register_text']));
-		$register_link = esc_url(get_theme_mod($prefix.'loginRegister_register_link', $atr['std_register_link']));
+		$login_text = esc_attr(steed_theme_mod($prefix.'loginRegister_login_text', $atr['std_login_text']));
+		$login_link = esc_url(steed_theme_mod($prefix.'loginRegister_login_link', $atr['std_login_link']));
+		$register_text = esc_attr(steed_theme_mod($prefix.'loginRegister_register_text', $atr['std_register_text']));
+		$register_link = esc_url(steed_theme_mod($prefix.'loginRegister_register_link', $atr['std_register_link']));
 		
-		$logout_text = esc_attr(get_theme_mod($prefix.'loginRegister_logout_text', $atr['std_logout_text']));
-		$logout_link = esc_url(get_theme_mod($prefix.'loginRegister_logout_link', $atr['std_logout_link']));
-		$account_text = esc_attr(get_theme_mod($prefix.'loginRegister_account_text', $atr['std_account_text']));
-		$account_link = esc_url(get_theme_mod($prefix.'loginRegister_account_link', $atr['std_account_link']));
+		$logout_text = esc_attr(steed_theme_mod($prefix.'loginRegister_logout_text', $atr['std_logout_text']));
+		$logout_link = esc_url(steed_theme_mod($prefix.'loginRegister_logout_link', $atr['std_logout_link']));
+		$account_text = esc_attr(steed_theme_mod($prefix.'loginRegister_account_text', $atr['std_account_text']));
+		$account_link = esc_url(steed_theme_mod($prefix.'loginRegister_account_link', $atr['std_account_link']));
 		
 		$before =$atr['before'];
 		$after =$atr['after'];
@@ -654,9 +654,9 @@ if ( ! function_exists( 'steed_element_shoppingBag' ) ) :
 			$atr = $defualt;
 		}
 	
-		$active = esc_attr(get_theme_mod($prefix.'shoppingBag_active', $atr['std_active']));
-		$title = get_theme_mod($prefix.'shoppingBag_title', $atr['std_title']);
-		$tooltip = get_theme_mod($prefix.'shoppingBag_tooltip', $atr['std_tooltip']);
+		$active = esc_attr(steed_theme_mod($prefix.'shoppingBag_active', $atr['std_active']));
+		$title = steed_theme_mod($prefix.'shoppingBag_title', $atr['std_title']);
+		$tooltip = steed_theme_mod($prefix.'shoppingBag_tooltip', $atr['std_tooltip']);
 		
 		if ( class_exists( 'woocommerce' ) && ($active == 'yes') ) {
 			 global $woocommerce;
@@ -708,11 +708,11 @@ if ( ! function_exists( 'steed_element_button' ) ) :
 			"std_target" => "_self", //_blank, _self
 		), $settings);
 		
-		$active = esc_attr(get_theme_mod($prefix.'button_active', $atr['std_active']));
-		$link = esc_attr(get_theme_mod($prefix.'button_link', $atr['std_link']));
-		$text = esc_attr(get_theme_mod($prefix.'button_text', $atr['std_text']));
-		$icon = esc_attr(get_theme_mod($prefix.'button_icon', $atr['std_icon']));
-		$target = esc_url(get_theme_mod($prefix.'button_target', $atr['std_target']));
+		$active = esc_attr(steed_theme_mod($prefix.'button_active', $atr['std_active']));
+		$link = esc_attr(steed_theme_mod($prefix.'button_link', $atr['std_link']));
+		$text = esc_attr(steed_theme_mod($prefix.'button_text', $atr['std_text']));
+		$icon = esc_attr(steed_theme_mod($prefix.'button_icon', $atr['std_icon']));
+		$target = esc_url(steed_theme_mod($prefix.'button_target', $atr['std_target']));
 		
 		$the_icon = ($icon != '') ? '<i class="fa '.$icon.'"></i>' : NULL;
 		
@@ -741,10 +741,10 @@ if ( ! function_exists( 'steed_element_footerWidgets' ) ) :
 		
 		$atr = array_merge($atr, $filter_settings);
 		
-		$active = esc_attr(get_theme_mod($prefix.'widgets_active', $atr['std_active']));
-		$layout = esc_attr(get_theme_mod($prefix.'widgets_layout', $atr['std_layout']));
-		$layout_tab = esc_attr(get_theme_mod($prefix.'widgets_layout_tab', $atr['std_layout_tab']));
-		$layout_mobile = esc_attr(get_theme_mod($prefix.'widgets_layout_mobile', $atr['std_layout_mobile']));
+		$active = esc_attr(steed_theme_mod($prefix.'widgets_active', $atr['std_active']));
+		$layout = esc_attr(steed_theme_mod($prefix.'widgets_layout', $atr['std_layout']));
+		$layout_tab = esc_attr(steed_theme_mod($prefix.'widgets_layout_tab', $atr['std_layout_tab']));
+		$layout_mobile = esc_attr(steed_theme_mod($prefix.'widgets_layout_mobile', $atr['std_layout_mobile']));
 		
 		$widget_1 = false;
 		$widget_2 = false;
@@ -842,7 +842,7 @@ endif;
 
 if ( ! function_exists( 'steed_element_copyText' ) ) :
 	function steed_element_copyText($prefix) {
-		echo  wp_kses_post(get_theme_mod($prefix.'copytext', ''));
+		echo  wp_kses_post(steed_theme_mod($prefix.'copytext', ''));
 	}
 endif;
 
@@ -850,7 +850,7 @@ endif;
 
 if ( ! function_exists( 'steed_element_creditText' ) ) :
 	function steed_element_creditText() {
-		$mod_show = esc_attr(get_theme_mod('show_site_credit', 'yes'));
+		$mod_show = esc_attr(steed_theme_mod('show_site_credit', 'yes'));
 		
 		if($mod_show == 'no'){
 			echo '';
@@ -866,7 +866,7 @@ if ( ! function_exists( 'steed_element_logo' ) ) :
 		
 		$output = '';
 		$description = get_bloginfo( 'description', 'display' );
-		$custom_logo_id = esc_attr(get_theme_mod( 'custom_logo' ));
+		$custom_logo_id = esc_attr(steed_theme_mod( 'custom_logo' ));
 		$std_logo = apply_filters('steed_element_logo_url', NULL);
 		
 		// Try to retrieve the Custom Logo
@@ -934,7 +934,7 @@ if ( ! function_exists( 'steed_element_colorMood' ) ) :
 		), $settings);
 		
 		$std_color_mood = apply_filters('steed_element_colorMood_'.$prefix, $atr['std_mood']);
-		$color_mood = esc_attr(get_theme_mod( $prefix.'colorMood' ));
+		$color_mood = esc_attr(steed_theme_mod( $prefix.'colorMood' ));
 		
 		if($color_mood == ''){ $color_mood = $std_color_mood; }
 		

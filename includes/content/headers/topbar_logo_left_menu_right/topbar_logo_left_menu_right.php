@@ -63,7 +63,7 @@ class steed_header__topbar_logo_left_menu_right{
 	function html(){
 		?>
         <div class="header-warp">
-			<?php if((get_theme_mod('topbar_active', 'yes') == 'yes') && ($this->enable_topbar == true)): ?>
+			<?php if((steed_theme_mod('topbar_active', 'yes') == 'yes') && ($this->enable_topbar == true)): ?>
             <div class="topbar <?php echo steed_element_colorMood('topbar_'); ?>">
                 <div class="topbar-in">
                     <div class="container-width">
@@ -135,7 +135,7 @@ class steed_header__topbar_logo_left_menu_right{
             </header><!-- #masthead -->
             
             <script type="text/javascript">
-				<?php if((get_theme_mod('topbar_active', 'yes') == 'yes') && ($this->enable_topbar == true)): ?>
+				<?php if((steed_theme_mod('topbar_active', 'yes') == 'yes') && ($this->enable_topbar == true)): ?>
                 jQuery(document).ready(function($) {
                     "use strict";
                     
@@ -162,7 +162,7 @@ class steed_header__topbar_logo_left_menu_right{
                 });
 				<?php endif; ?>
 				
-				<?php if((get_theme_mod('header_scroll_fixed') == 'yes')): ?>
+				<?php if((steed_theme_mod('header_scroll_fixed') == 'yes')): ?>
 					jQuery(document).ready(function($) {
 						$( '#masthead' ).clone().appendTo( '.fixed_header_holder' );
 					});
@@ -170,7 +170,7 @@ class steed_header__topbar_logo_left_menu_right{
 					jQuery(window).scroll(function() {
 						var scroll = jQuery(window).scrollTop();
 						
-						if (scroll >= <?php echo get_theme_mod('header_scroll_fixed_start_point', '200'); ?>) {
+						if (scroll >= <?php echo steed_theme_mod('header_scroll_fixed_start_point', '200'); ?>) {
 							jQuery(".header-warp").addClass("pre-fixed");
 							
 							setTimeout(function() { 
@@ -212,11 +212,11 @@ class steed_header__topbar_logo_left_menu_right{
 		$light_color = $colors['light'];
 		
 		$the_css = '';
-		if((get_theme_mod('topbar_active', 'yes') == 'yes') && ($this->enable_topbar == true)){
+		if((steed_theme_mod('topbar_active', 'yes') == 'yes') && ($this->enable_topbar == true)){
 			$the_css .= steed_CSS_padding('topbar_', 'html .topbar');
 			$the_css .= steed_CSS_background('topbar_', 'html .topbar');
 			
-			$topbar_bg_rgba = steed_hex2rgb(get_theme_mod('topbar_bg_color'));
+			$topbar_bg_rgba = steed_hex2rgb(steed_theme_mod('topbar_bg_color'));
 			if(is_array($topbar_bg_rgba)){
 				$the_css .= 'html .topbar_open_hand{ background-color:rgba('.$topbar_bg_rgba[0].','.$topbar_bg_rgba[1].','.$topbar_bg_rgba[2].',0.1);}';
 			}
@@ -234,15 +234,15 @@ class steed_header__topbar_logo_left_menu_right{
 		$the_css .= steed_element_CSS_button('header_', '.site-header .element_button');
 		$the_css .= steed_element_CSS_button('header_', '.responsive-menu-head .element_button');
 		
-		if((get_theme_mod('header_bg_opacity') != '1') || get_theme_mod('header_bg_opacity') != ''){
-			$header_rgba = steed_hex2rgb(get_theme_mod('header_bg_color'));
+		if((steed_theme_mod('header_bg_opacity') != '1') || steed_theme_mod('header_bg_opacity') != ''){
+			$header_rgba = steed_hex2rgb(steed_theme_mod('header_bg_color'));
 			if(is_array($header_rgba)){
-				$the_css .= 'html .site-header{ background-color:rgba('.$header_rgba[0].','.$header_rgba[1].','.$header_rgba[2].','.get_theme_mod('header_bg_opacity', '1').');}';
+				$the_css .= 'html .site-header{ background-color:rgba('.$header_rgba[0].','.$header_rgba[1].','.$header_rgba[2].','.steed_theme_mod('header_bg_opacity', '1').');}';
 				$the_css .= 'html .site-header.fixed{ background-color:rgba('.$header_rgba[0].','.$header_rgba[1].','.$header_rgba[2].',0.9);}';
 			}
 		}
 		
-		$the_css .= 'html .header-fixed-on-scroll .fixed .fixed_header_holder{ background-color:'.get_theme_mod('header_scroll_fixed_bg', '#000').'; }';
+		$the_css .= 'html .header-fixed-on-scroll .fixed .fixed_header_holder{ background-color:'.steed_theme_mod('header_scroll_fixed_bg', '#000').'; }';
 		
 		
 		return  $css.$the_css;		
@@ -432,12 +432,12 @@ class steed_header__topbar_logo_left_menu_right{
 	}
 	
 	function body_class($classes) {
-		if((get_theme_mod('header_bg_opacity') == '1') || get_theme_mod('header_bg_opacity') == ''){
+		if((steed_theme_mod('header_bg_opacity') == '1') || steed_theme_mod('header_bg_opacity') == ''){
 			
 		}else{
 			$classes[] = 'header-has-opacity';	
 		}
-		if((get_theme_mod('header_scroll_fixed') == 'yes')){
+		if((steed_theme_mod('header_scroll_fixed') == 'yes')){
 			$classes[] = 'header-fixed-on-scroll';
 		}
         return $classes;

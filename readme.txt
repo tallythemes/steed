@@ -7,7 +7,7 @@ Tags: one-column, two-columns, right-sidebar, custom-menu, editor-style, feature
 
 Requires at least: 4.0
 Tested up to: 4.7.3
-Stable tag: 2.8
+Stable tag: 2.9
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -40,7 +40,11 @@ Copyright (c) 2011, Thomas Griffin ( GPL-2.0+ )
 
 All images: CC0 by Pixabay, https://pixabay.com/en/service/terms/
 
+
 == Changelog ==
+= 2.9 - 18 April 2017  =
+* Improve STD data handelig for customizer.
+
 
 = 2.8 - 18 April 2017  =
 * Fix: small css issue
@@ -97,3 +101,12 @@ All images: CC0 by Pixabay, https://pixabay.com/en/service/terms/
 
 = 1.0 - 22 August 2016  =
 * Initial release
+
+
+
+== To DO ==
+* Improve code security by adding more Data_Validation
+* Improve customizer default STD
+* Add admin notice for Free Theme
+* Improve the About page & add some banner
+* In customizer add some behind the wall options for Free user.
