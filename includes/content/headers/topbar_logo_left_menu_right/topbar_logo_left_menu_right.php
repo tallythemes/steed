@@ -7,6 +7,13 @@ class steed_header__topbar_logo_left_menu_right{
 	
 	public $enable_topbar = true;
 	
+	public $enable_email = true;
+	public $enable_phone = true;
+	public $enable_social = true;
+	public $enable_openTime = true;
+	public $enable_button = true;
+	public $enable_address = true;
+	
 	function __construct(){
 		
 	}
@@ -62,28 +69,36 @@ class steed_header__topbar_logo_left_menu_right{
                     <div class="container-width">
                         <div class="row">
                             <div class="col-lg-5 text_lg_left text_xs_center">
-                                <?php steed_element_socialIcons('header_', array('class' => 'float_lg_left')); ?>
+                                <?php if($this->enable_social == true){ steed_element_socialIcons('header_', array('class' => 'float_lg_left')); } ?>
                                 <?php 
-                                    $hsettings = array('class' => 'header_address float_lg_left', 'std_content' => 'Walmart, 7th Street, Joplin, MO 64801');
-                                    steed_element_text('header_address_', $hsettings); 
+									if($this->enable_address == true){
+										$hsettings = array('class' => 'header_address float_lg_left', 'std_content' => 'Walmart, 7th Street, Joplin, MO 64801');
+										steed_element_text('header_address_', $hsettings); 
+									}
                                 ?>
                             </div>
                             <div class="col-lg-7 text_lg_left text_xs_center">
                                 <?php 
+								if($this->enable_phone == true){
                                     $hsettings = array('class' => 'header_phone float_lg_right', 'std_content' => '+1 2223 4567', 'std_icon' => 'fa-phone');
                                     steed_element_text('header_phone_', $hsettings); 
+								}
                                 ?>
                                 <?php 
+								if($this->enable_email == true){
                                     $hsettings = array('class'=>'header_email float_lg_right', 'std_content'=>'contact@domain.com', 'std_icon' => 'fa-envelope');
                                     steed_element_text('header_email_', $hsettings); 
+								}
                                 ?>
                                 <?php
+								if($this->enable_openTime == true){
                                     $hsettings = array(
                                         'class' => 'header_time float_lg_right', 
                                         'std_content' => 'Monday - Sunday 10:00 - 22:00', 
                                         'std_icon' => 'fa-clock-o'
                                     );
                                     steed_element_text('header_time_', $hsettings); 
+								}
                                 ?>
                             </div>
                         </div>
@@ -105,7 +120,7 @@ class steed_header__topbar_logo_left_menu_right{
                                 </a>
                             </div><!-- .site-branding -->
                             <div class="header-widgets col-md-9 text_md_right">
-                                <?php steed_element_button('header_', array('std_text' => 'Free First Advice', 'std_icon' => 'fa-paper-plane-o')); ?>
+                                <?php if($this->enable_button == true){ steed_element_button('header_', array('std_text' => 'Free First Advice', 'std_icon' => 'fa-paper-plane-o')); } ?>
                                 <?php steed_element_shoppingBag('header_'); ?>
                                 <?php steed_element_searchIcon('header_'); ?>
                              
@@ -254,44 +269,57 @@ class steed_header__topbar_logo_left_menu_right{
 		
 		steed_element_customize_searchIcon('header_', 'steed_header_elements', NULL, $wp_customize);
 		
-		$uid = 'steed_header_elements_button_header';
-		steed_Customize_Control_heading($uid, 'steed_header_elements', 'Button', NULL, $wp_customize);
-		$settings = array('std_active' => 'yes', 'std_text' => 'Free First Advice', 'std_icon' => 'fa-paper-plane-o');
-		steed_element_customize_button('header_', 'steed_header_elements', $settings, $wp_customize);
+		if($this->enable_button == true){
+			$uid = 'steed_header_elements_button_header';
+			steed_Customize_Control_heading($uid, 'steed_header_elements', 'Button', NULL, $wp_customize);
+			$settings = array('std_active' => 'yes', 'std_text' => 'Free First Advice', 'std_icon' => 'fa-paper-plane-o');
+			steed_element_customize_button('header_', 'steed_header_elements', $settings, $wp_customize);
+		}
 		
 		steed_element_customize_shoppingBag('header_', 'steed_header_elements', NULL, $wp_customize);
 		
 		if($this->enable_topbar == true){
-			$uid = 'steed_header__elements_header_address';
-			steed_Customize_Control_heading($uid, 'steed_header_elements', 'Address', NULL, $wp_customize);
-			$settings = array('std_content' => 'Walmart, 7th Street, Joplin, MO 64801');
-			steed_element_customize_text('header_address_', 'steed_header_elements', $settings, $wp_customize);
 			
-			$uid = 'steed_header__elements_header_phone';
-			steed_Customize_Control_heading($uid, 'steed_header_elements', 'Phone', NULL, $wp_customize);
-			$settings = array('std_content' => '+1 2223 4567', 'std_icon' => 'fa-phone');
-			steed_element_customize_text('header_phone_', 'steed_header_elements', $settings, $wp_customize);
+			if($this->enable_address == true){
+				$uid = 'steed_header__elements_header_address';
+				steed_Customize_Control_heading($uid, 'steed_header_elements', 'Address', NULL, $wp_customize);
+				$settings = array('std_content' => 'Walmart, 7th Street, Joplin, MO 64801');
+				steed_element_customize_text('header_address_', 'steed_header_elements', $settings, $wp_customize);
+			}
 			
-			$uid = 'steed_header__elements_header_email';
-			steed_Customize_Control_heading($uid, 'steed_header_elements', 'Email', NULL, $wp_customize);
-			$settings = array('std_content' => 'contact@domain.com', 'std_icon' => 'fa-envelope');
-			steed_element_customize_text('header_email_', 'steed_header_elements', $settings, $wp_customize);
+			if($this->enable_phone == true){
+				$uid = 'steed_header__elements_header_phone';
+				steed_Customize_Control_heading($uid, 'steed_header_elements', 'Phone', NULL, $wp_customize);
+				$settings = array('std_content' => '+1 2223 4567', 'std_icon' => 'fa-phone');
+				steed_element_customize_text('header_phone_', 'steed_header_elements', $settings, $wp_customize);
+			}
 			
-			$uid = 'steed_header__elements_header_time';
-			steed_Customize_Control_heading($uid, 'steed_header_elements', 'Open Time', NULL, $wp_customize);
-			$settings = array('std_content' => ' Monday - Sunday 10:00 - 22:00', 'std_icon' => 'fa-clock-o' );
-			steed_element_customize_text('header_time_', 'steed_header_elements', $settings, $wp_customize);
+			if($this->enable_email == true){
+				$uid = 'steed_header__elements_header_email';
+				steed_Customize_Control_heading($uid, 'steed_header_elements', 'Email', NULL, $wp_customize);
+				$settings = array('std_content' => 'contact@domain.com', 'std_icon' => 'fa-envelope');
+				steed_element_customize_text('header_email_', 'steed_header_elements', $settings, $wp_customize);
+			}
+			
+			if($this->enable_openTime == true){
+				$uid = 'steed_header__elements_header_time';
+				steed_Customize_Control_heading($uid, 'steed_header_elements', 'Open Time', NULL, $wp_customize);
+				$settings = array('std_content' => ' Monday - Sunday 10:00 - 22:00', 'std_icon' => 'fa-clock-o' );
+				steed_element_customize_text('header_time_', 'steed_header_elements', $settings, $wp_customize);
+			}
 		}
 		
 		
 		if($this->enable_topbar == true){
-			/*---Social Icons---*/
-			$wp_customize->add_section( 'steed_header_social_icons' , array(
-				'title'		=> __( 'Social Icons', 'steed' ),
-				'priority'	=> 30,
-				'panel'		=> 'site_header',
-			));
-			steed_element_customize_socialIcons('header_', 'steed_header_social_icons', NULL, $wp_customize);
+			if($this->enable_button == true){
+				/*---Social Icons---*/
+				$wp_customize->add_section( 'steed_header_social_icons' , array(
+					'title'		=> __( 'Social Icons', 'steed' ),
+					'priority'	=> 30,
+					'panel'		=> 'site_header',
+				));
+				steed_element_customize_socialIcons('header_', 'steed_header_social_icons', NULL, $wp_customize);
+			}
 		}
 		
 		

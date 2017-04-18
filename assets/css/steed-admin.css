@@ -33,3 +33,7 @@
     height: 30px;
     font-size: 30px;
 }
+
+
+.rs-update-notice-wrap,
+.vc_license-activation-notice{ display:none !important; }

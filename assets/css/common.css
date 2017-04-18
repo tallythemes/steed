@@ -1815,6 +1815,13 @@ object {
 .left-sidebar #secondary{
 	float:left;
 }
+
+.page-content-area{
+	margin:0 !important;	
+}
+.page-content-area .entry-footer{
+	display:none;
+}
 @media screen and (max-width: 940px){
 	#primary{
 		float:none;
