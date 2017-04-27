@@ -7,7 +7,7 @@ Tags: one-column, two-columns, right-sidebar, custom-menu, editor-style, feature
 
 Requires at least: 4.0
 Tested up to: 4.7.3
-Stable tag: 2.9
+Stable tag: 3.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -42,6 +42,16 @@ All images: CC0 by Pixabay, https://pixabay.com/en/service/terms/
 
 
 == Changelog ==
+= 3.0 - 27 April 2017  =
+- Added Alpha color picker for background color
+- Improve HTML of footer bar
+
+- Fixed STD value issue for button
+
+- Added Selection background style
+
+- Added blog page sub-header settings in customize
+
 = 2.9 - 18 April 2017  =
 * Improve STD data handelig for customizer.
 
