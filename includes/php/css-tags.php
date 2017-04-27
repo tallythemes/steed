@@ -63,7 +63,7 @@ function steed_CSS_background($the_prefix, $selector, $settings = array()){
 		
 	$prefix = esc_attr($the_prefix);
 	$image = esc_url(steed_theme_mod($prefix.'bg_image', $atr['std-image']));
-	$color = sanitize_hex_color(steed_theme_mod($prefix.'bg_color', $atr['std-color']));
+	$color = steed_sanitize_rgba_field(steed_theme_mod($prefix.'bg_color', $atr['std-color']));
 	$repeat = esc_attr(steed_theme_mod($prefix.'bg_repeat', $atr['std-repeat']));
 	$attachment = esc_attr(steed_theme_mod($prefix.'bg_attachment', $atr['std-attachment']));
 	$position = esc_attr(steed_theme_mod($prefix.'bg_position', $atr['std-position']));
@@ -205,12 +205,12 @@ function steed_element_CSS_button($the_prefix, $selector, $settings = array()){
 	
 	$button_active = esc_attr( steed_theme_mod($prefix.'button_active', $atr['std_active']) );
 	
-	$button_bg_color = sanitize_hex_color( steed_theme_mod($prefix.'button_bg_color') );
+	$button_bg_color = steed_sanitize_rgba_field( steed_theme_mod($prefix.'button_bg_color') );
 	$button_text_color = sanitize_hex_color( steed_theme_mod($prefix.'button_text_color') );
-	$button_border_color = sanitize_hex_color( steed_theme_mod($prefix.'button_border_color') );
-	$button_bg_hover_color = sanitize_hex_color( steed_theme_mod($prefix.'button_bg_hover_color') );
+	$button_border_color = steed_sanitize_rgba_field( steed_theme_mod($prefix.'button_border_color') );
+	$button_bg_hover_color = steed_sanitize_rgba_field( steed_theme_mod($prefix.'button_bg_hover_color') );
 	$button_text_hover_color = sanitize_hex_color( steed_theme_mod($prefix.'button_text_hover_color') );
-	$button_border_hover_color = sanitize_hex_color( steed_theme_mod($prefix.'button_border_hover_color') );
+	$button_border_hover_color = steed_sanitize_rgba_field( steed_theme_mod($prefix.'button_border_hover_color') );
 
 	$css = ($button_bg_color != '') ? 'background-color:'.$button_bg_color.';' : '';
 	$css .= ($button_text_color != '') ? 'color:'.$button_text_color.';' : '';

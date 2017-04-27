@@ -15,6 +15,7 @@ function steed_customize_register( $wp_customize ) {
 	$wp_customize->get_setting( 'blogdescription' )->transport  = 'postMessage';
 	$wp_customize->get_setting( 'header_textcolor' )->transport = 'postMessage';
 	
+	
 	if(steed_mal()){
 		$wp_customize->add_section( 'site_content_style' , array(
 			'title'		=> __( 'Content area Style & BG', 'steed' ),
@@ -275,8 +276,8 @@ function steed_customizer_background($prefix, $section_prefix_id, $element_setti
 	
 	if(steed_mal()){
 	$uid = $prefix.'bg_color';
-	$wp_customize->add_setting($uid, array( 'default' => steed_customiz_std($uid, $std_color), 'sanitize_callback' => 'sanitize_hex_color', ));
-	$wp_customize->add_control( new WP_Customize_Color_Control($wp_customize, $uid, array(
+	$wp_customize->add_setting($uid, array( 'default' => steed_customiz_std($uid, $std_color), 'sanitize_callback' => 'steed_sanitize_rgba_field', ));
+	$wp_customize->add_control( new steed_Customize_Alpha_Color_Control($wp_customize, $uid, array(
 		'label'      => __('Background Color', 'steed'),
 		'section'    => $section_prefix_id,
 		'settings'   => $uid,
@@ -1120,8 +1121,8 @@ function steed_element_customize_button($prefix, $section_prefix_id, $element_se
 	));
 	
 	$uid = $prefix.'button_bg_color';
-	$wp_customize->add_setting($uid, array( 'default' => '', 'sanitize_callback' => 'sanitize_hex_color', ));
-	$wp_customize->add_control(new WP_Customize_Color_Control($wp_customize, $uid, array(
+	$wp_customize->add_setting($uid, array( 'default' => '', 'sanitize_callback' => 'steed_sanitize_rgba_field', ));
+	$wp_customize->add_control(new steed_Customize_Alpha_Color_Control($wp_customize, $uid, array(
 		'label'      => __('Button Background Color', 'steed'),
 		'section'    => $section_prefix_id,
 		'settings'   => $uid,
@@ -1136,8 +1137,8 @@ function steed_element_customize_button($prefix, $section_prefix_id, $element_se
 		'description' => '',
 	)));
 	$uid = $prefix.'button_border_color';
-	$wp_customize->add_setting($uid, array( 'default' => '', 'sanitize_callback' => 'sanitize_hex_color', ));
-	$wp_customize->add_control(new WP_Customize_Color_Control($wp_customize, $uid, array(
+	$wp_customize->add_setting($uid, array( 'default' => '', 'sanitize_callback' => 'steed_sanitize_rgba_field', ));
+	$wp_customize->add_control(new steed_Customize_Alpha_Color_Control($wp_customize, $uid, array(
 		'label'      => __('Button Border Color', 'steed'),
 		'section'    => $section_prefix_id,
 		'settings'   => $uid,
@@ -1145,8 +1146,8 @@ function steed_element_customize_button($prefix, $section_prefix_id, $element_se
 	)));
 	
 	$uid = $prefix.'button_bg_hover_color';
-	$wp_customize->add_setting($uid, array( 'default' => '', 'sanitize_callback' => 'sanitize_hex_color', ));
-	$wp_customize->add_control(new WP_Customize_Color_Control($wp_customize, $uid, array(
+	$wp_customize->add_setting($uid, array( 'default' => '', 'sanitize_callback' => 'steed_sanitize_rgba_field', ));
+	$wp_customize->add_control(new steed_Customize_Alpha_Color_Control($wp_customize, $uid, array(
 		'label'      => __('Button Background Hover Color', 'steed'),
 		'section'    => $section_prefix_id,
 		'settings'   => $uid,
@@ -1161,8 +1162,8 @@ function steed_element_customize_button($prefix, $section_prefix_id, $element_se
 		'description' => '',
 	)));
 	$uid = $prefix.'button_border_hover_color';
-	$wp_customize->add_setting($uid, array( 'default' => '', 'sanitize_callback' => 'sanitize_hex_color', ));
-	$wp_customize->add_control(new WP_Customize_Color_Control($wp_customize, $uid, array(
+	$wp_customize->add_setting($uid, array( 'default' => '', 'sanitize_callback' => 'steed_sanitize_rgba_field', ));
+	$wp_customize->add_control(new steed_Customize_Alpha_Color_Control($wp_customize, $uid, array(
 		'label'      => __('Button Border Hover Color', 'steed'),
 		'section'    => $section_prefix_id,
 		'settings'   => $uid,

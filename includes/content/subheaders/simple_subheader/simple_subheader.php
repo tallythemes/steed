@@ -46,8 +46,7 @@ class steed_subheader__simple_subheader{
 	static function html(){
 		if(
 		(is_page() && is_page_template( 'template-full-width.php' )) || 
-		(is_page() && is_page_template( 'template-page-bulder.php' )) ||
-		is_home()
+		(is_page() && is_page_template( 'template-page-bulder.php' ))
 		):
 			/**/
 		else:
@@ -78,16 +77,39 @@ class steed_subheader__simple_subheader{
 	Customizer
 	----------------------------------------*/
 	function customize( $wp_customize ) {
+		$wp_customize->add_section( 'site_subheader' , array(
+			'title'		=> __( 'Page / Post Title area', 'steed' ),
+			'priority'	=> 160,
+			//'panel'		=> '',
+		));
+		
+		$uid = 'subheader_blog_title';
+		$wp_customize->add_setting($uid, array( 'default' => steed_customiz_std($uid, 'Our Blog'), 'sanitize_callback' => 'sanitize_text_field', ));
+		$wp_customize->add_control( $uid, array(
+			'label'      => __('Blog Page Title', 'steed'),
+			'section'    => 'site_subheader',
+			'settings'   => $uid,
+			'type'       => 'text',
+			'description' => '',
+		));
+		$uid = 'subheader_blog_subtitle';
+		$wp_customize->add_setting($uid, array( 'default' => steed_customiz_std($uid, 'See what we are writting.'), 'sanitize_callback' => 'sanitize_text_field', ));
+		$wp_customize->add_control( $uid, array(
+			'label'      => __('Blog Page Sub-Title', 'steed'),
+			'section'    => 'site_subheader',
+			'settings'   => $uid,
+			'type'       => 'text',
+			'description' => '',
+		));
+		
 		if(steed_mal()){
-			$wp_customize->add_section( 'site_subheader' , array(
-				'title'		=> __( 'Page / Post Title area', 'steed' ),
-				'priority'	=> 160,
-				//'panel'		=> '',
-			));
-	
+			/**/steed_Customize_Control_heading('subheader_1_', 'site_subheader', 'Padding', NULL, $wp_customize);
 			steed_customizer_padding('subheader_', 'site_subheader', NULL, $wp_customize);
+			
+			/**/steed_Customize_Control_heading('subheader_2_', 'site_subheader', 'Color Mood', NULL, $wp_customize);
 			steed_customizer_colorMood('subheader_', 'site_subheader', NULL, $wp_customize);
-			/**/steed_Customize_Control_heading('subheader_1_', 'site_subheader', 'Background', NULL, $wp_customize);
+			
+			/**/steed_Customize_Control_heading('subheader_3_', 'site_subheader', 'Background', NULL, $wp_customize);
 			steed_customizer_background('subheader_', 'site_subheader', NULL, $wp_customize);
 		}
 	}

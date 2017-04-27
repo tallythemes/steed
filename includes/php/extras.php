@@ -311,6 +311,8 @@ function steed_custom_css(){
 	
 	
 	$css .= steed_element_CSS_menuColors('#primary-menu');
+	
+	$css .= '::selection { background: '.$primary_color.'; color: #ffffff; }';
 
 	return $css;
 }

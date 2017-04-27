@@ -120,7 +120,7 @@ class steed_header__topbar_logo_left_menu_right{
                                 </a>
                             </div><!-- .site-branding -->
                             <div class="header-widgets col-md-9 text_md_right">
-                                <?php if($this->enable_button == true){ steed_element_button('header_', array('std_text' => 'Free First Advice', 'std_icon' => 'fa-paper-plane-o')); } ?>
+                                <?php if($this->enable_button == true){ steed_element_button('header_', array('std_text' => 'Free First Advice', 'std_icon' => '')); } ?>
                                 <?php steed_element_shoppingBag('header_'); ?>
                                 <?php steed_element_searchIcon('header_'); ?>
                              
@@ -234,15 +234,17 @@ class steed_header__topbar_logo_left_menu_right{
 		$the_css .= steed_element_CSS_button('header_', '.site-header .element_button');
 		$the_css .= steed_element_CSS_button('header_', '.responsive-menu-head .element_button');
 		
-		if((steed_theme_mod('header_bg_opacity') != '1') || steed_theme_mod('header_bg_opacity') != ''){
-			$header_rgba = steed_hex2rgb(steed_theme_mod('header_bg_color'));
-			if(is_array($header_rgba)){
-				$the_css .= 'html .site-header{ background-color:rgba('.$header_rgba[0].','.$header_rgba[1].','.$header_rgba[2].','.steed_theme_mod('header_bg_opacity', '1').');}';
-				$the_css .= 'html .site-header.fixed{ background-color:rgba('.$header_rgba[0].','.$header_rgba[1].','.$header_rgba[2].',0.9);}';
+		if ( false === strpos( steed_theme_mod('header_bg_color'), 'rgba' ) ) {
+			if ((steed_theme_mod('header_bg_opacity') != '1') || ( steed_theme_mod('header_bg_opacity') != '')){
+				$header_rgba = steed_hex2rgb(steed_theme_mod('header_bg_color'));
+				if(is_array($header_rgba)){
+					$the_css .= 'html .site-header{ background-color:rgba('.$header_rgba[0].','.$header_rgba[1].','.$header_rgba[2].','.steed_theme_mod('header_bg_opacity', '1').');}';
+					$the_css .= 'html .site-header.fixed{ background-color:rgba('.$header_rgba[0].','.$header_rgba[1].','.$header_rgba[2].',0.9);}';
+				}
 			}
 		}
 		
-		$the_css .= 'html .header-fixed-on-scroll .fixed .fixed_header_holder{ background-color:'.steed_theme_mod('header_scroll_fixed_bg', '#000').'; }';
+		$the_css .= 'html .header-fixed-on-scroll .fixed .fixed_header_holder{ background-color:'.steed_sanitize_rgba_field(steed_theme_mod('header_scroll_fixed_bg', '#000')).'; }';
 		
 		
 		return  $css.$the_css;		
@@ -376,8 +378,8 @@ class steed_header__topbar_logo_left_menu_right{
 			));
 			
 			$uid = 'header_scroll_fixed_bg';
-			$wp_customize->add_setting($uid, array( 'default' => '', 'sanitize_callback' => 'sanitize_hex_color', ));
-			$wp_customize->add_control( new WP_Customize_Color_Control($wp_customize, $uid, array(
+			$wp_customize->add_setting($uid, array( 'default' => '', 'sanitize_callback' => 'steed_sanitize_rgba_field', ));
+			$wp_customize->add_control( new steed_Customize_Alpha_Color_Control($wp_customize, $uid, array(
 				'label'      =>  __('Fixed header Background Color', 'steed'),
 				'section'    => 'steed_header_style',
 				'settings'   => $uid,

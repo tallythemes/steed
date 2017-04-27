@@ -704,7 +704,7 @@ if ( ! function_exists( 'steed_element_button' ) ) :
 			"std_active" => "yes",
 			"std_link" => "#",
 			"std_text" => "Sample Button",
-			"std_icon" => "fa-home",
+			"std_icon" => "",
 			"std_target" => "_self", //_blank, _self
 		), $settings);
 		
@@ -842,7 +842,9 @@ endif;
 
 if ( ! function_exists( 'steed_element_copyText' ) ) :
 	function steed_element_copyText($prefix) {
+		echo '<div class="copy_text">';
 		echo  wp_kses_post(steed_theme_mod($prefix.'copytext', ''));
+		echo '</div>';
 	}
 endif;
 
@@ -855,7 +857,7 @@ if ( ! function_exists( 'steed_element_creditText' ) ) :
 		if($mod_show == 'no'){
 			echo '';
 		}else{
-			echo '<p>Theme Designed By <a href="'.esc_url('http://tallythemes.com').'" title="TallyThemes">TallyThemes</a> | Powered by <a href="'.esc_url('http://wordpress.org').'">WordPress</a></p>';	
+			echo '<div class="credit_text">Theme Designed By <a href="'.esc_url('http://tallythemes.com').'" title="TallyThemes">TallyThemes</a> | Powered by <a href="'.esc_url('http://wordpress.org').'">WordPress</a></div>';	
 		}
 	}
 endif;
@@ -920,6 +922,9 @@ if ( ! function_exists( 'steed_element_pageHeading' ) ) :
 			echo '</div>';
 		}elseif(is_archive()){
 			the_archive_title('<h1 class="entry-title">', '</h1>');
+		}elseif(is_home()){
+			if(steed_theme_mod( 'subheader_blog_title' ) != '' ){ echo '<h1 class="entry-title">'.esc_attr(steed_theme_mod( 'subheader_blog_title', 'Our Blog')).'</h1>'; }
+			if(steed_theme_mod( 'subheader_blog_subtitle' ) != '' ){ echo '<div class="entry-meta">'.esc_attr(steed_theme_mod( 'subheader_blog_subtitle' , 'See what we are writting.')).'</div>'; }
 		}else{
 			the_title( '<h1 class="entry-title">', '</h1>' );
 		}
