@@ -6,42 +6,57 @@
  *
  * @package Steed
  */
+define("STEED_VERSION", "3.0");
 
-if(!defined('STEED_THEME_NAME')) { define('STEED_THEME_NAME', 'steed'); }
-if(!defined('STEED_BASE_SLUG')) { define('STEED_BASE_SLUG', 'steed'); }
-if(!defined('STEED_THEME_SLUG')) { define('STEED_THEME_SLUG', 'steed'); }
-if(!defined('TALLYTHEME_DEMO_URL')) { define('TALLYTHEME_DEMO_URL', ''); }
-if(!defined('STEED_DEMO_URL')) { define('STEED_DEMO_URL', ''); }
-if(!defined('STEED_DOC_URL')) { define('STEED_DOC_URL', ''); }
+if(!defined("STEED_THEME_ID")) { define("STEED_THEME_ID", "steed1"); }
+ $GLOBALS['steed_STD_theme_mod_data'] = array();
 
-global $steed_STD_theme_mod_data;
-
-if(file_exists(get_stylesheet_directory().'/inc/demo/customization.php')){
-	$steed_STD_theme_mod_file = include(get_stylesheet_directory().'/inc/demo/customization.php');
-	$steed_STD_theme_mod_data = unserialize($steed_STD_theme_mod_file);
-	
+if(file_exists(get_stylesheet_directory().'/includes/php/customize-std.php')){
+	$GLOBALS['steed_STD_theme_mod_data'] = include(get_stylesheet_directory().'/includes/php/customize-std.php');
+}elseif(file_exists(get_template_directory().'/includes/php/customize-std.php')){
+	$GLOBALS['steed_STD_theme_mod_data'] = include(get_template_directory().'/includes/php/customize-std.php');
 }
+
 function steed_theme_mod($id, $std = NULL){
-	global $steed_STD_theme_mod_data;
-	$std_data_pre = (isset($steed_STD_theme_mod_data['mods'][$id])) ? $steed_STD_theme_mod_data['mods'][$id] : NULL;
-	$std_data = ($std_data_pre != '') ? $std_data_pre : $std;
+	$mods = get_theme_mods();
+	$array_data = $GLOBALS['steed_STD_theme_mod_data'];
+	$std_data_pre = (isset($array_data[$id])) ? $array_data[$id] : NULL;
+	
+	//check if the data alreay in the database or send STD data to output
+	if(isset($mods[$id])){
+		$std_data = $std;	
+	}else{
+		$std_data = ($std_data_pre != '') ? $std_data_pre : $std;	
+	}
 	
 	if(get_theme_mod($id)){
-		return get_theme_mod($id);
+		return get_theme_mod($id, $std_data);
 	}else{
 		return $std_data;
 	}
 }
 
+function steed_theme_mod_as_array(){
+	$mods = get_theme_mods();
+	$std = $GLOBALS['steed_STD_theme_mod_data'];
+	
+	$result = array_merge($std, $mods);
+	
+	unset($result[0]);
+	unset($result['custom_css_post_id']);
+	unset($result['nav_menu_locations']);
+	
+	var_export($result);
+}
+
+
 function steed_customiz_std($id, $std = NULL){
-	global $steed_STD_theme_mod_data;
-	$std_data_pre = (isset($steed_STD_theme_mod_data['mods'][$id])) ? $steed_STD_theme_mod_data['mods'][$id] : NULL;
+	$array_data = $GLOBALS['steed_STD_theme_mod_data'];
+	$std_data_pre = (isset($array_data[$id])) ? $array_data[$id] : NULL;
 	$std_data = ($std_data_pre != '') ? $std_data_pre : $std;
 	
 	return $std_data;
 }
-
-//print_r($steed_STD_theme_mod_data);
 
 
 if ( ! function_exists( 'steed_setup' ) ) :
@@ -79,11 +94,6 @@ function steed_setup() {
 	 */
 	add_theme_support( 'post-thumbnails' );
 
-	// This theme uses wp_nav_menu() in one location.
-	register_nav_menus( array(
-		'primary' => esc_html__( 'Primary', 'steed' ),
-	) );
-
 	/*
 	 * Switch default core markup for search form, comment form, and comments
 	 * to output valid HTML5.
@@ -102,11 +112,11 @@ function steed_setup() {
 	* Enable support for custom logo.
 	*
 	*/
-	add_theme_support( 'custom-logo', array(
-		'height'      => 90, /* 70 */
-		'width'       => 200, /* 240 */
+	/*add_theme_support( 'custom-logo', array(
+		'height'      => 90, 
+		'width'       => 200, 
 		'flex-height' => true, //true, false
-	));
+	));*/
 	
 	
 	// Indicate widget sidebars can use selective refresh in the Customizer.
@@ -116,9 +126,22 @@ function steed_setup() {
 	* Declare WooCommerce support
 	*/
 	add_theme_support( 'woocommerce' );
+	
+	add_post_type_support( 'page', 'excerpt' );
+	
+	
+	/**
+	 * loeading elements classes
+	 */
+	require get_template_directory() . '/includes/elements/element.php';
+	
+	
 }
 endif;
 add_action( 'after_setup_theme', 'steed_setup' );
+
+
+add_filter('tallythemesetup_load_v2', '__return_true');
 
 /**
  * Set the content width in pixels, based on the theme's design and stylesheet.
@@ -128,7 +151,7 @@ add_action( 'after_setup_theme', 'steed_setup' );
  * @global int $content_width
  */
 function steed_content_width() {
-	$GLOBALS['content_width'] = apply_filters( 'steed_content_width', 640 );
+	$GLOBALS['content_width'] = apply_filters( 'steed_content_width', 1200 );
 }
 add_action( 'after_setup_theme', 'steed_content_width', 0 );
 
@@ -159,29 +182,26 @@ function steed_scripts() {
 	wp_register_script( 'magnific-popup', get_template_directory_uri() . '/assets/magnific-popup/jquery.magnific-popup.min.js', array('jquery'),'1.0.1',true );
 	wp_enqueue_script( 'magnific-popup');
 	
+	wp_enqueue_style( 'flexslider', get_template_directory_uri() . '/assets/flexslider/flexslider.css', array(), '1.0.1' );
+	wp_enqueue_script( 'flexslider', get_template_directory_uri() . '/assets/flexslider/jquery.flexslider-min.js', array('jquery'),'1.0.1',true );
+	
 	wp_register_script( 'fitvids', get_template_directory_uri() . '/assets/fitvids/jquery.fitvids.js', array('jquery'), '1.1', true );
 	wp_enqueue_script( 'fitvids');
 	
 	wp_enqueue_style( 'font-awesome', get_template_directory_uri() . '/assets/font-awesome/css/font-awesome.min.css', array(), '4.7.0' );
 	
-	if(!class_exists('Vc_Manager')){
-		wp_enqueue_style( 'js_composer', get_template_directory_uri() . '/assets/vendors/js_composer.min.css', array(), '1.0');
-		wp_enqueue_script( 'js_composer', get_template_directory_uri() . '/assets/vendors/js_composer_front.min.js', array(), '1.0', true );
-	}
-	if(!class_exists('Ultimate_VC_Addons')){
-		wp_enqueue_style( 'ultimate', get_template_directory_uri() . '/assets/vendors/ultimate.min.css', array(), '1.0');
-		wp_enqueue_script( 'ultimate', get_template_directory_uri() . '/assets/vendors/ultimate.min.js', array(), '1.0', true );
-	}
-	
 	// Add custom fonts, used in the main stylesheet.
 	wp_enqueue_style( 'steed-fonts', steed_fonts_url(), array(), null );
 	
 	wp_enqueue_style( 'steed-common', get_template_directory_uri() . '/assets/css/common.css', array(), '1.0');
+	wp_enqueue_style( 'steed-elements', get_template_directory_uri() . '/assets/css/elements.css', array(), '1.0');
+	wp_enqueue_style( 'steed-pc', get_template_directory_uri() . '/assets/css/pc.css', array(), '1.0');
 	
 	wp_enqueue_style( 'steed-style', get_stylesheet_uri() );
 	
 	wp_enqueue_script( 'steed-skip-link-focus-fix', get_template_directory_uri() . '/assets/js/skip-link-focus-fix.js', array(), '1.0', true );
 	wp_enqueue_script( 'steed-javascript', get_template_directory_uri() . '/assets/js/custom-scripts.js', array('jquery', 'imagesloaded', 'jquery-masonry', 'magnific-popup'), '2.0', true );
+	wp_enqueue_script( 'steed-pc', get_template_directory_uri() . '/assets/js/pc.js', array('jquery', 'imagesloaded', 'jquery-masonry', 'magnific-popup'), '2.0', true );
 
 	if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
 		wp_enqueue_script( 'comment-reply' );
@@ -189,12 +209,30 @@ function steed_scripts() {
 }
 add_action( 'wp_enqueue_scripts', 'steed_scripts' );
 
-function steed_admin_scripts() {
-	wp_register_style( 'steed-admin', get_template_directory_uri() . '/assets/css/steed-admin.css', array(), '1.0' );
-	wp_enqueue_style( 'steed-admin');
-	
+
+add_action( 'customize_preview_init', 'steed_customize_preview_init' );
+function steed_customize_preview_init(){
+			wp_enqueue_script( 
+				  'steed-customize-preview',			//Give the script an ID
+				  get_template_directory_uri().'/assets/js/theme-customizer.js',//Point to file
+				  array( 'jquery','customize-preview' ),	//Define dependencies
+				  '',						//Define a version (optional) 
+				  true						//Put script in footer?
+			);
 }
-add_action( 'admin_enqueue_scripts', 'steed_admin_scripts' );
+
+
+add_action( 'customize_controls_enqueue_scripts', 'steed_customize_controls_enqueue_scripts' );
+function steed_customize_controls_enqueue_scripts(){
+	wp_enqueue_style( 'steed-customize-controls', get_template_directory_uri() . '/assets/css/controls-customizer.css', array(), '1.0');
+	wp_enqueue_script( 
+				  'steed-customize-controls',			//Give the script an ID
+				  get_template_directory_uri().'/assets/js/controls-customizer.js',//Point to file
+				  array( 'jquery','customize-preview' ),	//Define dependencies
+				  '',						//Define a version (optional) 
+				  true						//Put script in footer?
+	);
+}
 
 
 /**
@@ -203,11 +241,12 @@ add_action( 'admin_enqueue_scripts', 'steed_admin_scripts' );
 function steed_custom_scripts(){
 	$custom_css = apply_filters('steed_custom_css', steed_custom_css());
 	
-	echo '<style type="text/css">'.$custom_css.'</style>';
+	wp_add_inline_style( 'steed-style', $custom_css );
 }
-add_action( 'wp_head', 'steed_custom_scripts', 11 );
+add_action( 'wp_enqueue_scripts', 'steed_custom_scripts', 11 );
 
-function steed_sanitize_rgba_field( $value ) {
+
+function steed_sanitize_rgba( $value ) {
 		// If empty or an array return transparent
 		if ( empty( $value ) || is_array( $value ) ) {
 			return 'rgba(0,0,0,0)';
@@ -225,9 +264,35 @@ function steed_sanitize_rgba_field( $value ) {
 
 
 /**
- * alpha-color-picker
+ * Filter the front page template so it's bypassed entirely if the user selects
+ * to display blog posts on their homepage instead of a static page.
  */
-require get_template_directory() . '/includes/vendors/alpha-color-picker/alpha-color-picker.php';
+function steed_filter_front_page_template( $template ) {
+	return is_home() ? '' : $template;
+}
+add_filter( 'frontpage_template', 'steed_filter_front_page_template' );
+
+
+
+/**
+ * Custom template tags for this theme.
+ */
+if(!class_exists('steed_Customize_Alpha_Color_Control')){
+	require get_template_directory() . '/includes/vendors/alpha-color-picker/alpha-color-picker.php';
+}
+
+
+/**
+ * Customizer steed_Control_Upsell_Theme_Info .
+ */
+require get_template_directory() . '/includes/php/customizer-theme-upsell-control/customizer-theme-upsell-control.php';
+
+
+
+/**
+ * TI About Page Class
+ */
+require get_template_directory() . '/includes/vendors/ti-about-page/class-steed-about-page.php';
 
 
 /**
@@ -247,6 +312,12 @@ require get_template_directory() . '/includes/php/customizer.php';
 
 
 /**
+ * Welcome Page
+ */
+require get_template_directory() . '/includes/php/theme-info.php';
+
+
+/**
  * Load Jetpack compatibility file.
  */
 require get_template_directory() . '/includes/php/jetpack.php';
@@ -260,18 +331,39 @@ require get_template_directory() . '/includes/php/plugins-list.php';
 
 
 /**
- * Load Templates Parts
- */
-require get_template_directory() . '/includes/php/templates-parts.php';
-
-
-/**
- * Load Custom CSS functions
- */
-require get_template_directory() . '/includes/php/css-tags.php';
-
-
-/**
- * Load WooCommerce Funcions
+ * Load WooCommerce Functions
  */
 require get_template_directory() . '/includes/php/woocommerce.php';
+
+
+/**
+ * Load Header Build
+ */
+require get_template_directory() . '/includes/parts/header-1-build.php';
+
+/**
+ * Load Footer Build
+ */
+require get_template_directory() . '/includes/parts/footer-1-build.php';
+
+
+
+/**
+ * Load Contents
+ */
+require get_template_directory() . '/includes/contents/content-index.php';
+require get_template_directory() . '/includes/contents/content-post-item.php';
+require get_template_directory() . '/includes/contents/content-404.php';
+require get_template_directory() . '/includes/contents/content-archive.php';
+require get_template_directory() . '/includes/contents/content-author.php';
+require get_template_directory() . '/includes/contents/content-page.php';
+require get_template_directory() . '/includes/contents/content-search.php';
+require get_template_directory() . '/includes/contents/content-single.php';
+
+
+/**
+ * Load PC
+ */
+require get_template_directory() . '/includes/pc/pc-section-page-content.php';
+require get_template_directory() . '/includes/pc/pc-section-widget-layout.php';
+require get_template_directory() . '/includes/pc/pc-page-build-class.php';

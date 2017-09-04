@@ -45,8 +45,38 @@ function steed_register_required_plugins() {
 	
 	$plugins_list = array(
 		array(
+			'name'      => 'Tally Theme Setup',
+			'slug'      => 'tally-theme-setup',
+			'required'  => false,
+		),
+		array(
 			'name'      => 'Contact Form 7',
 			'slug'      => 'contact-form-7',
+			'required'  => false,
+		),
+		array(
+			'name'      => 'Instagram Slider Widget',
+			'slug'      => 'instagram-slider-widget',
+			'required'  => false,
+		),
+		array(
+			'name'      => 'Meks Easy ADS Widget',
+			'slug'      => 'meks-easy-ads-widget',
+			'required'  => false,
+		),
+		array(
+			'name'      => 'Recent Posts Widget with Thumbnails',
+			'slug'      => 'recent-posts-widget-with-thumbnails',
+			'required'  => false,
+		),
+		array(
+			'name'      => 'WC Responsive Video',
+			'slug'      => 'wc-responsive-video',
+			'required'  => false,
+		),
+		array(
+			'name'      => 'WP Tabs Widget',
+			'slug'      => 'wp-tab-widget',
 			'required'  => false,
 		),
 	);

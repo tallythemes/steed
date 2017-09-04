@@ -19,8 +19,9 @@
  * You should have received a copy of the GNU General Public License
  * along with this Alpha Color Picker. If not, see <http://www.gnu.org/licenses/>.
  */
- add_action( 'customize_register', 'steed_Customize_Alpha_Color_Control_customize_register' );
-function steed_Customize_Alpha_Color_Control_customize_register( $wp_customize ) {
+// add_action( 'customize_register', 'steed_Customize_Alpha_Color_Control_customize_register' );
+//function steed_Customize_Alpha_Color_Control_customize_register( $wp_customize ) {
+if(!class_exists('steed_Customize_Alpha_Color_Control') && class_exists('WP_Customize_Control')):
 class steed_Customize_Alpha_Color_Control extends WP_Customize_Control {
 
 	/**
@@ -93,4 +94,5 @@ class steed_Customize_Alpha_Color_Control extends WP_Customize_Control {
 		<?php
 	}
 }
-}
+endif;
+//}

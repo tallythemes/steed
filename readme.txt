@@ -1,13 +1,13 @@
 === Steed ===
-Steed WordPress Theme, Copyright (C) 2016, TallyThemes
+Steed WordPress Theme, Copyright (C) 2017, TallyThemes
 Steed is distributed under the terms of the GNU GPL
 
 Contributors: TallyThemes
 Tags: one-column, two-columns, right-sidebar, custom-menu, editor-style, featured-images, post-formats, rtl-language-support, sticky-post, threaded-comments, translation-ready, blog
 
 Requires at least: 4.0
-Tested up to: 4.7.3
-Stable tag: 3.0
+Tested up to: 4.8
+Stable tag: 3.0.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -27,7 +27,10 @@ Steed is a very basic and standard wordpress theme. It is very easy to customize
 
 = Does this theme support any plugins? =
 
-Steed includes support for Infinite Scroll in Jetpack.
+Steed includes support for Infinite Scroll in Jetpack, Contact form 7 and WooCommerce
+
+= Where is the theme Documentation = 
+Theme Documentatio link is here http://tallythemes.com/doc-item/steed-theme-documentation/
 
 == Credits ==
 
@@ -40,55 +43,29 @@ Copyright (c) 2011, Thomas Griffin ( GPL-2.0+ )
 
 All images: CC0 by Pixabay, https://pixabay.com/en/service/terms/
 
-
 == Changelog ==
-= 3.0 - 27 April 2017  =
-- Added Alpha color picker for background color
-- Improve HTML of footer bar
 
-- Fixed STD value issue for button
+= 3.1 - 1 August 2017  =
+* Added: Upsell link in customize
 
-- Added Selection background style
-
-- Added blog page sub-header settings in customize
-
-= 2.9 - 18 April 2017  =
-* Improve STD data handelig for customizer.
-
-
-= 2.8 - 18 April 2017  =
-* Fix: small css issue
-* Update header class
-
-= 2.7 - 15 April 2017  =
-* Add Header
-* subheader and footer class for child theme
-* Fixed the mobile menu
-* Fixed header fixed on scroll
-* Fixed Custom CSS loading issue
-* Improve topbar design
-* Improve topbar on responsive view
-
-* Added pre-loader
-
-= 2.6 - 4 March 2017  =
-* Add admin Css file
-* Added customizer demo content import option
-* Added a Intro page
-* Added new CSS file if VC and VC Ultimate plugin is not installed
-
-= 2.5 - 26 January 2017  =
-* Update Page builder template
-
-= 2.4 - 18 January 2017  =
-* New Page template "Builder"
-* Fix customizer issue
-* Fix CSS issue
+= 3.0 - 1 August 2017  =
+* Big Background Changes
+* Added: Theme info Page
+* Added recommended plugin list
+* Re-build the header and footer settings
+* Improve the code queality
+* Remove unused codes
+* Improve security
+* Fixed some CSS issue.
+* Imptove HTML layout
 
 = 2.3 - 30 December 2016  =
 * Add WooCommerce Support
+
 * Fix customizer issue
+
 * Improve CSS
+
 * Improve design
 * Improve template tags
 * Fixed STD value of customizer
@@ -111,12 +88,3 @@ All images: CC0 by Pixabay, https://pixabay.com/en/service/terms/
 
 = 1.0 - 22 August 2016  =
 * Initial release
-
-
-
-== To DO ==
-* Improve code security by adding more Data_Validation
-* Improve customizer default STD
-* Add admin notice for Free Theme
-* Improve the About page & add some banner
-* In customizer add some behind the wall options for Free user.

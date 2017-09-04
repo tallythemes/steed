@@ -13,7 +13,7 @@
 
 		<?php steed_before_primary_content(); ?>
         
-			<?php get_template_part( 'includes/content/tpl', 'author' ); ?>
+			<?php do_action('steed_content_author'); ?>
 
 		<?php steed_after_primary_content(); ?>
 
