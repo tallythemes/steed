@@ -33,6 +33,7 @@ if(!class_exists('steed_pc_section_page_content')):
 			$settings = $this->settings;
 			$page_id =  steed_theme_mod($this->uid.'_page_id');
 			$the_query = new WP_Query( array('post_type' => 'page', 'post__in' => array($page_id)) );
+			$should_button_show = false;
 			
 			if ( $the_query->have_posts() ) {
 				while ( $the_query->have_posts() ) { $the_query->the_post();
@@ -66,21 +67,24 @@ if(!class_exists('steed_pc_section_page_content')):
 								if(($settings['content'] != 'none') || ($settings['title'] == true) || ($settings['button'] == true)){
 									echo '<div class="pc_content">';
 										echo '<div class="pc_content_in">';
-											if($settings['title'] == true){
+											if(($settings['title'] == true) && (steed_theme_mod($this->uid.'_disable_title') == false)){
 												echo '<'.$settings['title_tag'].'>';the_title(); echo '</'.$settings['title_tag'].'>';
 											}
+											$the_post = get_post();
 											if($settings['content'] == 'full'){
-												//echo wp_kses_post(apply_filters( 'the_content', $post->post_content ));
+												if(strpos($the_post->post_content, '<!--more-->')){
+													$should_button_show = true;
+												}
 												the_content(true, false);
 											}elseif($settings['content'] == 'excerpt'){
-												$the_post = get_post();
 												if(strpos($the_post->post_content, '<!--more-->')){
 													the_content(true, false);
 												}else{
 													the_excerpt();
 												}
+												$should_button_show = true;
 											}
-											if($settings['button'] == true){
+											if(($settings['button'] == true) && ($should_button_show == true)){
 												if(steed_theme_mod($this->uid.'_disable_button') == false){
 													echo '<div class="clear"></div><a href="'.esc_url( get_permalink(get_the_ID()) ).'" class="pc-button">';
 														
