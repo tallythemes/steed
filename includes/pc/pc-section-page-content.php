@@ -46,18 +46,22 @@ if(!class_exists('steed_pc_section_page_content')):
 						}
 						
 						$text_align = 'pc-text-align-'.steed_theme_mod($this->uid.'_text_align');
+						$image_style = $settings['image'];
+						if(steed_theme_mod($this->uid.'_image_style') != ''){
+							$image_style = steed_theme_mod($this->uid.'_image_style');
+						}
 						
 						
-						echo '<section class="steed_pc_section pc_section_page_content '.$this->uid.' '.$settings['css_class'].' '.$color_mood.' pc-content-'.$settings['content'].' pc-title-'.$settings['title'].' pc-image-'.$settings['image'].' pc-button-'.$settings['button'].' '.esc_attr($text_align).'">';
+						echo '<section class="steed_pc_section pc_section_page_content '.$this->uid.' '.$settings['css_class'].' '.$color_mood.' pc-content-'.$settings['content'].' pc-title-'.$settings['title'].' pc-image-'.$image_style.' pc-button-'.$settings['button'].' '.esc_attr($text_align).'">';
 							echo '<div class="steed_pc_section_in">';
-								if(($settings['image'] != 'none') && ($settings['image'] != 'background') && (($settings['image'] == 'top') || ($settings['image'] == 'left')) ){
+								if(($image_style != 'none') && ($image_style != 'background') && (($image_style == 'top') || ($image_style == 'left')) ){
 									echo '<div class="pc_image">';
 										echo '<div class="pc_image_in">';
 											echo get_the_post_thumbnail(get_the_ID(), $settings['image_size']);
 										echo '</div>';
 									echo '</div>';
 								}
-								if(($settings['image'] != 'none') && ($settings['image'] != 'background') && (($settings['image'] == 'full_left')) ){
+								if(($image_style != 'none') && ($image_style != 'background') && (($image_style == 'full_left')) ){
 									echo '<div class="pc_image" style="background-image:url('.wp_get_attachment_url( get_post_thumbnail_id(get_the_ID()) ).');">';
 										echo '<div class="pc_image_in">';
 											echo '<p>&nbsp;</p>';
@@ -100,14 +104,14 @@ if(!class_exists('steed_pc_section_page_content')):
 										echo '</div>';
 									echo '</div>';
 								}
-								if(($settings['image'] != 'none') && ($settings['image'] != 'background') && (($settings['image'] == 'bottom') || ($settings['image'] == 'right')) ){
+								if(($image_style != 'none') && ($image_style != 'background') && (($image_style == 'bottom') || ($image_style == 'right')) ){
 									echo '<div class="pc_image">';
 										echo '<div class="pc_image_in">';
 											echo get_the_post_thumbnail(get_the_ID(), $settings['image_size']);
 										echo '</div>';
 									echo '</div>';
 								}
-								if(($settings['image'] != 'none') && ($settings['image'] != 'background') && (($settings['image'] == 'full_right')) ){
+								if(($image_style != 'none') && ($image_style != 'background') && (($image_style == 'full_right')) ){
 									echo '<div class="pc_image" style="background-image:url('.wp_get_attachment_url( get_post_thumbnail_id(get_the_ID()) ).');">';
 										echo '<div class="pc_image_in">';
 											echo '<p>&nbsp;</p>';
@@ -162,8 +166,13 @@ if(!class_exists('steed_pc_section_page_content')):
 			
 			$image =  wp_get_attachment_url( get_post_thumbnail_id($page_id) );
 			
+			$image_style = $settings['image'];
+			if(steed_theme_mod($this->uid.'_image_style') != ''){
+				$image_style = steed_theme_mod($this->uid.'_image_style');
+			}
+			
 			ob_start();
-				if(($settings['image'] != 'none') && ($settings['image'] == 'background') && (($bg_repeat != '') || ($bg_attachment != '') || ($bg_position != '') || ($bg_size != '') || ($image != ''))){
+				if(($image_style != 'none') && ($image_style == 'background') && (($bg_repeat != '') || ($bg_attachment != '') || ($bg_position != '') || ($bg_size != '') || ($image != ''))){
 					echo '.'.$this->uid.'{'; 
 						if($image != ''){ echo 'background-image:url('.esc_url( $image ).');'; }
 						if($bg_repeat != ''){ echo 'background-repeat:'.esc_attr($bg_repeat).';'; }
@@ -194,7 +203,7 @@ if(!class_exists('steed_pc_section_page_content')):
 					echo '}';
 				}
 				
-				if(($settings['image'] == 'top')|| ($settings['image'] == 'left')|| ($settings['image'] == 'right')|| ($settings['image'] == 'bottom') || ($settings['image'] == 'none') || ($settings['image'] == 'background')){
+				if(($image_style == 'top')|| ($image_style == 'left')|| ($image_style == 'right')|| ($image_style == 'bottom') || ($image_style == 'none') || ($image_style == 'background')){
 					$padding_selector = '.'.$this->uid;	
 				}else{
 					$padding_selector = '.'.$this->uid.' .pc_content';	
@@ -263,7 +272,7 @@ if(!class_exists('steed_pc_section_page_content')):
 			));
 			
 			$uid = $this->uid.'_page_id';
-			$wp_customize->add_setting($uid, array( 'default' => '', 'sanitize_callback' => 'sanitize_text_field', ));
+			$wp_customize->add_setting($uid, array( 'default' => '', 'sanitize_callback' => 'sanitize_text_field', 'transport' => 'postMessage',));
 			$wp_customize->add_control( $uid, array(
 				'label'      => __('Select a Page', 'steed'),
 				'section'    => $this->section_id,
@@ -271,6 +280,12 @@ if(!class_exists('steed_pc_section_page_content')):
 				'type'       => 'dropdown-pages',
 				'description' => '',
 			));
+			
+			$wp_customize->selective_refresh->add_partial( $this->uid.'_page_id', array(
+				'selector'            => '.'.$this->uid,
+				'container_inclusive' => true,
+				'render_callback'     => array($this, 'html'),
+			) );
 			
 			
 			$section_id = $this->section_id;

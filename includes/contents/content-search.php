@@ -12,7 +12,7 @@ if(!function_exists('steed_content_search')){
 			the_posts_navigation();
 			
 		else :
-			steed_content_not_found();
+			_e('Sorry No entry Found', 'steed');
 		endif;
 	}
 }
