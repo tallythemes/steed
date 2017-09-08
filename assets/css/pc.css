@@ -577,30 +577,160 @@
 /*
 	Hero Slider Common
 -----------------------------------------------------*/
+.pc_heroSlider .steed_pc_section_in{width:100%;max-width:100%;}
+.pc_heroSlider .flex-direction-nav a {
+	text-decoration: none;
+	display: block;
+	width: 50px;
+	height: 50px;
+	margin: -20px 0 0;
+	position: absolute;
+	top: 50%;
+	z-index: 10;
+	overflow: hidden;
+	opacity: 0;
+	cursor: pointer;
+	color: #fff;
+	text-shadow: 1px 1px 0 rgba(0, 0, 0, 0);
+	-webkit-transition: all 0.3s ease-in-out;
+	-moz-transition: all 0.3s ease-in-out;
+	-ms-transition: all 0.3s ease-in-out;
+	-o-transition: all 0.3s ease-in-out;
+	transition: all 0.3s ease-in-out;
+	border-radius: 100%;
+	border: solid 2px #fff;
+	font-size: 0;
+	text-align: center;
+	line-height: 50px;
+}
+.pc_heroSlider .flex-direction-nav a:before {
+  	display: inline-block;
+  	font: normal normal normal 14px/1 FontAwesome;
+  	text-rendering: auto;
+  	-webkit-font-smoothing: antialiased;
+  	-moz-osx-font-smoothing: grayscale;
+  	font-size: 30px;
+  	content: "\f104";
+  	color: #fff;
+  	text-shadow: 1px 1px 0 rgba(255, 255, 255, 0);
+  	line-height: 43px;
+}
+.pc_heroSlider .flex-direction-nav a.flex-next:before { content: '\f105'; }
+.pc_heroSlider .flex-direction-nav .flex-prev { left: -50px; }
+.pc_heroSlider .flex-direction-nav .flex-next { right: -50px; text-align: center; }
+.pc_heroSlider .flexslider:hover .flex-direction-nav .flex-prev { opacity: 1; left: 10px; }
+.pc_heroSlider .flexslider:hover .flex-direction-nav .flex-prev:hover { opacity: 1; background: rgba(255, 255, 255, 0.1);}
+.pc_heroSlider .flexslider:hover .flex-direction-nav .flex-next {opacity: 1;right: 10px;}
+.pc_heroSlider .flexslider:hover .flex-direction-nav .flex-next:hover {opacity: 1;background: rgba(255, 255, 255, 0.1);}
+.pc_heroSlider .flex-control-nav {width: 100%;position: absolute;bottom: 10px;text-align: center;z-index: 2;}
+.pc_heroSlider .flex-control-paging li a{
+	width: 13px;
+    height: 13px;
+	border: solid 2px #fff;
+	background: rgba(0, 0, 0, 0);
+	-webkit-box-shadow: inset 0 0 3px rgba(0, 0, 0, 0);
+    -moz-box-shadow: inset 0 0 3px rgba(0, 0, 0, 0);
+    -o-box-shadow: inset 0 0 3px rgba(0, 0, 0, 0);
+    box-shadow: inset 0 0 3px rgba(0, 0, 0, 0);
+}
+.pc_heroSlider .flex-control-paging li a.flex-active{background: rgba(255, 255, 255, 0.6);}
 
+.pc_heroSlider .pcswl_item{
+	
+}
+.pc_heroSlider .pcswl_item_in{
+	text-align:center;
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: cover;
+}
+.pc_heroSlider .scw-warp{
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;	
+}
+.pc_heroSlider .scw-warp-in{
+	position:relative;
+	height:400px;
+	width:90%;
+	max-width:980px;
+	margin:0 auto;
+}
+.pc_heroSlider .scw-content{
+	 position: absolute;
+	 top: 50%;
+	 transform: translateY(-50%);
+	 width: 100%;
+	 z-index:1;
+}
+.pc_heroSlider .scw-content-in{
+	
+}
+.pc_heroSlider .scw-title{
+	
+}
+.pc_heroSlider .scw-subtitle{
+	
+}
+.pc_heroSlider .scw-text{
+	
+}
+.pc_heroSlider .scw-overlay{
+	position:absolute;
+	height:100%;
+	width:100%;
+	left:0;
+	top:0;
+	z-index:0;
+}
 
 
 /*
-	Hero Slider Skin 1
+	Hero Slider #Skin 1
 -----------------------------------------------------*/
-
+.pc_heroSlider.sk1 .scw-title{
+	font-size: 90px;
+	font-weight:bold;
+	text-transform:uppercase;
+	margin-bottom: 0;
+}
+.pc_heroSlider.sk1 .scw-subtitle{
+	font-size: 30px;
+	font-weight:300;
+	text-transform:capitalize;
+	letter-spacing: 7px;
+}
+.pc_heroSlider.sk1 .scw-text{
+	font-size: 26px;
+	margin-bottom:30px;
+}
 
 
 /*
 	Services Grid Common
 -----------------------------------------------------*/
-
-
-
-/*
-	Services Grid Skin 1
------------------------------------------------------*/
-
-
-
-/*
-	Testimonials Slider Common
------------------------------------------------------*/
+.pc_serviceGrid .scw-image-bg{
+	display:none;	
+}
+.pc_serviceGrid .scw-image{
+	margin-bottom:15px;	
+}
+.pc_serviceGrid .scw-warp{
+	
+}
+.pc_serviceGrid .scw-headings h4{
+		
+}
+.pc_serviceGrid .scw-headings strong{
+	margin-bottom:15px;
+	display:block;
+}
+.pc_serviceGrid .scw-text{
+	
+}
+.pc_serviceGrid .scw-button{
+	
+}
 
 
 
