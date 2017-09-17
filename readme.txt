@@ -6,8 +6,8 @@ Contributors: TallyThemes
 Tags: one-column, two-columns, right-sidebar, custom-menu, editor-style, featured-images, post-formats, rtl-language-support, sticky-post, threaded-comments, translation-ready, blog
 
 Requires at least: 4.0
-Tested up to: 4.8
-Stable tag: 3.0.1
+Tested up to: 4.8.1
+Stable tag: 3.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -44,6 +44,12 @@ Copyright (c) 2011, Thomas Griffin ( GPL-2.0+ )
 All images: CC0 by Pixabay, https://pixabay.com/en/service/terms/
 
 == Changelog ==
+
+= 3.2 - 11 Sept 2017  =
+* Improved pc page section output
+* Improved CSS commenting
+* Fixed a PHP error
+* Fixed RGBA sanitize function BUG.
 
 = 3.1 - 1 August 2017  =
 * Added: Upsell link in customize
