@@ -137,7 +137,7 @@ class steed_header_3_build{
 		?>
         <header id="masthead" class="site-header">
         	<div class="site-header-in">
-            	<?php if( (steed_theme_mod('header_phone_active') == true) || (steed_theme_mod('header_email_active') == true) || is_customize_preview()): ?>
+            	<?php if( ((steed_theme_mod('header_phone_active') == true) || (steed_theme_mod('header_email_active') == true) || is_customize_preview()) && !steed_theme_mod('topbar_style_disable')): ?>
             	<div class="topbar <?php echo apply_filters('steed_topbar_color_mood', 'color-light') ?>">
                 	<div class="topbar-in container-width">
                     	<div class="topbar-left">

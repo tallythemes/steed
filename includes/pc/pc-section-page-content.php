@@ -52,6 +52,9 @@ if(!class_exists('steed_pc_section_page_content')):
 						}
 						
 						
+						
+						
+						
 						echo '<section class="steed_pc_section pc_section_page_content '.$this->uid.' '.$settings['css_class'].' '.$color_mood.' pc-content-'.$settings['content'].' pc-title-'.$settings['title'].' pc-image-'.$image_style.' pc-button-'.$settings['button'].' '.esc_attr($text_align).'">';
 							echo '<div class="steed_pc_section_in">';
 								if(($image_style != 'none') && ($image_style != 'background') && (($image_style == 'top') || ($image_style == 'left')) ){
@@ -90,7 +93,15 @@ if(!class_exists('steed_pc_section_page_content')):
 											}
 											if(($settings['button'] == true) && ($should_button_show == true)){
 												if(steed_theme_mod($this->uid.'_disable_button') == false){
-													echo '<div class="clear"></div><a href="'.esc_url( get_permalink(get_the_ID()) ).'" class="pc-button">';
+													
+													$button1_class = 'pc-btn';
+													if(steed_theme_mod($this->uid.'_button_style_size')){ $button1_class .= ' pc-btn-'.steed_theme_mod($this->uid.'_button_style_size'); }
+													if(steed_theme_mod($this->uid.'_button_style_radius')){ $button1_class .= ' pc-btn-'.steed_theme_mod($this->uid.'_button_style_radius'); }
+													if(steed_theme_mod($this->uid.'_button_style_color') && steed_theme_mod($this->uid.'_button_style_style')){ 
+														$button1_class .= ' pc-btn-'.steed_theme_mod($this->uid.'_button_style_style').'-'.steed_theme_mod($this->uid.'_button_style_color').''; 
+													}
+													
+													echo '<div class="clear"></div><a href="'.esc_url( get_permalink(get_the_ID()) ).'" class="'.$button1_class.'">';
 														
 															if(steed_theme_mod($this->uid.'_button_text') != ''){
 																echo wp_kses_post( steed_theme_mod($this->uid.'_button_text') );

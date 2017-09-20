@@ -292,6 +292,12 @@ function steed_custom_css(){
 	$css .= 'html .color-light{ color:'.$light_color.'; }';
 	$css .= 'html .color-light{ border-color:'.$dim_dark_color.'; }';
 	
+	
+	/* Button Color */
+	$css .= '.pc-btn-fill-primary{ background-color:'.$primary_color.'; border-color:'.$primary_color.'; }';
+	$css .= '.pc-btn-fill-primary:hover{ background-color:'.$primary_l_color.'; border-color:'.$primary_l_color.'; }';
+	$css .= '.pc-btn-border-primary{ border-color:'.$primary_color.'; color:'.$primary_color.'; }';
+	$css .= '.pc-btn-border-primary:hover{ background-color:'.$primary_color.'; border-color:'.$primary_color.'; }';
 
 	return $css;
 }

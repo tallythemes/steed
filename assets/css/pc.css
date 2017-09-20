@@ -40,22 +40,176 @@
 /*
 	Button
 ----------------------------------------------------*/
-.pc-button{
+.pc-button,
+.pc-btn{
 	display:inline-block;
-	padding: 10px 25px;
-	background-color:#000;
-	color:#fff;
 	text-decoration: none;
-	border-radius: 4px;
+	border:solid 1px rgba(255,255,255, 0);
+	margin:5px;
 }
-.pc-button-o{
-	display:inline-block;
+
+
+/*-radius-*/
+.pc-btn-round{
+	border-radius:5px;
+}
+.pc-btn-squire{
+	border-radius:0px;
+}
+.pc-btn-pill{
+	border-radius:30px;
+}
+
+
+
+/*-Size-*/
+.pc-btn-md{
 	padding: 10px 25px;
-	background-color:#000;
-	color:#fff;
-	text-decoration: none;
-	border-radius: 4px;
 }
+.pc-btn-xl{
+	font-size:24px;
+	padding:20px 40px;
+}
+.pc-btn-lg{
+	font-size:18px;
+	padding:15px 30px;
+}
+.pc-btn-sm{
+	font-size:12px;
+	padding:5px 15px;
+}
+.pc-btn-xs{
+	font-size:9px;
+	padding:5px 10px;
+}
+
+
+/*-Fill primary-*/
+.pc-btn-fill-primary{
+	background-color:#B83335;
+	border-color:#B83335;
+	color:#fff;
+}
+.pc-btn-fill-primary:hover{
+	background-color:#DD5D5F;
+	border-color:#DD5D5F;
+	color:#fff;
+}
+
+/*-Border primary-*/
+.pc-btn-border-primary{
+	background-color:rgba(184,51,53,0.00);
+	border-color:#B83335;
+	color:#B83335;
+}
+.pc-btn-border-primary:hover{
+	background-color:#DD5D5F;
+	border-color:#DD5D5F;
+	color:#fff;
+}
+
+
+/*-Fill light-*/
+.pc-btn-fill-light{
+	background-color:#fff;
+	border-color:#fff;
+	color:#111;
+}
+.pc-btn-fill-light:hover{
+	background-color:#F1F1F1;
+	border-color:#F1F1F1;
+	color:#111;
+}
+
+/*-Border light-*/
+.pc-btn-border-light{
+	background-color:rgba(184,51,53,0.00);
+	border-color:#fff;
+	color:#fff;
+}
+.pc-btn-border-light:hover{
+	background-color:#fff;
+	border-color:#fff;
+	color:#111;
+}
+
+
+/*-Fill dark-*/
+.pc-btn-fill-dark{
+	background-color:#111;
+	border-color:#111;
+	color:#fff;
+}
+.pc-btn-fill-dark:hover{
+	background-color:#333;
+	border-color:#333;
+	color:#fff;
+}
+
+/*-Border dark-*/
+.pc-btn-border-dark{
+	background-color:rgba(184,51,53,0.00);
+	border-color:#111;
+	color:#111;
+}
+.pc-btn-border-dark:hover{
+	background-color:#111;
+	border-color:#111;
+	color:#fff;
+}
+
+
+/*-Fill green-*/
+.pc-btn-fill-green{
+	background-color:#3ED500;
+	border-color:#3ED500;
+	color:#fff;
+}
+.pc-btn-fill-green:hover{
+	background-color:#44B914;
+	border-color:#44B914;
+	color:#fff;
+}
+
+/*-Border green-*/
+.pc-btn-border-green{
+	background-color:rgba(184,51,53,0.00);
+	border-color:#3ED500;
+	color:#3ED500;
+}
+.pc-btn-border-green:hover{
+	background-color:#3ED500;
+	border-color:#3ED500;
+	color:#fff;
+}
+
+
+/*-Fill red-*/
+.pc-btn-fill-red{
+	background-color:#DF3535;
+	border-color:#DF3535;
+	color:#fff;
+}
+.pc-btn-fill-red:hover{
+	background-color:#C53333;
+	border-color:#C53333;
+	color:#fff;
+}
+
+/*-Border red-*/
+.pc-btn-border-red{
+	background-color:rgba(184,51,53,0.00);
+	border-color:#DF3535;
+	color:#DF3535;
+}
+.pc-btn-border-red:hover{
+	background-color:#DF3535;
+	border-color:#DF3535;
+	color:#fff;
+}
+
+
+
 
 /*	
 	Page Content

@@ -22,58 +22,61 @@ class steed_element_div_style_topbar{
 	
 	
 	public function css($css){
-		$new_css = $this->style_class.'{';
-			if( steed_theme_mod($this->customize_prefix.'bg_color') != '' ){ 
-				$new_css .= 'background-color:'.steed_sanitize_rgba(steed_theme_mod($this->customize_prefix.'bg_color')).';'; 
-			}
-			if( steed_theme_mod($this->customize_prefix.'bg_image') != '' ){ 
-				$new_css .= 'background-image:url('.esc_url(steed_theme_mod($this->customize_prefix.'bg_image')).');'; 
-			}
-			if( steed_theme_mod($this->customize_prefix.'bg_size') != '' ){ 
-				$new_css .= 'background-size:'.steed_sanitize_rgba(steed_theme_mod($this->customize_prefix.'bg_size')).';'; 
-			}
-			if( steed_theme_mod($this->customize_prefix.'bg_position') != '' ){ 
-				$new_css .= 'background-position:'.steed_sanitize_rgba(steed_theme_mod($this->customize_prefix.'bg_position')).';'; 
-			}
-			if( steed_theme_mod($this->customize_prefix.'bg_attachment') != '' ){ 
-				$new_css .= 'background-attachment:'.steed_sanitize_rgba(steed_theme_mod($this->customize_prefix.'bg_attachment')).';'; 
-			}
-			if( steed_theme_mod($this->customize_prefix.'bg_repeat') != '' ){ 
-				$new_css .= 'background-repeat:'.steed_sanitize_rgba(steed_theme_mod($this->customize_prefix.'bg_repeat')).';'; 
-			}
-			if( steed_theme_mod($this->customize_prefix.'padding_top') != '' ){ 
-				$new_css .= 'padding-top:'.steed_sanitize_rgba(steed_theme_mod($this->customize_prefix.'padding_top')).';';
-			}
-			if( steed_theme_mod($this->customize_prefix.'padding_bottom') != '' ){ 
-				$new_css .= 'padding-bottom:'.steed_sanitize_rgba(steed_theme_mod($this->customize_prefix.'padding_bottom')).';'; 
-			}
-		$new_css .= '}';
-		
-		if(( steed_theme_mod($this->customize_prefix.'padding_top_t') != '') || ( steed_theme_mod($this->customize_prefix.'padding_bottom_t') != '' ) ){
-			$new_css .= '@media (max-width: 992px) {';
-				$new_css .= $this->style_class.'{';
-					if( steed_theme_mod($this->customize_prefix.'padding_top_t') != '' ){ 
-						$new_css .= 'padding-top:'.steed_sanitize_rgba(steed_theme_mod($this->customize_prefix.'padding_top_t')).';';
-					}
-					if( steed_theme_mod($this->customize_prefix.'padding_bottom_t') != '' ){ 
-						$new_css .= 'padding-bottom:'.steed_sanitize_rgba(steed_theme_mod($this->customize_prefix.'padding_bottom_t')).';'; 
-					}
-				$new_css .= '}';
+		$new_css = '';
+		if(!steed_theme_mod($this->customize_prefix.'disable')):
+			$new_css .= $this->style_class.'{';
+				if( steed_theme_mod($this->customize_prefix.'bg_color') != '' ){ 
+					$new_css .= 'background-color:'.steed_sanitize_rgba(steed_theme_mod($this->customize_prefix.'bg_color')).';'; 
+				}
+				if( steed_theme_mod($this->customize_prefix.'bg_image') != '' ){ 
+					$new_css .= 'background-image:url('.esc_url(steed_theme_mod($this->customize_prefix.'bg_image')).');'; 
+				}
+				if( steed_theme_mod($this->customize_prefix.'bg_size') != '' ){ 
+					$new_css .= 'background-size:'.steed_sanitize_rgba(steed_theme_mod($this->customize_prefix.'bg_size')).';'; 
+				}
+				if( steed_theme_mod($this->customize_prefix.'bg_position') != '' ){ 
+					$new_css .= 'background-position:'.steed_sanitize_rgba(steed_theme_mod($this->customize_prefix.'bg_position')).';'; 
+				}
+				if( steed_theme_mod($this->customize_prefix.'bg_attachment') != '' ){ 
+					$new_css .= 'background-attachment:'.steed_sanitize_rgba(steed_theme_mod($this->customize_prefix.'bg_attachment')).';'; 
+				}
+				if( steed_theme_mod($this->customize_prefix.'bg_repeat') != '' ){ 
+					$new_css .= 'background-repeat:'.steed_sanitize_rgba(steed_theme_mod($this->customize_prefix.'bg_repeat')).';'; 
+				}
+				if( steed_theme_mod($this->customize_prefix.'padding_top') != '' ){ 
+					$new_css .= 'padding-top:'.steed_sanitize_rgba(steed_theme_mod($this->customize_prefix.'padding_top')).';';
+				}
+				if( steed_theme_mod($this->customize_prefix.'padding_bottom') != '' ){ 
+					$new_css .= 'padding-bottom:'.steed_sanitize_rgba(steed_theme_mod($this->customize_prefix.'padding_bottom')).';'; 
+				}
 			$new_css .= '}';
-		}
-		
-		if(( steed_theme_mod($this->customize_prefix.'padding_top_m') != '') || ( steed_theme_mod($this->customize_prefix.'padding_bottom_m') != '' ) ){
-			$new_css .= '@media (max-width: 768px) {';
-				$new_css .= $this->style_class.'{';
-					if( steed_theme_mod($this->customize_prefix.'padding_top_m') != '' ){ 
-						$new_css .= 'padding-top:'.steed_sanitize_rgba(steed_theme_mod($this->customize_prefix.'padding_top_m')).';'; 
-					}
-					if( steed_theme_mod($this->customize_prefix.'padding_bottom_m') != '' ){ 
-						$new_css .= 'padding-bottom:'.steed_sanitize_rgba(steed_theme_mod($this->customize_prefix.'padding_bottom_m')).';'; 
-					}
+			
+			if(( steed_theme_mod($this->customize_prefix.'padding_top_t') != '') || ( steed_theme_mod($this->customize_prefix.'padding_bottom_t') != '' ) ){
+				$new_css .= '@media (max-width: 992px) {';
+					$new_css .= $this->style_class.'{';
+						if( steed_theme_mod($this->customize_prefix.'padding_top_t') != '' ){ 
+							$new_css .= 'padding-top:'.steed_sanitize_rgba(steed_theme_mod($this->customize_prefix.'padding_top_t')).';';
+						}
+						if( steed_theme_mod($this->customize_prefix.'padding_bottom_t') != '' ){ 
+							$new_css .= 'padding-bottom:'.steed_sanitize_rgba(steed_theme_mod($this->customize_prefix.'padding_bottom_t')).';'; 
+						}
+					$new_css .= '}';
 				$new_css .= '}';
-			$new_css .= '}';
-		}
+			}
+			
+			if(( steed_theme_mod($this->customize_prefix.'padding_top_m') != '') || ( steed_theme_mod($this->customize_prefix.'padding_bottom_m') != '' ) ){
+				$new_css .= '@media (max-width: 768px) {';
+					$new_css .= $this->style_class.'{';
+						if( steed_theme_mod($this->customize_prefix.'padding_top_m') != '' ){ 
+							$new_css .= 'padding-top:'.steed_sanitize_rgba(steed_theme_mod($this->customize_prefix.'padding_top_m')).';'; 
+						}
+						if( steed_theme_mod($this->customize_prefix.'padding_bottom_m') != '' ){ 
+							$new_css .= 'padding-bottom:'.steed_sanitize_rgba(steed_theme_mod($this->customize_prefix.'padding_bottom_m')).';'; 
+						}
+					$new_css .= '}';
+				$new_css .= '}';
+			}
+		endif;
 		
 		return $css.$new_css;
 	}
