@@ -278,6 +278,13 @@ function steed_filter_front_page_template( $template ) {
 add_filter( 'frontpage_template', 'steed_filter_front_page_template' );
 
 
+/*require get_template_directory() . '/includes/php/steed-kirki.php';
+
+steed_Kirki::add_config( 'steedcom', array(
+	'capability'    => 'edit_theme_options',
+	'option_type'   => 'theme_mod',
+) );*/
+
 
 /**
  * Custom template tags for this theme.
@@ -372,4 +379,5 @@ require get_template_directory() . '/includes/contents/content-single.php';
 require get_template_directory() . '/includes/pc/pc-section-page-content.php';
 require get_template_directory() . '/includes/pc/pc-section-widget-layout.php';
 require get_template_directory() . '/includes/pc/pc-page-build-class.php';
-require get_template_directory() . '/includes/pc/pc-section-services-1.php';
+require get_template_directory() . '/includes/pc/pc-2-columns.php';
+require get_template_directory() . '/includes/pc/pc-two-columns-page-and-map.php';

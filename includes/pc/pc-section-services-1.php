@@ -303,7 +303,7 @@ if(!class_exists('steed_pc_section_services_1')):
 			$settings = $this->settings;
 			
 			$uid = $this->uid.'_enable';
-			SteedCOM_Kirki::add_field( 'steedcom', array(
+			steed_Kirki::add_field( 'steedcom', array(
 				'type'     => 'switch',
 				'settings' => $uid,
 				'label'    => __( 'Enable This Section', 'steed' ),
@@ -317,7 +317,7 @@ if(!class_exists('steed_pc_section_services_1')):
 			));
 			
 			$uid = $this->uid.'_title';
-			SteedCOM_Kirki::add_field( 'steedcom', array(
+			steed_Kirki::add_field( 'steedcom', array(
 				'type'     => 'text',
 				'settings' => $uid,
 				'label'    => __( 'Title', 'steed' ),
@@ -335,7 +335,7 @@ if(!class_exists('steed_pc_section_services_1')):
 			));
 			
 			$uid = $this->uid.'_color_mood';
-			SteedCOM_Kirki::add_field( 'steedcom', array(
+			steed_Kirki::add_field( 'steedcom', array(
 				'type'     => 'select',
 				'settings' => $uid,
 				'label'    => __( 'Color Mood', 'steed' ),
@@ -367,7 +367,7 @@ if(!class_exists('steed_pc_section_services_1')):
 			
 			
 			$uid = $this->uid.'_background_header';
-			SteedCOM_Kirki::add_field( 'steedcom', array(
+			steed_Kirki::add_field( 'steedcom', array(
 				'type'     => 'custom',
 				'settings' => $uid,
 				'label'    => '',
@@ -382,7 +382,7 @@ if(!class_exists('steed_pc_section_services_1')):
 			$default_repeat		= (!empty($default['background-repeat']))		? $default['background-repeat']		: '';
 			$default_position	= (!empty($default['background-position']))		? $default['background-position']	: '';
 			$default_attachment	= (!empty($default['background-attachment']))	? $default['background-attachment']	: '';
-			SteedCOM_Kirki::add_field( 'steedcom', array(
+			steed_Kirki::add_field( 'steedcom', array(
 				'type'     => 'background',
 				'settings' => $uid,
 				'label'    => __( 'Section Background', 'steed' ),
@@ -407,7 +407,7 @@ if(!class_exists('steed_pc_section_services_1')):
 			
 			
 			$uid = $this->uid.'_padding_header';
-			SteedCOM_Kirki::add_field( 'steedcom', array(
+			steed_Kirki::add_field( 'steedcom', array(
 				'type'     => 'custom',
 				'settings' => $uid,
 				'label'    => '',
@@ -421,7 +421,7 @@ if(!class_exists('steed_pc_section_services_1')):
 			$default_bottom	= (!empty($default['bottom']))	? $default['bottom']	: '';
 			$default_left	= (!empty($default['left']))	? $default['left']		: '';
 			$default_right	= (!empty($default['right']))	? $default['right']		: '';
-			SteedCOM_Kirki::add_field( 'steedcom', array(
+			steed_Kirki::add_field( 'steedcom', array(
 				'type'     => 'spacing',
 				'settings' => $uid,
 				'label'    => __( 'Padding', 'steed' ),
@@ -445,7 +445,7 @@ if(!class_exists('steed_pc_section_services_1')):
 			
 			if($settings['media_type'] != 'none'){
 				$uid = $this->uid.'_media_settings_header';
-				SteedCOM_Kirki::add_field( 'steedcom', array(
+				steed_Kirki::add_field( 'steedcom', array(
 					'type'     => 'custom',
 					'settings' => $uid,
 					'label'    => '',
@@ -454,7 +454,7 @@ if(!class_exists('steed_pc_section_services_1')):
 					'priority' => 10,
 				));
 				$uid = $this->uid.'_media_position';
-				SteedCOM_Kirki::add_field( 'steedcom', array(
+				steed_Kirki::add_field( 'steedcom', array(
 					'type'     => 'radio-buttonset',
 					'settings' => $uid,
 					'label'    => __( 'Media Position', 'steed' ),
@@ -469,7 +469,7 @@ if(!class_exists('steed_pc_section_services_1')):
 					),
 				));
 				$uid = $this->uid.'_media_size';
-				SteedCOM_Kirki::add_field( 'steedcom', array(
+				steed_Kirki::add_field( 'steedcom', array(
 					'type'     => 'radio-buttonset',
 					'settings' => $uid,
 					'label'    => __( 'Media Size', 'steed' ),
@@ -496,7 +496,7 @@ if(!class_exists('steed_pc_section_services_1')):
 			
 			if($settings['media_type'] == 'audio'){
 				$uid = $this->uid.'_audio_header';
-				SteedCOM_Kirki::add_field( 'steedcom', array(
+				steed_Kirki::add_field( 'steedcom', array(
 					'type'     => 'custom',
 					'settings' => $uid,
 					'label'    => '',
@@ -505,7 +505,7 @@ if(!class_exists('steed_pc_section_services_1')):
 					'priority' => 10,
 				));
 				$uid = $this->uid.'_audio';
-				SteedCOM_Kirki::add_field( 'steedcom', array(
+				steed_Kirki::add_field( 'steedcom', array(
 					'type'     => 'upload',
 					'settings' => $uid,
 					'label'    => __( 'Audio MP3', 'steed' ),
@@ -520,7 +520,7 @@ if(!class_exists('steed_pc_section_services_1')):
 					),
 				));
 				$uid = $this->uid.'_audio_poster';
-				SteedCOM_Kirki::add_field( 'steedcom', array(
+				steed_Kirki::add_field( 'steedcom', array(
 					'type'     => 'image',
 					'settings' => $uid,
 					'label'    => __( 'Audio Poster', 'steed' ),
@@ -595,7 +595,7 @@ if(!class_exists('steed_pc_section_services_1')):
 			
 			if($settings['media_type'] == 'video'){
 				$uid = $this->uid.'_video_header';
-				SteedCOM_Kirki::add_field( 'steedcom', array(
+				steed_Kirki::add_field( 'steedcom', array(
 					'type'     => 'custom',
 					'settings' => $uid,
 					'label'    => '',
@@ -604,7 +604,7 @@ if(!class_exists('steed_pc_section_services_1')):
 					'priority' => 10,
 				));
 				$uid = $this->uid.'_video';
-				SteedCOM_Kirki::add_field( 'steedcom', array(
+				steed_Kirki::add_field( 'steedcom', array(
 					'type'     => 'text',
 					'settings' => $uid,
 					'label'    => __( 'Video Link', 'steed' ),
@@ -687,7 +687,7 @@ if(!class_exists('steed_pc_section_services_1')):
 				}
 				
 				$uid = $this->uid.'_gallery_header';
-				SteedCOM_Kirki::add_field( 'steedcom', array(
+				steed_Kirki::add_field( 'steedcom', array(
 					'type'     => 'custom',
 					'settings' => $uid,
 					'label'    => '',
@@ -696,7 +696,7 @@ if(!class_exists('steed_pc_section_services_1')):
 					'priority' => 10,
 				));
 				$uid = $this->uid.'_gallery';
-				SteedCOM_Kirki::add_field( 'steedcom', array(
+				steed_Kirki::add_field( 'steedcom', array(
 					'type'     => 'repeater',
 					'settings' => $uid,
 					'label'    => $header_label.' Items',
@@ -737,7 +737,7 @@ if(!class_exists('steed_pc_section_services_1')):
 				));
 				if($settings['media_type'] == 'gallery'){
 					$uid = $this->uid.'_gallery_columns';
-					SteedCOM_Kirki::add_field( 'steedcom', array(
+					steed_Kirki::add_field( 'steedcom', array(
 						'type'     => 'radio-buttonset',
 						'settings' => $uid,
 						'label'    => __( 'Gallery Columns', 'steed' ),
@@ -757,7 +757,7 @@ if(!class_exists('steed_pc_section_services_1')):
 				}
 				if($settings['media_type'] == 'slider'){
 					$uid = $this->uid.'_slider_height';
-					SteedCOM_Kirki::add_field( 'steedcom', array(
+					steed_Kirki::add_field( 'steedcom', array(
 						'type'     => 'text',
 						'settings' => $uid,
 						'label'    => __( 'Slider Height', 'steed' ),
@@ -766,7 +766,7 @@ if(!class_exists('steed_pc_section_services_1')):
 						'priority' => 10,
 					));
 					$uid = $this->uid.'_slider_height_t';
-					SteedCOM_Kirki::add_field( 'steedcom', array(
+					steed_Kirki::add_field( 'steedcom', array(
 						'type'     => 'text',
 						'settings' => $uid,
 						'label'    => __( 'Slider Height on Tabs', 'steed' ),
@@ -775,7 +775,7 @@ if(!class_exists('steed_pc_section_services_1')):
 						'priority' => 10,
 					));
 					$uid = $this->uid.'_slider_height_m';
-					SteedCOM_Kirki::add_field( 'steedcom', array(
+					steed_Kirki::add_field( 'steedcom', array(
 						'type'     => 'text',
 						'settings' => $uid,
 						'label'    => __( 'Slider Height on Mobile', 'steed' ),
@@ -784,7 +784,7 @@ if(!class_exists('steed_pc_section_services_1')):
 						'priority' => 10,
 					));
 					$uid = $this->uid.'_gallery_fade';
-					SteedCOM_Kirki::add_field( 'steedcom', array(
+					steed_Kirki::add_field( 'steedcom', array(
 						'type'     => 'radio-buttonset',
 						'settings' => $uid,
 						'label'    => __( 'Fade', 'steed' ),
@@ -799,7 +799,7 @@ if(!class_exists('steed_pc_section_services_1')):
 				}
 				if(($settings['media_type'] == 'slider') || ($settings['media_type'] == 'carousel')){
 					$uid = $this->uid.'_gallery_nav';
-					SteedCOM_Kirki::add_field( 'steedcom', array(
+					steed_Kirki::add_field( 'steedcom', array(
 						'type'     => 'radio-buttonset',
 						'settings' => $uid,
 						'label'    => __( 'Navigation', 'steed' ),
@@ -815,7 +815,7 @@ if(!class_exists('steed_pc_section_services_1')):
 					));
 					
 					$uid = $this->uid.'_gallery_autoplay';
-					SteedCOM_Kirki::add_field( 'steedcom', array(
+					steed_Kirki::add_field( 'steedcom', array(
 						'type'     => 'radio-buttonset',
 						'settings' => $uid,
 						'label'    => __( 'Autoplay', 'steed' ),
@@ -828,7 +828,7 @@ if(!class_exists('steed_pc_section_services_1')):
 						),
 					));
 					$uid = $this->uid.'_gallery_autoplayspeed';
-					SteedCOM_Kirki::add_field( 'steedcom', array(
+					steed_Kirki::add_field( 'steedcom', array(
 						'type'     => 'slider',
 						'settings' => $uid,
 						'label'    => __( 'Autoplay Speed', 'steed' ),
@@ -842,7 +842,7 @@ if(!class_exists('steed_pc_section_services_1')):
 						),
 					));
 					$uid = $this->uid.'_gallery_infinite';
-					SteedCOM_Kirki::add_field( 'steedcom', array(
+					steed_Kirki::add_field( 'steedcom', array(
 						'type'     => 'radio-buttonset',
 						'settings' => $uid,
 						'label'    => __( 'Infinite', 'steed' ),
@@ -855,7 +855,7 @@ if(!class_exists('steed_pc_section_services_1')):
 						),
 					));
 					$uid = $this->uid.'_gallery_speed';
-					SteedCOM_Kirki::add_field( 'steedcom', array(
+					steed_Kirki::add_field( 'steedcom', array(
 						'type'     => 'slider',
 						'settings' => $uid,
 						'label'    => __( 'Speed', 'steed' ),
@@ -872,7 +872,7 @@ if(!class_exists('steed_pc_section_services_1')):
 				}
 				if($settings['media_type'] == 'carousel'){
 					$uid = $this->uid.'_gallery_slidesToShow';
-					SteedCOM_Kirki::add_field( 'steedcom', array(
+					steed_Kirki::add_field( 'steedcom', array(
 						'type'     => 'slider',
 						'settings' => $uid,
 						'label'    => __( 'Slides To Show', 'steed' ),
@@ -887,7 +887,7 @@ if(!class_exists('steed_pc_section_services_1')):
 					));
 					
 					$uid = $this->uid.'_gallery_slidesToScroll';
-					SteedCOM_Kirki::add_field( 'steedcom', array(
+					steed_Kirki::add_field( 'steedcom', array(
 						'type'     => 'slider',
 						'settings' => $uid,
 						'label'    => __( 'Slides To Scroll', 'steed' ),
@@ -905,7 +905,7 @@ if(!class_exists('steed_pc_section_services_1')):
 				}
 				if(($settings['media_type'] == 'gallery') || ($settings['media_type'] == 'carousel')){
 					$uid = $this->uid.'_gallery_gap';
-					SteedCOM_Kirki::add_field( 'steedcom', array(
+					steed_Kirki::add_field( 'steedcom', array(
 						'type'     => 'slider',
 						'settings' => $uid,
 						'label'    => __( 'Gap', 'steed' ),
@@ -920,14 +920,14 @@ if(!class_exists('steed_pc_section_services_1')):
 					));
 				}
 				$uid = $this->uid.'_gallery_image_size';
-				SteedCOM_Kirki::add_field( 'steedcom', array(
+				steed_Kirki::add_field( 'steedcom', array(
 					'type'     => 'select',
 					'settings' => $uid,
 					'label'    => __( 'Image Size', 'steed' ),
 					'section'  => $this->section_id,
 					'default'  => steed_customiz_std($uid),
 					'priority' => 10,
-					'choices'     =>  SteedCOM_Kirki_image_size(),
+					'choices'     =>  steed_Kirki_image_size(),
 				));
 			}
 		}
@@ -1146,7 +1146,7 @@ if(!class_exists('steed_pc_section_services_1')):
 			
 			if($settings['media_type'] == 'image'){
 				$uid = $this->uid.'_image_header';
-				SteedCOM_Kirki::add_field( 'steedcom', array(
+				steed_Kirki::add_field( 'steedcom', array(
 					'type'     => 'custom',
 					'settings' => $uid,
 					'label'    => '',
@@ -1155,7 +1155,7 @@ if(!class_exists('steed_pc_section_services_1')):
 					'priority' => 10,
 				));
 				$uid = $this->uid.'_image';
-				SteedCOM_Kirki::add_field( 'steedcom', array(
+				steed_Kirki::add_field( 'steedcom', array(
 					'type'     => 'image',
 					'settings' => $uid,
 					'label'    => __( 'Image', 'steed' ),
@@ -1170,7 +1170,7 @@ if(!class_exists('steed_pc_section_services_1')):
 					),
 				));
 				$uid = $this->uid.'_image_caption';
-				SteedCOM_Kirki::add_field( 'steedcom', array(
+				steed_Kirki::add_field( 'steedcom', array(
 					'type'     => 'text',
 					'settings' => $uid,
 					'label'    => __( 'Image Caption', 'steed' ),
@@ -1247,7 +1247,7 @@ if(!class_exists('steed_pc_section_services_1')):
 			
 			if($settings['list_items'] == true){
 				$uid = $this->uid.'_lists_header';
-				SteedCOM_Kirki::add_field( 'steedcom', array(
+				steed_Kirki::add_field( 'steedcom', array(
 					'type'     => 'custom',
 					'settings' => $uid,
 					'label'    => '',
@@ -1256,7 +1256,7 @@ if(!class_exists('steed_pc_section_services_1')):
 					'priority' => 10,
 				));
 				$uid = $this->uid.'_items';
-				SteedCOM_Kirki::add_field( 'steedcom', array(
+				steed_Kirki::add_field( 'steedcom', array(
 					'type'     => 'repeater',
 					'settings' => $uid,
 					'label'    => __( 'Items', 'steed' ),
@@ -1308,7 +1308,7 @@ if(!class_exists('steed_pc_section_services_1')):
 					)
 				));
 				$uid = $this->uid.'_items_columns';
-				SteedCOM_Kirki::add_field( 'steedcom', array(
+				steed_Kirki::add_field( 'steedcom', array(
 					'type'     => 'radio-buttonset',
 					'settings' => $uid,
 					'label'    => __( 'List Columns', 'steed' ),
@@ -1384,7 +1384,7 @@ if(!class_exists('steed_pc_section_services_1')):
 			
 			if($settings['description'] == true){
 				$uid = $this->uid.'_description';
-				SteedCOM_Kirki::add_field( 'steedcom', array(
+				steed_Kirki::add_field( 'steedcom', array(
 					'type'     => 'textarea',
 					'settings' => $uid,
 					'label'    => __( 'Description', 'steed' ),
@@ -1430,7 +1430,7 @@ if(!class_exists('steed_pc_section_services_1')):
 			
 			if($settings['footer_description'] == true){
 				$uid = $this->uid.'_footer_header';
-				SteedCOM_Kirki::add_field( 'steedcom', array(
+				steed_Kirki::add_field( 'steedcom', array(
 					'type'     => 'custom',
 					'settings' => $uid,
 					'label'    => '',
@@ -1440,7 +1440,7 @@ if(!class_exists('steed_pc_section_services_1')):
 				));
 			
 				$uid = $this->uid.'_footer';
-				SteedCOM_Kirki::add_field( 'steedcom', array(
+				steed_Kirki::add_field( 'steedcom', array(
 					'type'     => 'textarea',
 					'settings' => $uid,
 					'label'    => __( 'Footer Description', 'steed' ),
@@ -1485,7 +1485,7 @@ if(!class_exists('steed_pc_section_services_1')):
 			$settings = $this->settings;
 			if($settings['buttons'] == true){
 				$uid = $this->uid.'_buttons_header';
-				SteedCOM_Kirki::add_field( 'steedcom', array(
+				steed_Kirki::add_field( 'steedcom', array(
 					'type'     => 'custom',
 					'settings' => $uid,
 					'label'    => '',
@@ -1494,7 +1494,7 @@ if(!class_exists('steed_pc_section_services_1')):
 					'priority' => 10,
 				));
 				$uid = $this->uid.'_button1_hand';
-				SteedCOM_Kirki::add_field( 'steedcom', array(
+				steed_Kirki::add_field( 'steedcom', array(
 					'type'     => 'radio-buttonset',
 					'settings' => $uid,
 					'label'    => __( 'Button Settings', 'steed' ),
@@ -1510,7 +1510,7 @@ if(!class_exists('steed_pc_section_services_1')):
 					),
 				));
 				$uid = $this->uid.'_button_text';
-				SteedCOM_Kirki::add_field( 'steedcom', array(
+				steed_Kirki::add_field( 'steedcom', array(
 					'type'     => 'text',
 					'settings' => $uid,
 					'label'    => __( 'Button Text', 'steed' ),
@@ -1526,7 +1526,7 @@ if(!class_exists('steed_pc_section_services_1')):
 					),
 				));
 				$uid = $this->uid.'_button_link';
-				SteedCOM_Kirki::add_field( 'steedcom', array(
+				steed_Kirki::add_field( 'steedcom', array(
 					'type'     => 'text',
 					'settings' => $uid,
 					'label'    => __( 'Button Link', 'steed' ),
@@ -1548,7 +1548,7 @@ if(!class_exists('steed_pc_section_services_1')):
 					),
 				));
 				$uid = $this->uid.'_button_size';
-				SteedCOM_Kirki::add_field( 'steedcom', array(
+				steed_Kirki::add_field( 'steedcom', array(
 					'type'     => 'select',
 					'settings' => $uid,
 					'label'    => __( 'Button Size', 'steed' ),
@@ -1578,7 +1578,7 @@ if(!class_exists('steed_pc_section_services_1')):
 					),
 				));
 				$uid = $this->uid.'_button_color';
-				SteedCOM_Kirki::add_field( 'steedcom', array(
+				steed_Kirki::add_field( 'steedcom', array(
 					'type'     => 'select',
 					'settings' => $uid,
 					'label'    => __( 'Button Color', 'steed' ),
@@ -1608,7 +1608,7 @@ if(!class_exists('steed_pc_section_services_1')):
 					),
 				));
 				$uid = $this->uid.'_button_type';
-				SteedCOM_Kirki::add_field( 'steedcom', array(
+				steed_Kirki::add_field( 'steedcom', array(
 					'type'     => 'select',
 					'settings' => $uid,
 					'label'    => __( 'Button Type', 'steed' ),
@@ -1635,7 +1635,7 @@ if(!class_exists('steed_pc_section_services_1')):
 					),
 				));
 				$uid = $this->uid.'_button_radius';
-				SteedCOM_Kirki::add_field( 'steedcom', array(
+				steed_Kirki::add_field( 'steedcom', array(
 					'type'     => 'select',
 					'settings' => $uid,
 					'label'    => __( 'Button Radius', 'steed' ),
@@ -1696,7 +1696,7 @@ if(!class_exists('steed_pc_section_services_1')):
 			
 			if($settings['media_type'] == 'map'){
 				$uid = $this->uid.'_map_header';
-				SteedCOM_Kirki::add_field( 'steedcom', array(
+				steed_Kirki::add_field( 'steedcom', array(
 					'type'     => 'custom',
 					'settings' => $uid,
 					'label'    => '',
@@ -1705,7 +1705,7 @@ if(!class_exists('steed_pc_section_services_1')):
 					'priority' => 10,
 				));
 				$uid = $this->uid.'_map';
-				SteedCOM_Kirki::add_field( 'steedcom', array(
+				steed_Kirki::add_field( 'steedcom', array(
 					'type'     => 'code',
 					'settings' => $uid,
 					'label'    => __( 'Google Map Code', 'steed' ),
@@ -1725,7 +1725,7 @@ if(!class_exists('steed_pc_section_services_1')):
 					),
 				));
 				$uid = $this->uid.'_map_height';
-				SteedCOM_Kirki::add_field( 'steedcom', array(
+				steed_Kirki::add_field( 'steedcom', array(
 					'type'     => 'text',
 					'settings' => $uid,
 					'label'    => __( 'Map Height', 'steed' ),
