@@ -16,9 +16,11 @@ class pc_two_columns_page_and_map extends steed_pc_2_columns{
 				'row_width'			=> false, //true, false,
 				'row_padding'		=> false, //true, false
 				'row_margin'		=> false, //true, false
+				'row_columns'		=> false, //true, false
 				
 				'left'				=> true, //true, false
 				'left_bg'			=> false, //true, false
+				'left_color_mood'	=> false, //true, false
 				'left_bg_full'		=> false, //true, false
 				'left_full_content' => false, //true, false
 				'left_padding'		=> false, //true, false
@@ -26,6 +28,7 @@ class pc_two_columns_page_and_map extends steed_pc_2_columns{
 				
 				'right'				=> true, //true, false
 				'right_bg'			=> false, //true, false
+				'right_color_mood'	=> false, //true, false
 				'right_bg_full'		=> false, //true, false
 				'right_full_content' => false, //true, false
 				'right_padding'		=> false, //true, false
@@ -53,10 +56,12 @@ class pc_two_columns_page_and_map extends steed_pc_2_columns{
 				'row_width'			=> $this->settings['row_width'], //true, false,
 				'row_padding'		=> $this->settings['row_padding'], //true, false
 				'row_margin'		=> $this->settings['row_margin'], //true, false
+				'row_columns'		=> $this->settings['row_columns'], //true, false
 				
 				'left'				=> $this->settings['left'], //true, false
-				'left_title'		=> 'Page Content',
+				'left_title'		=> 'Page',
 				'left_bg'			=> $this->settings['left_bg'], //true, false
+				'left_color_mood'	=> $this->settings['left_color_mood'], //true, false
 				'left_bg_full'		=> $this->settings['left_bg_full'], //true, false
 				'left_full_content' => $this->settings['left_full_content'], //true, false
 				'left_padding'		=> $this->settings['left_padding'], //true, false
@@ -65,6 +70,7 @@ class pc_two_columns_page_and_map extends steed_pc_2_columns{
 				'right'				=> $this->settings['right'], //true, false
 				'right_title'		=> 'Map',
 				'right_bg'			=> $this->settings['right_bg'], //true, false
+				'right_color_mood'	=> $this->settings['right_color_mood'], //true, false
 				'right_bg_full'		=> $this->settings['right_bg_full'], //true, false
 				'right_full_content' => $this->settings['right_full_content'], //true, false
 				'right_padding'		=> $this->settings['right_padding'], //true, false

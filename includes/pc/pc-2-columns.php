@@ -18,10 +18,12 @@ if(!class_exists('steed_pc_2_columns')):
 				'row_width'			=> false, //true, false,
 				'row_padding'		=> false, //true, false
 				'row_margin'		=> false, //true, false
+				'row_columns'		=> false, //true, false
 				
 				'left'				=> true, //true, false
 				'left_title'		=> 'Left',
 				'left_bg'			=> false, //true, false
+				'left_color_mood'	=> false, //true, false
 				'left_bg_full'		=> false, //true, false
 				'left_full_content' => false, //true, false
 				'left_padding'		=> false, //true, false
@@ -30,6 +32,7 @@ if(!class_exists('steed_pc_2_columns')):
 				'right'				=> true, //true, false
 				'right_title'		=> 'Right',
 				'right_bg'			=> false, //true, false
+				'right_color_mood'	=> false, //true, false
 				'right_bg_full'		=> false, //true, false
 				'right_full_content' => false, //true, false
 				'right_padding'		=> false, //true, false
@@ -41,9 +44,90 @@ if(!class_exists('steed_pc_2_columns')):
 		
 		function html(){
 			$settings = $this->settings;
-			
-			$this->left_html_inner();
-			$this->right_html_inner();
+			$enable = steed_theme_mod($this->uid.'_enable');
+			$row_columns = (steed_theme_mod($this->uid.'_row_columns') != '') ? explode(',', steed_theme_mod($this->uid.'_row_columns')) : array(6,6);
+			if(($settings['row_columns'] == true) && ($settings['left'] == true) && ($settings['right'] == true)){
+				$left_col_size = $row_columns[0];
+				$right_col_size = $row_columns[1];
+			}elseif(($settings['row_columns'] == false) && ($settings['left'] == true) && ($settings['right'] == true)){
+				$left_col_size = '6';
+				$right_col_size = '6';
+			}else{
+				$left_col_size = '12';
+				$right_col_size = '12';
+			}
+			if($enable == false):
+				?>
+                <section class="pc-section pc-section-2-column <?php echo $settings['uid']; ?>">
+                	<div class="steed_pc_section_in">
+                    	<div class="row pc-flex">
+                        	<?php
+                            if($settings['left'] == true){
+								if($settings['left_full_content'] == true){
+									echo '<div class="col-md-'.$left_col_size.' pc-2colsection-left pc-follow-height" data-follow=".'.$settings['uid'].' .pc-2colsection-left-content">';
+										echo '<div class="pc-2colsection-content pc-2colsection-left-content pc-bg-full" data-size="'.$left_col_size.'" data-content=".'.$settings['uid'].' .steed_pc_section_in">';
+											$this->left_html_inner();
+										echo '</div>';
+										if($settings['left_bg'] == true){
+											if($settings['left_bg_full'] == true){
+												echo '<div class="pc-2colsection-bg pc-bg-full" data-aline="left" data-size="'.$left_col_size.'" data-content=".'.$settings['uid'].' .steed_pc_section_in"></div>';
+											}else{
+												echo '<div class="pc-2colsection-bg"></div>';
+											}
+										}
+									echo '</div>';
+								}else{
+									echo '<div class="col-md-'.$left_col_size.' pc-2colsection-left">';
+										echo '<div class="pc-2colsection-content pc-2colsection-left-content">';
+											$this->left_html_inner();
+										echo '</div>';
+										if($settings['left_bg'] == true){
+											if($settings['left_bg_full'] == true){
+												echo '<div class="pc-2colsection-bg pc-bg-full" data-aline="left" data-size="'.$left_col_size.'" data-content=".'.$settings['uid'].' .steed_pc_section_in"></div>';
+											}else{
+												echo '<div class="pc-2colsection-bg"></div>';
+											}
+										}
+									echo '</div>';
+								}
+							}
+							
+							if($settings['right'] == true){
+								if($settings['right_full_content'] == true){
+									echo '<div class="col-md-'.$right_col_size.' pc-2colsection-right pc-follow-height" data-follow=".'.$settings['uid'].' .pc-2colsection-right-content">';
+										echo '<div class="pc-2colsection-content pc-2colsection-right-content pc-bg-full" data-size="'.$left_col_size.'" data-content=".'.$settings['uid'].' .steed_pc_section_in">';
+											$this->right_html_inner();
+										echo '</div>';
+										if($settings['right_bg'] == true){
+											if($settings['right_bg_full'] == true){
+												echo '<div class="pc-2colsection-bg pc-bg-full" data-aline="left" data-size="'.$right_col_size.'" data-content=".'.$settings['uid'].' .steed_pc_section_in"></div>';
+											}else{
+												echo '<div class="pc-2colsection-bg"></div>';
+											}
+										}
+									echo '</div>';
+								}else{
+									echo '<div class="col-md-'.$right_col_size.' pc-2colsection-right">';
+										echo '<div class="pc-2colsection-content pc-2colsection-right-content">';
+											$this->right_html_inner();
+										echo '</div>';
+										if($settings['right_bg'] == true){
+											if($settings['right_bg_full'] == true){
+												echo '<div class="pc-2colsection-bg pc-bg-full" data-aline="left" data-size="'.$right_col_size.'" data-content=".'.$settings['uid'].' .steed_pc_section_in"></div>';
+											}else{
+												echo '<div class="pc-2colsection-bg"></div>';
+											}
+										}
+									echo '</div>';
+								}
+							}
+							
+							?>
+                        </div>
+                    </div>
+                </section>
+                <?php
+			endif;		
 			
 		}
 		
@@ -94,13 +178,51 @@ if(!class_exists('steed_pc_2_columns')):
 			/*
 				Left Column Content
 			--------------------------------*/
-			$this->left_customize_inner();
+			if($settings['left'] == true){
+				$uid = $settings['uid'].'_left_content_head';
+				$wp_customize->add_setting($uid, array( 'default' => '', 'sanitize_callback' => 'sanitize_text_field', ));
+				$wp_customize->add_control(new steed_Customize_Control_heading($wp_customize, $uid, array(
+					'label'      => $settings['left_title'].' Content',
+					'section'    => $settings['section_id'],
+					'settings'   => $uid,
+					'description' => '',
+				)));
+				
+				if($settings['left_description'] == true){
+					$this->customizer_description($wp_customize, $settings['uid'].'_left', $settings['section_id'], $settings['left_title'].' Background');
+				}
+				
+				$this->left_customize_inner();
+				
+				if($settings['left_color_mood'] == true){
+					$this->customizer_color_mood($wp_customize, $settings['uid'].'_left', $settings['section_id'], '');
+				}
+			}
 			
 			
 			/*
 				Right Column Content
 			--------------------------------*/
-			$this->right_customize_inner();
+			if($settings['right'] == true){
+				$uid = $settings['uid'].'_right_content_head';
+				$wp_customize->add_setting($uid, array( 'default' => '', 'sanitize_callback' => 'sanitize_text_field', ));
+				$wp_customize->add_control(new steed_Customize_Control_heading($wp_customize, $uid, array(
+					'label'      => $settings['right_title'].' Content',
+					'section'    => $settings['section_id'],
+					'settings'   => $uid,
+					'description' => '',
+				)));
+				
+				if($settings['left_description'] == true){
+					$this->customizer_description($wp_customize, $settings['uid'].'_right', $settings['section_id'], '');
+				}
+				
+				$this->right_customize_inner();
+				
+				if($settings['right_color_mood'] == true){
+					$this->customizer_color_mood($wp_customize, $settings['uid'].'_right', $settings['section_id'], '');
+				}
+			}
 			
 			
 			/*
@@ -184,6 +306,11 @@ if(!class_exists('steed_pc_2_columns')):
 				/*-- Row Margin --*/
 				if($settings['row_margin'] == true){
 					$this->customizer_margin($wp_customize, $settings['uid'].'_row', $settings['section_id'], 'Section Margin');
+				}
+				
+				/*-- Row Column --*/
+				if(($settings['row_columns'] == true) && ($settings['left'] == true) && ($settings['right'] == true)){
+					$this->customizer_row_columns($wp_customize, $settings['uid'].'_row', $settings['section_id'], '');
 				}
 			}/*END of Section Settings */
 			
@@ -546,6 +673,49 @@ if(!class_exists('steed_pc_2_columns')):
 				'type'       => 'textarea',
 				'description' => '',
 				'priority'	=> $priority,
+			));
+			
+			return $wp_customize;
+		}
+		
+		
+		function customizer_color_mood($wp_customize, $the_uid, $section_id, $title, $priority = NULL){
+			$uid = $the_uid.'_color_mood';
+			$wp_customize->add_setting($uid, array( 'default' => steed_customiz_std($uid), 'sanitize_callback' => 'sanitize_text_field', 'transport' => 'postMessage'));
+			$wp_customize->add_control( $uid, array(
+				'label'      => __('Color Mood', 'steed'),
+				'section'    => $section_id,
+				'settings'   => $uid,
+				'type'       => 'select',
+				'description' => '',
+				'priority'	=> $priority,
+				'choices'     => array(
+					'dark' => 'Dark',
+					'light' => 'Light',
+				),
+			));
+			
+			return $wp_customize;
+		}
+		
+		
+		function customizer_row_columns($wp_customize, $the_uid, $section_id, $title, $priority = NULL){
+			$uid = $the_uid.'_row_columns';
+			$wp_customize->add_setting($uid, array( 'default' => steed_customiz_std($uid), 'sanitize_callback' => 'sanitize_text_field', 'transport' => 'postMessage'));
+			$wp_customize->add_control( $uid, array(
+				'label'      => __('Columns Layout', 'steed'),
+				'section'    => $section_id,
+				'settings'   => $uid,
+				'type'       => 'select',
+				'description' => '',
+				'priority'	=> $priority,
+				'choices'     => array(
+					'3,9' => '25% + 75%',
+					'4,8' => '33% + 66%',
+					'6,6' => '50% + 50%',
+					'8,4' => '66% + 33%',
+					'9,3' => '75% + 25%',
+				),
 			));
 			
 			return $wp_customize;
