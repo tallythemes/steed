@@ -79,11 +79,11 @@ class pc_two_columns_page_and_map extends steed_pc_2_columns{
 		}
 		
 		function left_html_inner(){
-			echo '<p>left html</p>';
+			echo '<p>This is an example page. It’s different from a blog post because it will stay in one place and will show up in your site navigation (in most themes). Most people start with an About page that introduces them to potential site visitors.</p>';
 		}
 		
 		function right_html_inner(){
-			echo '<p>right html</p>';
+			echo '<p>This is an example page. It’s different from a blog post because it will stay in one place and will show up in your site navigation (in most themes). Most people start with an About page that introduces them to potential site visitors./p>';
 		}
 		
 		function left_customize_inner(){

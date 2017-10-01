@@ -102,7 +102,7 @@ jQuery(document).ready(function($) {
 	function pc_follow_height(){
 		$( ".pc-follow-height" ).each(function( index ) {
 			var get_height = $($(this).attr('data-follow')).outerHeight();
-			$(this).css('height', get_height);
+			$(this).css('min-height', get_height);
 		});
 	}
 	
@@ -114,16 +114,30 @@ jQuery(document).ready(function($) {
 		var pc_window_width = $( window ).width();
 		$( ".pc-bg-full" ).each(function( index ) {
 			var alinement = $(this).attr('data-aline');
-			var size = $(this).attr('data-size');
+			var raw_size = $(this).attr('data-size');
+			var size = '';
+			if( raw_size === '3'){
+				size = 4;
+			}else if(raw_size === '4'){
+				size = 3;
+			}else if(raw_size === '6'){
+				size = 2;
+			}else if(raw_size === '8'){
+				size = 1.5;
+			}else if(raw_size === '9'){
+				size = 1.3332;
+			}
 			var content_width = $($(this).attr('data-content')).outerWidth();
 			var get_margin = ( pc_window_width - +content_width ) / 2;
 			var get_width = (content_width / size) + get_margin;
+			
 			$(this).css('width', get_width);
 			if(alinement === 'left'){
 				$(this).css('margin-left', -get_margin);
 			}else if(alinement === 'right'){
 				$(this).css('margin-right', -get_margin);
 			}
+			
 		});
 	}
 
