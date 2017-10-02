@@ -78,35 +78,47 @@ class pc_two_columns_page_and_map extends steed_pc_2_columns{
 			));
 		}
 		
-		function left_html_inner(){
-			echo '<p>This is an example page. It’s different from a blog post because it will stay in one place and will show up in your site navigation (in most themes). Most people start with an About page that introduces them to potential site visitors.</p>';
+		public function left_html_inner(){
+			if(class_exists('steed_pc_mod_page')){
+				steed_pc_mod_page::html($this->uid);
+			}
 		}
 		
-		function right_html_inner(){
-			echo '<p>This is an example page. It’s different from a blog post because it will stay in one place and will show up in your site navigation (in most themes). Most people start with an About page that introduces them to potential site visitors./p>';
+		public function right_html_inner(){
+			if(class_exists('steed_pc_mod_map')){
+				steed_pc_mod_map::html($this->uid);
+			}
 		}
 		
-		function left_customize_inner(){
+		function left_customize_inner($wp_customize){
+			if(class_exists('steed_pc_mod_page')){
+				steed_pc_mod_page::customizer($wp_customize, $this->section_id, $this->uid);
+			}
+			
+			return $wp_customize;
+		}
+		
+		public function right_customize_inner($wp_customize){
+			if(class_exists('steed_pc_mod_map')){
+				steed_pc_mod_map::customizer($wp_customize, $this->section_id, $this->uid);
+			}
+			
+			return $wp_customize;
+		}
+		
+		public function left_css_inner(){
 			
 		}
 		
-		function right_customize_inner(){
+		public function right_css_inner(){
 			
 		}
 		
-		function left_css_inner(){
+		public function left_js_inner(){
 			
 		}
 		
-		function right_css_inner(){
-			
-		}
-		
-		function left_js_inner(){
-			
-		}
-		
-		function right_js_inner(){
+		public function right_js_inner(){
 			
 		}
 		

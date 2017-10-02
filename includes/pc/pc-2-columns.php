@@ -51,6 +51,9 @@ if(!class_exists('steed_pc_2_columns')):
 			$right_full_bg		= steed_theme_mod($settings['uid'].'_right_full_bg');	
 			$right_full_content = steed_theme_mod($settings['uid'].'_right_full_content');
 			
+			$right_color_mood = (steed_theme_mod($settings['uid'].'_right_color_mood') != '') ? 'color-'.steed_theme_mod($settings['uid'].'_right_color_mood') : NULL;
+			$left_color_mood = (steed_theme_mod($settings['uid'].'_left_color_mood') != '') ? 'color-'.steed_theme_mod($settings['uid'].'_left_color_mood') : NULL;
+			
 			$row_columns = (steed_theme_mod($settings['uid'].'_row_columns') != '') ? explode(',', steed_theme_mod($this->uid.'_row_columns')) : array(6,6);
 			
 			
@@ -75,9 +78,10 @@ if(!class_exists('steed_pc_2_columns')):
                         	<?php
                             if($settings['left'] == true){
 								if($left_full_content == true){
-									echo '<div class="col-md-'.$left_col_size.' pc-2colsection-left pc-follow-height" data-follow=".'.$settings['uid'].' .pc-2colsection-left-content-in">';
+									echo '<div class="col-md-'.$left_col_size.' '.esc_attr($left_color_mood).' pc-2colsection-left pc-follow-height" data-follow=".'.$settings['uid'].' .pc-2colsection-left-content-in">';
 										echo '<div class="pc-2colsection-content pc-2colsection-left-content pc-bg-full"  data-aline="left" data-size="'.$left_col_size.'" data-content=".'.$settings['uid'].' .steed_pc_section_in">';
 											echo '<div class="pc-2colsection-left-content-in">';
+												$this->html_description($settings['uid'].'_left');
 												$this->left_html_inner();
 											echo '</div>';
 										echo '</div>';
@@ -90,8 +94,9 @@ if(!class_exists('steed_pc_2_columns')):
 										}
 									echo '</div>';
 								}else{
-									echo '<div class="col-md-'.$left_col_size.' pc-2colsection-left">';
+									echo '<div class="col-md-'.$left_col_size.' '.esc_attr($left_color_mood).' pc-2colsection-left">';
 										echo '<div class="pc-2colsection-content pc-2colsection-left-content">';
+											$this->html_description($settings['uid'].'_left');
 											$this->left_html_inner();
 										echo '</div>';
 										if($settings['left_bg'] == true){
@@ -107,9 +112,10 @@ if(!class_exists('steed_pc_2_columns')):
 							
 							if($settings['right'] == true){
 								if($right_full_content == true){
-									echo '<div class="col-md-'.$right_col_size.' pc-2colsection-right pc-follow-height" data-follow=".'.$settings['uid'].' .pc-2colsection-right-content-in">';
+									echo '<div class="col-md-'.$right_col_size.' '.esc_attr($right_color_mood).' pc-2colsection-right pc-follow-height" data-follow=".'.$settings['uid'].' .pc-2colsection-right-content-in">';
 										echo '<div class="pc-2colsection-content pc-2colsection-right-content pc-bg-full"  data-aline="right" data-size="'.$left_col_size.'" data-content=".'.$settings['uid'].' .steed_pc_section_in">';
 											echo '<div class="pc-2colsection-right-content-in">';
+												$this->html_description($settings['uid'].'_right');
 												$this->right_html_inner();
 											echo '</div>';
 										echo '</div>';
@@ -122,8 +128,9 @@ if(!class_exists('steed_pc_2_columns')):
 										}
 									echo '</div>';
 								}else{
-									echo '<div class="col-md-'.$right_col_size.' pc-2colsection-right">';
+									echo '<div class="col-md-'.$right_col_size.' '.esc_attr($right_color_mood).' pc-2colsection-right">';
 										echo '<div class="pc-2colsection-content pc-2colsection-right-content">';
+											$this->html_description($settings['uid'].'_right');
 											$this->right_html_inner();
 										echo '</div>';
 										if($settings['right_bg'] == true){
@@ -147,14 +154,22 @@ if(!class_exists('steed_pc_2_columns')):
 		}
 		
 		
-		function html_left(){
-			
+		function html_description($the_uid){
+			$title	= steed_theme_mod($the_uid.'_description_title');
+			$des	= steed_theme_mod($the_uid.'_description_text');
+			if(($title != '') || ($des != '')){
+				echo '<div class="pc-2colsection-description">';
+					if($title != ''){
+						echo '<h2>'.wp_kses_post($title).'</h2>';	
+					}
+					if($des != ''){
+						echo '<div class="pc-2colsection-description-text">'.wp_kses_post($des).'</div>';
+					}
+				echo '</div>';
+			}
 		}
 		
-		
-		function html_right(){
-			
-		}
+	
 		
 		
 		
@@ -242,7 +257,7 @@ if(!class_exists('steed_pc_2_columns')):
 					$this->customizer_description($wp_customize, $settings['uid'].'_left', $settings['section_id'], $settings['left_title'].' Background');
 				}
 				
-				$this->left_customize_inner();
+				$this->left_customize_inner($wp_customize);
 				
 				if($settings['left_color_mood'] == true){
 					$this->customizer_color_mood($wp_customize, $settings['uid'].'_left', $settings['section_id'], '');
@@ -267,7 +282,7 @@ if(!class_exists('steed_pc_2_columns')):
 					$this->customizer_description($wp_customize, $settings['uid'].'_right', $settings['section_id'], '');
 				}
 				
-				$this->right_customize_inner();
+				$this->right_customize_inner($wp_customize);
 				
 				if($settings['right_color_mood'] == true){
 					$this->customizer_color_mood($wp_customize, $settings['uid'].'_right', $settings['section_id'], '');
@@ -779,8 +794,8 @@ if(!class_exists('steed_pc_2_columns')):
 		
 		
 		function customizer_description($wp_customize, $the_uid, $section_id, $title, $priority = NULL){
-			$uid = $the_uid.'_title';
-			$wp_customize->add_setting($uid, array( 'default' => steed_customiz_std($uid), 'sanitize_callback' => 'sanitize_text_field', 'transport' => 'refresh'));
+			$uid = $the_uid.'_description_title';
+			$wp_customize->add_setting($uid, array( 'default' => steed_customiz_std($uid), 'sanitize_callback' => 'wp_kses_post', 'transport' => 'refresh'));
 			$wp_customize->add_control( $uid, array(
 				'label'      => __('Title', 'steed'),
 				'section'    => $section_id,
@@ -789,8 +804,8 @@ if(!class_exists('steed_pc_2_columns')):
 				'description' => '',
 				'priority'	=> $priority,
 			));
-			$uid = $the_uid.'_description';
-			$wp_customize->add_setting($uid, array( 'default' => steed_customiz_std($uid), 'sanitize_callback' => 'sanitize_text_field', 'transport' => 'refresh'));
+			$uid = $the_uid.'_description_text';
+			$wp_customize->add_setting($uid, array( 'default' => steed_customiz_std($uid), 'sanitize_callback' => 'wp_kses_post', 'transport' => 'refresh'));
 			$wp_customize->add_control( $uid, array(
 				'label'      => __('Description', 'steed'),
 				'section'    => $section_id,
@@ -898,6 +913,8 @@ if(!class_exists('steed_pc_2_columns')):
 			}
 			
 		}
+		
+		
 		function css_padding($the_uid, $selector){
 			$top		= steed_theme_mod($the_uid.'_padding_top');
 			$bottom		= steed_theme_mod($the_uid.'_padding_bottom');
@@ -946,9 +963,13 @@ if(!class_exists('steed_pc_2_columns')):
 				echo '}';
 			}
 		}
+		
+		
 		function css_margin($the_uid, $selector){
 			
 		}
+		
+		
 		function css_content_width($the_uid, $selector){
 			
 		}
@@ -956,42 +977,42 @@ if(!class_exists('steed_pc_2_columns')):
 		
 		
 		//this function will use by its child class
-		function left_html_inner(){
+		public function left_html_inner(){
 			
 		}
 		
 		//this function will use by its child class
-		function right_html_inner(){
+		public function right_html_inner(){
 			
 		}
 		
 		//this function will use by its child class
-		function left_customize_inner(){
+		public function left_customize_inner($wp_customize){
 			
 		}
 		
 		//this function will use by its child class
-		function right_customize_inner(){
+		public function right_customize_inner($wp_customize){
 			
 		}
 		
 		//this function will use by its child class
-		function left_css_inner(){
+		public function left_css_inner(){
 			
 		}
 		
 		//this function will use by its child class
-		function right_css_inner(){
+		public function right_css_inner(){
 			
 		}
 		
 		//this function will use by its child class
-		function left_js_inner(){
+		public function left_js_inner(){
 			
 		}
 		
 		//this function will use by its child class
-		function right_js_inner(){
+		public function right_js_inner(){
 			
 		}
 		

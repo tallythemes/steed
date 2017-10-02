@@ -376,6 +376,7 @@ require get_template_directory() . '/includes/contents/content-single.php';
 /**
  * Load PC
  */
+require get_template_directory() . '/includes/pc/pc-contents.php';
 require get_template_directory() . '/includes/pc/pc-section-page-content.php';
 require get_template_directory() . '/includes/pc/pc-section-widget-layout.php';
 require get_template_directory() . '/includes/pc/pc-page-build-class.php';
