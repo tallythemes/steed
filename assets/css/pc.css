@@ -57,6 +57,38 @@
 	clear:both;	
 }
 
+.pc-bg-overlay{
+	position:absolute;
+	height:100%;
+	width:100%;
+	top:0;
+	left:0;
+	z-index:0;
+	display: block;
+}
+
+@media (max-width: 992px) {
+	.pc-text-align-t-center{
+		text-align:center;	
+	}
+	.pc-text-align-t-left{
+		text-align:left;	
+	}
+	.pc-text-align-t-right{
+		text-align:right;	
+	}
+}
+@media (max-width: 768px) {
+	.pc-text-align-m-center{
+		text-align:center;	
+	}
+	.pc-text-align-m-left{
+		text-align:left;	
+	}
+	.pc-text-align-m-right{
+		text-align:right;	
+	}
+}
 
 /*
 	Responsive YOutube video
@@ -102,6 +134,35 @@
     left: 0;
 }
 
+.pc-2colsection-description{
+	margin-bottom:40px;	
+	max-width:800px;
+	display:inline-block;
+}
+
+@media (max-width: 992px) {
+	.pc-2colsection-row{
+		display:block;
+	}
+}
+
+/*
+	MOD:: Map
+----------------------------------------------------*/
+.steed_pc_mod_map iframe{
+	width:100%;	
+}
+.steed_pc_mod_map_full iframe{
+	position:absolute;
+	height:100%;
+}
+
+@media (max-width: 992px) {
+	.steed_pc_mod_map_full iframe{
+		position:relative;
+		min-height:400px;
+	}
+}
 
 /*
 	Section::: Content 1

@@ -126,16 +126,41 @@ jQuery(document).ready(function($) {
 				size = 1.5;
 			}else if(raw_size === '9'){
 				size = 1.3332;
+			}else if(raw_size === '12'){
+				size = 1;
 			}
-			var content_width = $($(this).attr('data-content')).outerWidth();
-			var get_margin = ( pc_window_width - +content_width ) / 2;
-			var get_width = (content_width / size) + get_margin;
 			
-			$(this).css('width', get_width);
-			if(alinement === 'left'){
-				$(this).css('margin-left', -get_margin);
-			}else if(alinement === 'right'){
+			if(pc_window_width < 992){
+				size = 1;
+			}
+			
+			
+			var content_width = '';
+			var get_margin = '';
+			var get_width = '';
+			
+			
+			if(size === 1){
+				content_width = $($(this).attr('data-content')).outerWidth();
+				get_margin = ( pc_window_width - +content_width ) / 2;
+				get_width = (content_width / size) + (get_margin * 2);
+
+				$(this).css('width', get_width);
 				$(this).css('margin-right', -get_margin);
+				$(this).css('margin-left', -get_margin);
+			}else{
+				content_width = $($(this).attr('data-content')).outerWidth();
+				get_margin = ( pc_window_width - +content_width ) / 2;
+				get_width = (content_width / size) + get_margin;
+				
+				$(this).css('width', get_width);
+				if(alinement === 'left'){
+					$(this).css('margin-left', -get_margin);
+					$(this).css('margin-right', 0);
+				}else if(alinement === 'right'){
+					$(this).css('margin-right', -get_margin);
+					$(this).css('margin-left', 0);
+				}
 			}
 			
 		});

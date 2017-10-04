@@ -20,19 +20,23 @@ class pc_two_columns_page_and_map extends steed_pc_2_columns{
 				
 				'left'				=> true, //true, false
 				'left_bg'			=> false, //true, false
+				'left_content'		=> 'page', //page, map
 				'left_color_mood'	=> false, //true, false
 				'left_bg_full'		=> false, //true, false
 				'left_full_content' => false, //true, false
 				'left_padding'		=> false, //true, false
 				'left_description'	=> false, //true, false
+				'left_text_align'	=> false, //true, false
 				
 				'right'				=> true, //true, false
 				'right_bg'			=> false, //true, false
+				'right_content'		=> 'page', //page, map
 				'right_color_mood'	=> false, //true, false
 				'right_bg_full'		=> false, //true, false
 				'right_full_content' => false, //true, false
 				'right_padding'		=> false, //true, false
 				'right_description' => false, //true, false
+				'right_text_align'	=> false, //true, false
 			);
 			$this->settings =array_merge($default, $settings);
 			
@@ -86,7 +90,8 @@ class pc_two_columns_page_and_map extends steed_pc_2_columns{
 		
 		public function right_html_inner(){
 			if(class_exists('steed_pc_mod_map')){
-				steed_pc_mod_map::html($this->uid);
+				$right_full_content = steed_theme_mod($this->uid.'_right_full_content');
+				steed_pc_mod_map::html($this->uid, $right_full_content);
 			}
 		}
 		

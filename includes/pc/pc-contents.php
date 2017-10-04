@@ -37,15 +37,32 @@ class steed_pc_mod_map{
 	static function html($prefix){
 		$map_code =  steed_theme_mod($prefix.'_map_code');
 		$map_height =  steed_theme_mod($prefix.'_map_height');
+		$full_class = '';
+		$full_data = '';
+		if($map_height == 'full'){
+			//$full_class = 'pc-follow-height steed_pc_mod_map_full';
+			//$full_data = 'data-follow=".'.$prefix.' .pc-2colsection-row"';
+			$full_class = 'steed_pc_mod_map_full';
+		}
 		?>
-        <div class="steed_pc_mod_map">
+        <div class="steed_pc_mod_map <?php echo esc_attr($prefix); ?>_mod_map <?php echo $full_class; ?>" <?php echo $full_data; ?>>
         	<?php echo $map_code; ?>
         </div>
         <?php
 	}
 	
 	
-	static function css(){
+	static function css($prefix){
+		$map_height =  steed_theme_mod($prefix.'_map_height');
+		if(($map_height != '') && ($map_height != 'full')){
+			echo '.'. esc_attr($prefix).'_mod_map iframe{';
+				echo 'height:'.esc_attr($map_height).';';
+			echo '}';
+		}
+	}
+	
+	
+	static function js(){
 		
 	}
 	
@@ -71,6 +88,8 @@ class steed_pc_mod_page{
 			steedPRO_pc_mod_customize_page($wp_customize, $section_id, $prefix);
 		}
 		
+		
+		
 		return $wp_customize;
 	}
 	
@@ -80,6 +99,7 @@ class steed_pc_mod_page{
 		$title =  steed_theme_mod($prefix.'_title');
 		$button =  steed_theme_mod($prefix.'_button');
 		$button_text =  steed_theme_mod($prefix.'_button_text');
+		$title_tag =  (steed_theme_mod($prefix.'_title_tag') != '') ? steed_theme_mod($prefix.'_title_tag') : 'h3';
 		
 		$the_query = new WP_Query( array('post_type' => 'page', 'post__in' => array($page_id)) );
 		if ( $the_query->have_posts() ) {
@@ -88,12 +108,12 @@ class steed_pc_mod_page{
 				?>
 				<div class="steed_pc_mod_page">
                 	<?php if($title == true): ?>
-						<h2><?php the_title(); ?></h2>
+						<<?php echo $title_tag; ?>><?php the_title(); ?></<?php echo $title_tag; ?>>
                     <?php endif; ?>
                     <article>
 						<?php
                             if(strpos($the_post->post_content, '<!--more-->')){
-                                the_content(true, false);
+                                the_content('', false);
 								if($button == true){
 									steed_pc_mod_button($prefix, get_permalink(get_the_ID()), $button_text); 
 								}
@@ -113,6 +133,10 @@ class steed_pc_mod_page{
 
 	
 	static function css(){
+		
+	}
+	
+	static function js(){
 		
 	}
 
