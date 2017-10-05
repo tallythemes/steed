@@ -6,7 +6,7 @@
  *
  * @package Steed
  */
-define("STEED_VERSION", "3.0");
+define("STEED_VERSION", "3.4.1");
 
 if(!defined("STEED_THEME_ID")) { define("STEED_THEME_ID", "steed1"); }
  $GLOBALS['steed_STD_theme_mod_data'] = array();

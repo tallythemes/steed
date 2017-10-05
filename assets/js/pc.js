@@ -106,6 +106,51 @@ jQuery(document).ready(function($) {
 		});
 	}
 	
+	function pc_follow_height_d(){
+		var pc_window_width = $( window ).width();
+		
+		if(pc_window_width > 992){
+			$( ".pc-follow-height-d" ).each(function( index ) {
+				var get_height = $($(this).attr('data-follow')).outerHeight();
+				$(this).css('min-height', get_height);
+			});
+		}else{
+			$( ".pc-follow-height-d" ).each(function( index ) {
+				$(this).css('min-height', 'auto');
+			});
+		}
+	}
+	
+	function pc_follow_height_t(){
+		var pc_window_width = $( window ).width();
+		
+		if(pc_window_width <= 992){
+			$( ".pc-follow-height-t" ).each(function( index ) {
+				var get_height = $($(this).attr('data-follow')).outerHeight();
+				$(this).css('min-height', get_height);
+			});
+		}else{
+			$( ".pc-follow-height-t" ).each(function( index ) {
+				$(this).css('min-height', 'auto');
+			});
+		}
+	}
+	
+	function pc_follow_height_m(){
+		var pc_window_width = $( window ).width();
+		
+		if(pc_window_width <= 768){
+			$( ".pc-follow-height-m" ).each(function( index ) {
+				var get_height = $($(this).attr('data-follow')).outerHeight();
+				$(this).css('min-height', get_height);
+			});
+		}else{
+			$( ".pc-follow-height-m" ).each(function( index ) {
+				$(this).css('min-height', 'auto');
+			});
+		}
+	}
+	
 	
 	
 	
@@ -169,10 +214,16 @@ jQuery(document).ready(function($) {
 	
 	pc_bg_full();
 	pc_follow_height();
+	pc_follow_height_d();
+	pc_follow_height_t();
+	pc_follow_height_m();
 	
 	$( window ).resize(function() {
 	 	pc_bg_full();
 		pc_follow_height();
+		pc_follow_height_d();
+		pc_follow_height_t();
+		pc_follow_height_m();
 	});
 	
 	

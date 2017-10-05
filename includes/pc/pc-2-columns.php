@@ -196,7 +196,7 @@ if(!class_exists('steed_pc_2_columns')):
 						echo '<h2>'.wp_kses_post($title).'</h2>';	
 					}
 					if($des != ''){
-						echo '<div class="pc-2colsection-description-text">'.wp_kses_post($des).'</div>';
+						echo '<div class="pc-2colsection-description-text">'.do_shortcode(wp_kses_post($des)).'</div>';
 					}
 				echo '</div>';
 			}
@@ -727,9 +727,9 @@ if(!class_exists('steed_pc_2_columns')):
 			$uid = $settings['uid'] .'_'. $position;
 			
 			if(class_exists('steed_pc_mod_page') && ($type == 'page')){
-				steed_pc_mod_page::html($uid);
+				steed_pc_mod_page::html($uid, $settings['uid']);
 			}elseif(class_exists('steed_pc_mod_map') && ($type == 'map')){
-				steed_pc_mod_map::html($uid);
+				steed_pc_mod_map::html($uid, $settings['uid']);
 			}
 		}
 		function content_types_customize($wp_customize, $type, $position){

@@ -34,15 +34,14 @@ class steed_pc_mod_map{
 	}
 	
 	
-	static function html($prefix){
+	static function html($prefix, $uid = NULL){
 		$map_code =  steed_theme_mod($prefix.'_map_code');
 		$map_height =  steed_theme_mod($prefix.'_map_height');
 		$full_class = '';
 		$full_data = '';
 		if($map_height == 'full'){
-			//$full_class = 'pc-follow-height steed_pc_mod_map_full';
-			//$full_data = 'data-follow=".'.$prefix.' .pc-2colsection-row"';
-			$full_class = 'steed_pc_mod_map_full';
+			$full_class = 'pc-follow-height-d steed_pc_mod_map_full';
+			$full_data = 'data-follow=".'.$uid.' .pc-2colsection-row"';
 		}
 		?>
         <div class="steed_pc_mod_map <?php echo esc_attr($prefix); ?>_mod_map <?php echo $full_class; ?>" <?php echo $full_data; ?>>

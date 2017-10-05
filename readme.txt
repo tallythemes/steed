@@ -7,7 +7,7 @@ Tags: one-column, two-columns, right-sidebar, custom-menu, editor-style, feature
 
 Requires at least: 4.0
 Tested up to: 4.8.1
-Stable tag: 3.4
+Stable tag: 3.4.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -69,6 +69,11 @@ Licensed under the MIT license.
 CC0 by Pixabay, https://pixabay.com/en/service/terms/
 
 == Changelog ==
+
+= 3.4.1 - 5 October 2017  =
+* Fixed a JavaScript layout issue of 2 columns section
+* Shortcode now supported in 2 columns section's description
+* Remove unused code
 
 = 3.4 - 5 October 2017  =
 * Fixed a responsive issue of page content section
