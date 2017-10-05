@@ -278,16 +278,8 @@ function steed_filter_front_page_template( $template ) {
 add_filter( 'frontpage_template', 'steed_filter_front_page_template' );
 
 
-/*require get_template_directory() . '/includes/php/steed-kirki.php';
-
-steed_Kirki::add_config( 'steedcom', array(
-	'capability'    => 'edit_theme_options',
-	'option_type'   => 'theme_mod',
-) );*/
-
-
 /**
- * Custom template tags for this theme.
+ * LOad custom customizer control Alpha_Color_Control
  */
 if(!class_exists('steed_Customize_Alpha_Color_Control')){
 	require get_template_directory() . '/includes/vendors/alpha-color-picker/alpha-color-picker.php';
@@ -379,6 +371,5 @@ require get_template_directory() . '/includes/contents/content-single.php';
 require get_template_directory() . '/includes/pc/pc-contents.php';
 require get_template_directory() . '/includes/pc/pc-section-page-content.php';
 require get_template_directory() . '/includes/pc/pc-section-widget-layout.php';
-require get_template_directory() . '/includes/pc/pc-page-build-class.php';
 require get_template_directory() . '/includes/pc/pc-2-columns.php';
-require get_template_directory() . '/includes/pc/pc-two-columns-page-and-map.php';
+require get_template_directory() . '/includes/pc/pc-page-build-class.php';
