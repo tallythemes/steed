@@ -7,7 +7,7 @@ Tags: one-column, two-columns, right-sidebar, custom-menu, editor-style, feature
 
 Requires at least: 4.0
 Tested up to: 4.8.1
-Stable tag: 3.3
+Stable tag: 3.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -34,16 +34,46 @@ Theme Documentatio link is here http://tallythemes.com/doc-item/steed-theme-docu
 
 == Credits ==
 
-Font Awesome 4.6.3 by @davegand
+=Font Awesome 4.6.3 by @davegand=
 License - http://fontawesome.io/license (Font: SIL OFL 1.1, CSS: MIT License)
 Source: http://fontawesome.io
 
-TGM-Plugin-Activation
+=TGM-Plugin-Activation=
 Copyright (c) 2011, Thomas Griffin ( GPL-2.0+ )
 
-All images: CC0 by Pixabay, https://pixabay.com/en/service/terms/
+=FitVids=
+Copyright 2013, Chris Coyier - http://css-tricks.com + Dave Rupert - http://daverupert.com
+Credit to Thierry Koblentz - http://www.alistapart.com/articles/creating-intrinsic-ratios-for-video/
+Released under the WTFPL license - http://sam.zoy.org/wtfpl/
+
+=jQuery FlexSlider=
+Copyright 2012 WooThemes
+Contributing Author: Tyler Smith
+Released under- General Public License v2.0
+
+=Magnific Popup=
+Copyright (c) 2015 Dmitry Semenov  http://dimsemenov.com/plugins/magnific-popup/
+Script is available under MIT license
+
+=Owl Carousel=
+Url: https://owlcarousel2.github.io/OwlCarousel2/
+Copyright 2013-2017 David Deutsch 
+Licensed under MIT License (MIT)
+
+=slick=
+Url: https://owlcarousel2.github.io/OwlCarousel2/
+Copyright (c) 2017 Ken Wheeler
+Licensed under the MIT license.
+
+=All images=
+CC0 by Pixabay, https://pixabay.com/en/service/terms/
 
 == Changelog ==
+
+= 3.4 - 5 October 2017  =
+* Fixed a responsive issue of page content section
+* New section 2 columns content
+* Remove unused code
 
 = 3.3 - 20 Sept 2017  =
 * Add button CSS
