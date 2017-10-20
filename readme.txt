@@ -7,7 +7,7 @@ Tags: one-column, two-columns, right-sidebar, custom-menu, editor-style, feature
 
 Requires at least: 4.0
 Tested up to: 4.8.1
-Stable tag: 3.4.1
+Stable tag: 3.4.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -69,6 +69,14 @@ Licensed under the MIT license.
 CC0 by Pixabay, https://pixabay.com/en/service/terms/
 
 == Changelog ==
+
+= 3.4.2 - 20 October 2017  =
+* Removing unused javascript plugins
+
+* Remove the front-page.php to use the front page in wordpress way
+
+* Added a Full Width template to use with any page builder
+
 
 = 3.4.1 - 5 October 2017  =
 * Fixed a JavaScript layout issue of 2 columns section

@@ -6,10 +6,10 @@
  *
  * @package Steed
  */
-define("STEED_VERSION", "3.4.1");
+define("STEED_VERSION", "3.4.2");
 
 if(!defined("STEED_THEME_ID")) { define("STEED_THEME_ID", "steed1"); }
- $GLOBALS['steed_STD_theme_mod_data'] = array();
+$GLOBALS['steed_STD_theme_mod_data'] = array();
 
 if(file_exists(get_stylesheet_directory().'/includes/php/customize-std.php')){
 	$GLOBALS['steed_STD_theme_mod_data'] = include(get_stylesheet_directory().'/includes/php/customize-std.php');
