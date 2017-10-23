@@ -171,12 +171,57 @@ class steed_header_3_build{
 }
 
 
+
+class steed_header_4_build{
+	
+	function __construct(){
+		add_action( 'after_setup_theme', array($this, 'after_theme_setup'), 9);
+		add_action('steed_header', array($this, 'html'), 10);
+		add_action( 'wp_enqueue_scripts', array($this, 'scripts'), 9 );
+	}
+	
+	function after_theme_setup(){
+		add_filter('steed_element_div_style_header', '__return_true');
+		add_filter('steed_element_header_menu', '__return_true');
+		add_filter('steed_element_header_logo', '__return_true');
+		add_filter('steed_element_header_social_icons', '__return_true');
+		add_filter('steed_element_header_woo_cart', '__return_true');
+	}
+	
+	function html(){
+		?>
+        <header id="masthead" class="site-header <?php echo apply_filters('steed_header_color_mood', 'color-dark') ?>">
+        	<div class="site-header-in">
+                <div class="container-width">
+					<div class="header-left"><?php steed_element_header_logo(); ?></div>
+                    <div class="header-right">
+						<nav class="main-navigation" id="site-navigation"><?php steed_element_header_menu() ?></nav>
+						<a href="#header_menu" class="responsive-menu-hand"><i class="fa fa-align-justify"></i></a>
+                        <?php  steed_element_header_woo_cart(); ?>
+						<?php steed_element_header_social_icons(); ?>
+                        
+                    </div>
+				</div>
+            </div>
+        </header>
+        <div class="responsive-menu"><a href="#" class="responsive-menu-close"><i class="fa fa-close"></i></a></div>
+        <?php
+	}
+	
+	function scripts(){
+		wp_enqueue_style( 'steed-header-4', get_template_directory_uri() . '/assets/css/header-4.css', array('steed-common','steed-elements'), '1.0');
+	}
+}
+
+
 if(steed_theme_mod('get_header') == 'one'){
 	new steed_header_1_build;
 }elseif(steed_theme_mod('get_header') == 'two'){
 	new steed_header_2_build;
 }elseif(steed_theme_mod('get_header') == 'three'){
 	new steed_header_3_build;
+}elseif(steed_theme_mod('get_header') == 'four'){
+	new steed_header_4_build;
 }else{
 	new steed_header_1_build;
 }

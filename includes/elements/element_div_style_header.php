@@ -26,6 +26,8 @@ class steed_element_div_style_header{
 	
 	
 	public function css($css){
+		$steed_colors = steed_colors();
+		
 		$new_css = $this->style_class.'{';
 			if( steed_theme_mod($this->customize_prefix.'bg_color') != '' ){ 
 				$new_css .= 'background-color:'.steed_sanitize_rgba(steed_theme_mod($this->customize_prefix.'bg_color')).';'; 
@@ -46,6 +48,9 @@ class steed_element_div_style_header{
 				$new_css .= 'background-repeat:'.steed_sanitize_rgba(steed_theme_mod($this->customize_prefix.'bg_repeat')).';'; 
 			}
 		$new_css .= '}';
+		
+		$new_css .= '.site-header.color-dark .site-title a{ color:'.$steed_colors['dark'].'; }';
+		$new_css .= '.site-header.color-light .site-title a{ color:'.$steed_colors['light'].'; }';
 		
 		
 		return $css.$new_css;

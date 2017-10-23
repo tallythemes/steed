@@ -35,6 +35,8 @@ class steed_footer_1_build{
 	}
 }
 
+
+
 if(steed_theme_mod('get_footer') == 'one'){
 	new steed_footer_1_build;
 }else{

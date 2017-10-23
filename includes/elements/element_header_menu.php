@@ -30,6 +30,7 @@ class steed_element_header_menu{
 	public function css($css){
 		$new_css = '';
 		$selector = '.header_menu ul.menu';
+		$steed_colors = steed_colors();
 		
 		$menu_text_color			= steed_sanitize_rgba(steed_theme_mod($this->customize_prefix.'text_color'));
 		$menu_text_hover_color		= steed_sanitize_rgba(steed_theme_mod($this->customize_prefix.'text_hover_color'));
@@ -50,7 +51,9 @@ class steed_element_header_menu{
 		$css_1 .=  ($menu_bg_color != '') ? 'background-color:'.$menu_bg_color.';' : '';
 		$css_1 .=  ($menu_border_color != '') ? 'border-color:'.$menu_border_color.';' : '';
 		if( !empty($css_1) ){ $new_css .= $selector.' > li{ '.$css_1.' }';  }
-		if( !empty($menu_text_color) ){ $new_css .= 'a.responsive-menu-hand{ color:'.$menu_text_color.'; }';  }
+
+		$new_css .= '.site-header.color-dark a.responsive-menu-hand{ color:'.$steed_colors['dark'].'; }';
+		$new_css .= '.site-header.color-light a.responsive-menu-hand{ color:'.$steed_colors['light'].'; }';
 		
 		$css_2  =  ($menu_text_hover_color != '') ? 'color:'.$menu_text_hover_color.';' : '';
 		$css_2 .=  ($menu_bg_hover_color != '') ? 'background-color:'.$menu_bg_hover_color.';' : '';

@@ -10,7 +10,7 @@ class steed_element_footer_credit{
 	
 	function html(){
 		if( steed_theme_mod('disable_theme_credit2') != true){
-			echo '<p>Theme Designed By <a href="'.esc_url('http://tallythemes.com').'" title="Design By TallyThemes.com">TallyThemes</a> | Powered by <a href="'.esc_url('http://wordpress.org').'">WordPress</a></p>';
+			echo '<div class="footer_credit">Theme Designed By <a href="'.esc_url('http://tallythemes.com').'" title="Design By TallyThemes.com">TallyThemes</a> | Powered by <a href="'.esc_url('http://wordpress.org').'">WordPress</a></div>';
 		}
 	}
 	
