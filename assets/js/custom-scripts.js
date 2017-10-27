@@ -99,4 +99,11 @@ jQuery(document).ready(function($) {
 	$('.video-lightbox').magnificPopup({type:'iframe'});
 	$('.inline-lightbox').magnificPopup({type:'inline'});
 	
+	$('.image-lightbox-child').magnificPopup({type:'image'});
+	$('.video-lightbox-child').magnificPopup({
+		type:'iframe',
+		delegate: 'a',
+	});
+	$('.inline-lightbox-child').magnificPopup({type:'inline'});
+	
 });

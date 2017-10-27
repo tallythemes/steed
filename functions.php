@@ -143,6 +143,44 @@ add_action( 'after_setup_theme', 'steed_setup' );
 
 add_filter('tallythemesetup_load_v2', '__return_true');
 
+
+/*
+	Steed Image size
+-----------------------------------------*/
+add_image_size('steed_400x300', 400, 300, true);
+add_image_size('steed_400x400', 400, 400, true);
+
+add_image_size('steed_500x400', 500, 400, true);
+add_image_size('steed_500x500', 500, 500, true);
+
+add_image_size('steed_600x500', 600, 500, true);
+add_image_size('steed_600x600', 600, 600, true);
+
+add_image_size('steed_700x600', 700, 600, true);
+add_image_size('steed_700x700', 700, 700, true);
+
+
+/*
+	Add Image size to wordpress Media Popup
+-----------------------------------------*/
+add_filter('image_size_names_choose','steed_image_size_names',10,1);
+function steed_image_size_names($sizes){
+
+    $sizes['steed_400x300']= 'Steed 400x300';
+	$sizes['steed_400x400']= 'Steed 400x400';
+	
+	$sizes['steed_500x400']= 'Steed 500x400';
+	$sizes['steed_500x500']= 'Steed 500x500';
+	
+	$sizes['steed_600x500']= 'Steed 600x500';
+	$sizes['steed_600x600']= 'Steed 600x600';
+	
+	$sizes['steed_700x600']= 'Steed 700x600';
+	$sizes['steed_700x700']= 'Steed 700x700';
+
+    return $sizes;
+}
+
 /**
  * Set the content width in pixels, based on the theme's design and stylesheet.
  *
@@ -349,6 +387,13 @@ require get_template_directory() . '/includes/parts/header-1-build.php';
  * Load Footer Build
  */
 require get_template_directory() . '/includes/parts/footer-1-build.php';
+
+
+
+/**
+ * Load elementor templates loader
+ */
+require get_template_directory() . '/includes/php/elementor-templates.php';
 
 
 

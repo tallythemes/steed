@@ -17,23 +17,27 @@ class steed_element_header_woo_cart{
 	}	
 	
 	function cart_fragments(){
-		global $woocommerce;
-		
-		$fragments['a.cart-contents-steed'] = $this->cart_fragments_html();
-		
-		return $fragments;
+		if(function_exists('WC')){
+			global $woocommerce;
+			
+			$fragments['a.cart-contents-steed'] = $this->cart_fragments_html();
+			
+			return $fragments;
+		}
 	}
 	
 	function cart_fragments_html(){
 		ob_start(); 
-		?>
-		<a class="cart-contents-steed" href="<?php echo wc_get_cart_url(); ?>">
-			<span class="element_shoppingBag_count">
-				<?php echo sprintf ( _n( '%d <span class="screen-reader-text">item</span>', '%d <span class="screen-reader-text">items</span>', WC()->cart->get_cart_contents_count(), 'steed' ), WC()->cart->get_cart_contents_count() ); ?>
-			</span>
-			<?php echo WC()->cart->get_cart_total(); ?>
-		</a>
-		<?php
+		if(function_exists('WC')){
+			?>
+			<a class="cart-contents-steed" href="<?php echo wc_get_cart_url(); ?>">
+				<span class="element_shoppingBag_count">
+					<?php echo sprintf ( _n( '%d <span class="screen-reader-text">item</span>', '%d <span class="screen-reader-text">items</span>', WC()->cart->get_cart_contents_count(), 'steed' ), WC()->cart->get_cart_contents_count() ); ?>
+				</span>
+				<?php echo WC()->cart->get_cart_total(); ?>
+			</a>
+			<?php
+		}
 		$html = ob_get_clean();
 		return $html;
 	}
@@ -48,16 +52,18 @@ class steed_element_header_woo_cart{
 	
 	public function css($css){
 		$new_css = '';
-		if( steed_theme_mod($this->customize_prefix.'active') == true){
-			if( steed_theme_mod($this->customize_prefix.'icon_color') != '' ){ 
-				$new_css .= '.header_woo_cart a{';
-					$new_css .= 'color:'.steed_sanitize_rgba(steed_theme_mod($this->customize_prefix.'icon_color')).';'; 
-				$new_css .= '}';
-			}
-			if( steed_theme_mod($this->customize_prefix.'icon_hover_color') != '' ){ 
-				$new_css .= '.header_woo_cart a:hover{';
-					$new_css .= 'color:'.steed_sanitize_rgba(steed_theme_mod($this->customize_prefix.'icon_hover_color')).';'; 
-				$new_css .= '}';
+		if(function_exists('WC')){
+			if( steed_theme_mod($this->customize_prefix.'active') == true){
+				if( steed_theme_mod($this->customize_prefix.'icon_color') != '' ){ 
+					$new_css .= '.header_woo_cart a{';
+						$new_css .= 'color:'.steed_sanitize_rgba(steed_theme_mod($this->customize_prefix.'icon_color')).';'; 
+					$new_css .= '}';
+				}
+				if( steed_theme_mod($this->customize_prefix.'icon_hover_color') != '' ){ 
+					$new_css .= '.header_woo_cart a:hover{';
+						$new_css .= 'color:'.steed_sanitize_rgba(steed_theme_mod($this->customize_prefix.'icon_hover_color')).';'; 
+					$new_css .= '}';
+				}
 			}
 		}
 		
@@ -75,5 +81,6 @@ class steed_element_header_woo_cart{
 }
 $GLOBALS['steed_element_header_woo_cart'] = new steed_element_header_woo_cart;
 function steed_element_header_woo_cart(){
+	
 	$GLOBALS['steed_element_header_woo_cart']->html();
 }
