@@ -1,8 +1,14 @@
 <?php
 add_action( 'wp_ajax_elementor_get_template_data', 'steed_elementor_templates_data', 0 );
 function steed_elementor_templates_data(){
-	$source = new steed_Elements_Templates_Source();
+	
 	if ( empty( $_REQUEST['template_id'] ) ) {
+		return;
+	}
+	
+	$source = new steed_Elements_Templates_Source();
+	
+	if ( false === strpos( $_REQUEST['template_id'], $source->get_prefix() ) ) {
 		return;
 	}
 	
@@ -16,6 +22,10 @@ if(class_exists('Elementor\TemplateLibrary\Source_Base')){
 		
 		public function get_id() {
 			return 'tally-templates';
+		}
+		
+		public function get_prefix() {
+			return 'tally_';
 		}
 	
 		public function get_title() {
@@ -34,8 +44,10 @@ if(class_exists('Elementor\TemplateLibrary\Source_Base')){
 	
 			$id = $args['template_id'];
 			
-			$template_file_dri = get_stylesheet_directory().'/elementor-templates/'.$id.'.json';
-			$template_file_url = get_stylesheet_directory_uri().'/elementor-templates/'.$id.'.json';
+			$json_file_name = str_replace("tally_", "", $id);
+			
+			$template_file_dri = get_stylesheet_directory().'/elementor-templates/'.$json_file_name.'.json';
+			$template_file_url = get_stylesheet_directory_uri().'/elementor-templates/'.$json_file_name.'.json';
 			
 			if(file_exists($template_file_dri)){
 				$url = $template_file_url;

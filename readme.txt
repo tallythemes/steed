@@ -7,7 +7,7 @@ Tags: one-column, two-columns, right-sidebar, custom-menu, editor-style, feature
 
 Requires at least: 4.0
 Tested up to: 4.8.2
-Stable tag: 3.4.3
+Stable tag: 3.4.5
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -69,6 +69,18 @@ Licensed under the MIT license.
 CC0 by Pixabay, https://pixabay.com/en/service/terms/
 
 == Changelog ==
+
+= 3.4.5 - 31 October 2017 =
+* Add some useful images size
+
+= 3.4.4 - 27 October 2017 =
+* Fixed some Small CSS issue
+
+* Add child menu indicator on header menu
+
+* Fix WooCart php error when WooCommers is not installed
+
+* Add Elementor theme builtin templates features
 
 = 3.4.3 - 23 October 2017  =
 * New Header Option

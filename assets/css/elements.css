@@ -53,7 +53,7 @@ text-decoration: none;
 .header_email.eSkin_2 .header_email_img i{
 	font-size: inherit;
 }
-.header_email.eSkin_2.has_icon .header_email_text{
+.header_email.eSkin_2 .header_email_text{
 	display: inline-block;
 }
 .header_email.eSkin_2 .header_email_text span{
@@ -120,7 +120,7 @@ text-decoration: none;
 .header_phone.eSkin_2 .header_phone_img i{
 	font-size: inherit;
 }
-.header_phone.eSkin_2.has_icon .header_phone_text{
+.header_phone.eSkin_2 .header_phone_text{
 	display: inline-block;
 }
 .header_phone.eSkin_2 .header_phone_text span{
