@@ -7,7 +7,7 @@ Tags: one-column, two-columns, right-sidebar, custom-menu, editor-style, feature
 
 Requires at least: 4.0
 Tested up to: 4.8.2
-Stable tag: 3.4.5
+Stable tag: 3.4.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -69,6 +69,11 @@ Licensed under the MIT license.
 CC0 by Pixabay, https://pixabay.com/en/service/terms/
 
 == Changelog ==
+
+= 3.4.5 - 14 November 2017 =
+* Fix color issue of buttons
+* Added admin style css file
+* Fix gallery popup issue with page builder
 
 = 3.4.5 - 31 October 2017 =
 * Add some useful images size
