@@ -63,8 +63,29 @@ if(class_exists('Elementor\TemplateLibrary\Source_Base')){
 			$result['content']       = $this->replace_elements_ids( $data );
 			$result['content']       = $this->process_export_import_content( $result['content'], 'on_import' );
 			$result['page_settings'] = array();
+			
+			if ( isset( $body['error'] ) ) {
+				return new \WP_Error( 'response_error', $body['error'] );
+			}
+	
+			if ( empty( $body['data'] ) && empty( $body['content'] ) ) {
+				return new \WP_Error( 'template_data_error', 'An invalid data was returned' );
+			}
 	
 			return $result;
 		}
 	}
 }
+
+
+function steed_elementor_editor_after_enqueue_styles(){
+	wp_register_style(
+			'steed-elementor-editor',
+			get_template_directory_uri() . '/assets/css/steed-elementor-editor.css',
+			array('elementor-editor'),
+			'1.0'
+		);
+
+		wp_enqueue_style( 'steed-elementor-editor' );
+}
+add_action('elementor/editor/after_enqueue_styles', 'steed_elementor_editor_after_enqueue_styles');

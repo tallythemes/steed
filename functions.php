@@ -6,7 +6,7 @@
  *
  * @package Steed
  */
-define("STEED_VERSION", "3.4.4");
+define("STEED_VERSION", "3.4.6");
 
 if(!defined("STEED_THEME_ID")) { define("STEED_THEME_ID", "steed1"); }
 $GLOBALS['steed_STD_theme_mod_data'] = array();
@@ -286,6 +286,12 @@ function steed_custom_scripts(){
 	wp_add_inline_style( 'steed-style', $custom_css );
 }
 add_action( 'wp_enqueue_scripts', 'steed_custom_scripts', 11 );
+
+
+function steed_admin_enqueue_scripts() {
+        wp_enqueue_style( 'steed-admin-css', get_template_directory_uri() . '/assets/css/steed-admin.css', false, '1.' );
+}
+add_action( 'admin_enqueue_scripts', 'steed_admin_enqueue_scripts' );
 
 
 function steed_sanitize_rgba( $value ) {

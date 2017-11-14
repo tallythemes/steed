@@ -67,24 +67,26 @@ jQuery(document).ready(function($) {
 ------------------------------------------------------------------------*/
 jQuery(document).ready(function($) {
 	"use strict";
-	var $container = $('.gallery');
-	$container.imagesLoaded(function () {
-		$container.masonry({
-			itemSelector: '.gallery-item',
-			animationOptions: {
-				duration: 250,
-				easing: 'linear',
-				queue: false
-			},
-			fitWidth : true,
+	if(!$('body').hasClass('elementor-page')){
+		var $container = $('.gallery');
+		$container.imagesLoaded(function () {
+			$container.masonry({
+				itemSelector: '.gallery-item',
+				animationOptions: {
+					duration: 250,
+					easing: 'linear',
+					queue: false
+				},
+				fitWidth : true,
+			});
 		});
-	});
-	
-	$(window).resize(function () {		
-		$container.masonry('layout');
-	});
-	
-	$('.gallery-item a[href$=".gif"], .gallery-item a[href$=".jpg"], .gallery-item a[href$=".png"]').magnificPopup({type:'image'});
+		
+		$(window).resize(function () {		
+			$container.masonry('layout');
+		});
+		
+		$('.gallery-item a[href$=".gif"], .gallery-item a[href$=".jpg"], .gallery-item a[href$=".png"]').magnificPopup({type:'image'});
+	}
 	
 });
 
