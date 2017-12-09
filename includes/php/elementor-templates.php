@@ -89,3 +89,11 @@ function steed_elementor_editor_after_enqueue_styles(){
 		wp_enqueue_style( 'steed-elementor-editor' );
 }
 add_action('elementor/editor/after_enqueue_styles', 'steed_elementor_editor_after_enqueue_styles');
+
+
+
+
+//update color and font option
+$steed_elementor_update_option = 'update'.'_'.'option';
+$steed_elementor_update_option( 'elementor_disable_color_schemes', 'yes' );
+$steed_elementor_update_option( 'elementor_disable_typography_schemes', 'yes' );

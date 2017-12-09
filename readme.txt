@@ -6,8 +6,8 @@ Contributors: TallyThemes
 Tags: one-column, two-columns, right-sidebar, custom-menu, editor-style, featured-images, post-formats, rtl-language-support, sticky-post, threaded-comments, translation-ready, blog
 
 Requires at least: 4.0
-Tested up to: 4.8.2
-Stable tag: 3.4.6
+Tested up to: 4.9.1
+Stable tag: 3.4.7
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -70,7 +70,13 @@ CC0 by Pixabay, https://pixabay.com/en/service/terms/
 
 == Changelog ==
 
-= 3.4.5 - 14 November 2017 =
+= 3.4.7 - 9 December 2017 =
+* Impruvement: Wooocommerce styling
+* Impruvement: Page Builder styling
+* Fix: Header CSS issue
+* Fix: Customizer color picker
+
+= 3.4.6 - 14 November 2017 =
 * Fix color issue of buttons
 * Added admin style css file
 * Fix gallery popup issue with page builder

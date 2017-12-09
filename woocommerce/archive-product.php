@@ -22,7 +22,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 ?>
 <?php get_header('shop'); ?>
 	<?php steed_site_header(); ?>
-    <?php steed_before_site_content(array('in_class' => 'container-width')); ?>
+    <?php steed_before_site_content(array('in_class' => 'container-width no-sidebar')); ?>
 
 		<?php steed_before_primary_content(); ?>
         
@@ -102,7 +102,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 			 *
 			 * @hooked woocommerce_get_sidebar - 10
 			 */
-			do_action( 'woocommerce_sidebar' );
+			//do_action( 'woocommerce_sidebar' );
 		?>
 	<?php steed_after_site_content(); ?>
 	<?php steed_site_footer(); ?>

@@ -68,7 +68,7 @@ class steed_element_header_menu{
 		$css_3  =  ($submenu_text_color != '') ? 'color:'.$submenu_text_color.';' : '';
 		$css_3 .=  ($submenu_bg_color != '') ? 'background-color:'.$submenu_bg_color.';' : '';
 		$css_3 .=  ($submenu_border_color != '') ? 'border-color:'.$submenu_border_color.';' : '';
-		if( !empty($css_3) ){ $new_css .= $selector.' li ul li{ '.$css_3.' }'; }
+		if( !empty($css_3) ){ $new_css .= 'body '. $selector.' li ul li{ '.$css_3.' }'; }
 		
 		$css_4  =  ($submenu_text_hover_color != '') ? 'color:'.$submenu_text_hover_color.';' : '';
 		$css_4 .=  ($submenu_bg_hover_color != '') ? 'background-color:'.$submenu_bg_hover_color.';' : '';

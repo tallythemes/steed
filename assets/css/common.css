@@ -402,7 +402,7 @@ hr {
 
 ul,
 ol {
-	margin: 0 0 1.5em 3em;
+	margin: 0 0 1.5em 0;
 }
 
 ul {
@@ -2365,4 +2365,44 @@ body .wpb_content_element{
 
 .jet-carousel .jet-slick-dots{
 	margin:0 !important;	
+}
+
+
+body .elementor-widget-heading .elementor-heading-title.elementor-size-small {
+    font-size: 30px;
+}
+body .elementor-widget-heading .elementor-heading-title.elementor-size-medium {
+    font-size: 40px;
+}
+body .elementor-widget-heading .elementor-heading-title.elementor-size-large {
+    font-size: 50px;
+}
+body .elementor-widget-heading .elementor-heading-title.elementor-size-xl {
+    font-size: 70px;
+}
+body .elementor-widget-heading .elementor-heading-title.elementor-size-xxl {
+    font-size: 90px;
+}
+
+/*
+	WooCommerce
+--------------------------------------*/
+.woocommerce ul.products li.product a ,
+.woocommerce-review-link,
+.product_meta a{
+    color: inherit;
+}
+.woocommerce-review-link,
+.product_meta a{
+	opacity:0.7;	
+}
+.woocommerce div.product .woocommerce-tabs .panel h2,
+.related.products h2{
+	font-size:22px;	
+}
+
+.woocommerce-MyAccount-navigation ul{
+    margin: 0;
+    padding: 0;
+    list-style-type: none;	
 }
